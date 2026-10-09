@@ -13,7 +13,7 @@ export default function PrivacyPolicy() {
           <section>
             <h2 className="text-2xl font-bold text-slate-900 mb-4">1. Giriş</h2>
             <p className="text-slate-600 leading-relaxed">
-              Freelancer.az ("Biz", "Bizim", "Platform") sizin məxfiliyinizə ehəmiyyət veririk. Bu Məxfilik Siyasəti, Freelancer.az-ı istifadə edərkən şəxsi məlumatlarınızın necə toplanan, istifadə olunduğu və qorunduğu haqqında məlumat verir.
+              Ailancer ("biz", "bizim" və ya "platforma") məxfiliyinizə önəm verir. Bu Məxfilik Siyasəti Ailancer-dən istifadə zamanı şəxsi məlumatlarınızın necə toplandığını, istifadə edildiyini və qorunduğunu izah edir.
             </p>
           </section>
 

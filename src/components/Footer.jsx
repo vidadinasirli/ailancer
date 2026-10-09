@@ -12,10 +12,10 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-6 cursor-pointer w-fit">
               <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl">
-                F
+                A
               </div>
               <span className="text-2xl font-black tracking-tight text-slate-900">
-                Freelancer<span className="text-blue-600">.az</span>
+                Ailancer
               </span>
             </Link>
             <p className="text-slate-600 mb-6 max-w-sm leading-relaxed">
@@ -64,7 +64,7 @@ export default function Footer() {
         </div>
 
         <div className="pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-medium text-slate-500">
-          <p>© 2026 Freelancer.az. Bütün hüquqlar qorunur.</p>
+          <p>© 2026 Ailancer. Bütün hüquqlar qorunur.</p>
           <div className="flex flex-wrap gap-6 justify-center">
             <Link to="/privacy-policy" className="hover:text-blue-600 transition-colors">Məxfilik Siyasəti</Link>
             <Link to="/terms-of-service" className="hover:text-blue-600 transition-colors">İstifadə Şərtləri</Link>

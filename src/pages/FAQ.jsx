@@ -6,7 +6,7 @@ export default function FAQ() {
 
   const faqs = [
     {
-      q: 'Freelancer.az istifadə etmək pulsuz mi?',
+      q: 'Ailancer istifadə etmək pulsuzdurmu?',
       a: 'Qeydiyyat və profil yaratma tamamilə pulsuz. Yalnız bir tapşırıq bitdikdən sonra 10% komissiya tutulur.'
     },
     {
@@ -52,7 +52,7 @@ export default function FAQ() {
       <main className="max-w-3xl mx-auto py-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-black text-slate-900 mb-4">Tez-Tez Soruşulan Suallar</h1>
-          <p className="text-xl text-slate-600">Freelancer.az haqqında ən populyar suallarımızın cavabları</p>
+          <p className="text-xl text-slate-600">Ailancer haqqında ən populyar sualların cavabları</p>
         </div>
 
         <div className="space-y-3">

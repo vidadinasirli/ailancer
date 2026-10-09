@@ -30,7 +30,7 @@ export default function NeceIsleyir() {
       <main className="max-w-5xl mx-auto py-12">
         <div className="text-center mb-16">
           <h1 className="text-4xl sm:text-5xl font-black text-slate-900 mb-4">Necə İşləyir?</h1>
-          <p className="text-xl text-slate-600">Freelancer.az-da işləmə prosesi sadə və aydındır</p>
+          <p className="text-xl text-slate-600">Ailancer-də əməkdaşlıq prosesi sadə və aydındır</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
@@ -92,7 +92,7 @@ export default function NeceIsleyir() {
           <div className="space-y-4">
             {[
               {
-                q: 'Freelancer.az necə pul qazanır?',
+                q: 'Ailancer necə gəlir əldə edir?',
                 a: 'Platform işlətmə zaman yüzdə 10 komissiya alırıq. Qalan hissə frilansera keçir.'
               },
               {

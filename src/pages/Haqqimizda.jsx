@@ -7,7 +7,7 @@ export default function Haqqimizda() {
       <main className="max-w-4xl mx-auto py-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-black text-slate-900 mb-4">Haqq\u0131m\u0131zda</h1>
-          <p className="text-xl text-slate-600">Freelancer.az - Azərbaycanda istedadları və fırsatları bir yerdə toplayan ən böyük platforma</p>
+          <p className="text-xl text-slate-600">Ailancer — Azərbaycanda istedadları və imkanları bir araya gətirən platforma</p>
         </div>
 
         <div className="space-y-12">
@@ -20,7 +20,7 @@ export default function Haqqimizda() {
               <div>
                 <h2 className="text-3xl font-bold text-slate-900 mb-4">Missiyamız</h2>
                 <p className="text-lg text-slate-600 leading-relaxed">
-                  Freelancer.az-ın missiyası Azərbaycanda peşəkar freelancer və müştərilər arasında güvənli, şəffaf və effektiv bir Platform yaratmaqdır. Biz hər bir istedadlı insana kendi bacarıqlarını dünyaya nümayiş etdirmə, ehtiyacı olan insanlarla əlaqə saxlama və birlikte böyük işlərə nail olmaq imkanı verməyə inanırıq.
+                  Ailancer-in missiyası Azərbaycanda freelancer və müştərilər arasında etibarlı, şəffaf və effektiv əməkdaşlıq mühiti yaratmaqdır. Hər kəsin bacarıqlarını nümayiş etdirməsinə, uyğun insanlarla əlaqə qurmasına və birlikdə uğurlu işlər görməsinə imkan yaratmağa çalışırıq.
                 </p>
               </div>
             </div>
@@ -35,7 +35,7 @@ export default function Haqqimizda() {
               <div>
                 <h2 className="text-3xl font-bold text-slate-900 mb-4">Vizyonumuz</h2>
                 <p className="text-lg text-slate-600 leading-relaxed">
-                  Biz düşünürük ki, gələcəkdə coğrafi sərhədlər iş üçün maneə olmayacaq. Freelancer.az vasitəsilə Azərbaycan, dünya ilə birlikdə işləyə biləcək, bizim peşəkarlarımız beynəlmisal layihələrdə çalışıb, dünya standartında gəlirlər əldə edə biləcəklər.
+                  Coğrafi sərhədlər iş üçün maneə olmamalıdır. Ailancer vasitəsilə Azərbaycandakı mütəxəssislər yerli və beynəlxalq layihələrdə çalışaraq bacarıqlarını daha geniş auditoriyaya təqdim edə bilərlər.
                 </p>
               </div>
             </div>
@@ -50,7 +50,7 @@ export default function Haqqimizda() {
               <div>
                 <h2 className="text-3xl font-bold text-slate-900 mb-4">Komandamız</h2>
                 <p className="text-lg text-slate-600 leading-relaxed mb-6">
-                  Freelancer.az komandası Azərbaycandan gələn həndəsi, yazılım mühəndisləri, dizaynerləri və biznes müxtərlərdən ibarətdir. Biz hər gün müştərilərə ən yaxşı xidməti göstərməy üçün çalışıram.
+                  Ailancer müxtəlif sahələrdə çalışan mütəxəssisləri və sifarişçiləri bir araya gətirməyə fokuslanır. Məqsədimiz hər gün daha aydın və rahat əməkdaşlıq təcrübəsi yaratmaqdır.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
                   {[

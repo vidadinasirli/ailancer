@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { api, setAuthToken, getAuthToken } from '../lib/api.js';
 
 /**
- * Real autentifikasiya konteksti — Freelancer.az backend API-sinə qoşulur.
+ * Real autentifikasiya konteksti — Ailancer backend API-sinə qoşulur.
  * İki hesab növü dəstəklənir: 'freelancer' və 'musteri' (sifarişçi).
  */
 

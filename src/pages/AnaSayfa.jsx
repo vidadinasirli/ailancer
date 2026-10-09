@@ -28,16 +28,16 @@ const starterPrompts = [
 ];
 
 const categories = [
-  { title: 'Proqramlaşdırma', detail: 'Veb, mobil tətbiq, frontend və backend', icon: Code2, query: 'Proqramlaşdırma və veb developer', span: 'lg:col-span-7', image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Proqramçı noutbukda işləyir' },
-  { title: 'Dizayn və kreativ', detail: 'UI/UX, loqo, brend və illüstrasiya', icon: PenTool, query: 'Dizayn və kreativ mütəxəssis', span: 'lg:col-span-5', image: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Rəngli kreativ dizayn nümunələri' },
-  { title: 'Marketinq', detail: 'SMM, SEO, reklam və kontent', icon: Megaphone, query: 'Marketinq SMM və SEO mütəxəssisi', span: 'lg:col-span-5', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Rəqəmsal marketinq göstəriciləri olan ekran' },
-  { title: 'Biznes dəstəyi', detail: 'Tərcümə, maliyyə, araşdırma və məsləhət', icon: BriefcaseBusiness, query: 'Biznes dəstəyi tərcümə və maliyyə', span: 'lg:col-span-7', image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Komanda ortaq layihəni müzakirə edir' },
+  { title: 'Proqramlaşdırma', detail: 'Veb, mobil tətbiq, frontend və backend', icon: Code2, query: 'Proqramlaşdırma və veb developer', image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Proqramçı noutbukda işləyir' },
+  { title: 'Dizayn və kreativ', detail: 'UI/UX, loqo, brend və illüstrasiya', icon: PenTool, query: 'Dizayn və kreativ mütəxəssis', image: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Rəngli kreativ dizayn nümunələri' },
+  { title: 'Marketinq', detail: 'SMM, SEO, reklam və kontent', icon: Megaphone, query: 'Marketinq SMM və SEO mütəxəssisi', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Rəqəmsal marketinq göstəriciləri olan ekran' },
+  { title: 'Biznes dəstəyi', detail: 'Tərcümə, maliyyə, araşdırma və məsləhət', icon: BriefcaseBusiness, query: 'Biznes dəstəyi tərcümə və maliyyə', image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Komanda ortaq layihəni müzakirə edir' },
 ];
 
 const steps = [
   { title: 'Ehtiyacını izah et', text: 'Bacarıq, layihə və büdcəni adi dildə yaz; Lumi məqsədini anlamağa çalışsın.', icon: MessageSquareText },
   { title: 'AI nəticəsini yoxla', text: 'Lumi mövcud profil və elanlardan uyğun seçimləri səbəbləri ilə təklif edir.', icon: Target },
-  { title: 'Platformada davam et', text: 'Profilə və ya layihəyə keç, detalları yoxla və əlaqəni Freelancer.az-da qur.', icon: BadgeCheck },
+  { title: 'Platformada davam et', text: 'Profilə və ya layihəyə keç, detalları yoxla və əlaqəni Ailancer-də qur.', icon: BadgeCheck },
 ];
 
 function ResultCard({ result, onClick }) {
@@ -68,12 +68,14 @@ function CategoryCard({ item, onChoose }) {
   const Icon = item.icon;
   return (
     <button type="button" onClick={() => onChoose(item.query)} className="ai-depth-card group overflow-hidden border border-slate-200 bg-white text-left shadow-[0_18px_45px_-36px_rgba(15,23,42,.65)] transition duration-500 hover:border-blue-300 hover:shadow-[0_28px_60px_-35px_rgba(37,99,235,.5)]">
-      <span className="relative block aspect-[1.45] overflow-hidden bg-slate-200">
-        <img src={item.image} alt={item.imageAlt} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+      <span className="ai-category-image relative block aspect-[1.55] overflow-hidden bg-slate-200">
+        <img src={item.image} alt={item.imageAlt} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-110" />
+        <span className="ai-category-image-shade absolute inset-0" />
+        <span className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/50 bg-slate-950/30 px-3 py-1.5 text-xs font-bold text-white backdrop-blur-md"><Icon size={14} /> Ailancer sahəsi</span>
+        <span className="ai-category-arrow absolute bottom-4 right-4 grid h-11 w-11 place-items-center rounded-full bg-white text-blue-700 shadow-lg transition group-hover:rotate-45"><ArrowUpRight size={20} /></span>
       </span>
-      <span className="flex min-h-[114px] items-center justify-between gap-4 px-4 py-5 sm:px-5">
-        <span><span className="flex items-center gap-2 text-lg font-extrabold text-slate-900"><Icon size={18} className="text-blue-700" />{item.title}</span><span className="mt-2 block text-sm leading-6 text-slate-600">{item.detail}</span></span>
-        <ArrowUpRight size={19} className="shrink-0 text-blue-700 transition group-hover:-translate-y-1 group-hover:translate-x-1" />
+      <span className="flex min-h-[126px] items-center justify-between gap-4 px-5 py-5 sm:px-6">
+        <span><span className="flex items-center gap-2 text-lg font-extrabold text-slate-900 sm:text-xl"><Icon size={20} className="text-blue-700" />{item.title}</span><span className="mt-2 block text-sm leading-6 text-slate-600">{item.detail}</span></span>
       </span>
     </button>
   );
@@ -239,7 +241,7 @@ export default function AnaSayfa() {
         <div className="relative mx-auto max-w-7xl">
           <header className="ai-hero-layout">
             <div className="ai-hero-copy">
-              <span className="ai-hero-kicker"><span className="ai-live-dot" /> Freelancer.az · Lumi ilə</span>
+              <span className="ai-hero-kicker"><span className="ai-live-dot" /> Ailancer · Lumi ilə</span>
               <h1>İşini izah et.<br /><span>Düzgün addımı tap.</span></h1>
               <p>Freelancer axtar, portfolio mətni hazırla və layihə briefini təkmilləşdir — hamısı bir ağıllı məkanda.</p>
               <div className="ai-hero-actions">
@@ -253,7 +255,7 @@ export default function AnaSayfa() {
               <div className="ai-hero-proof"><span className="ai-proof-avatars" aria-hidden="true"><i>F</i><i>UI</i><i>AZ</i></span><span><strong>İnsan + AI</strong><small> qərar yenə də səndədir</small></span><span className="ai-proof-divider" /><span className="ai-proof-secure"><ShieldCheck size={15} /> Yoxlanıla bilən nəticələr</span></div>
             </div>
 
-            <div className="ai-hero-visual" aria-label={`Freelancer.az ${ASSISTANT_NAME} köməkçisi`}>
+            <div className="ai-hero-visual" aria-label={`Ailancer ${ASSISTANT_NAME} köməkçisi`}>
               <div className="ai-visual-orbit ai-visual-orbit-outer" />
               <div className="ai-visual-orbit ai-visual-orbit-inner" />
               <div className="ai-visual-core">
@@ -278,7 +280,7 @@ export default function AnaSayfa() {
 
           <div id="ai-chat" className="ai-enter ai-delay-1 ai-chat-shell relative z-10 mx-auto mt-6 max-w-4xl overflow-hidden rounded-2xl border border-blue-100 bg-white sm:mt-6">
             <div className="flex items-center justify-between gap-3 border-b border-slate-200 bg-white px-4 py-3 sm:px-6 sm:py-4">
-              <div className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-700 text-white"><WandSparkles size={20} /></span><span><span className="block text-sm font-extrabold text-slate-900">{ASSISTANT_NAME} · Freelancer.az</span><span className="block text-xs text-slate-500">Axtar, yarat, təkmilləşdir</span></span></div>
+              <div className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-700 text-white"><WandSparkles size={20} /></span><span><span className="block text-sm font-extrabold text-slate-900">{ASSISTANT_NAME} · Ailancer</span><span className="block text-xs text-slate-500">Axtar, yarat, təkmilləşdir</span></span></div>
               <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold ${aiStatus?.assistantReady ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}><Sparkles size={14} />{aiStatus?.assistantReady ? `${ASSISTANT_NAME} hazırdır` : aiStatus?.error || `${ASSISTANT_NAME} bağlantısı yoxlanılır`}</span>
             </div>
 
@@ -320,9 +322,22 @@ export default function AnaSayfa() {
         </div>
       </section>
 
-      <section className="bg-white px-5 pb-16 sm:px-8 sm:pb-20">
-        <div className="mx-auto max-w-5xl text-center"><h2 className="text-3xl font-extrabold sm:text-4xl">AI ilə başlamaq üçün sahə seç</h2><p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-slate-600">Kateqoriya seç, Lumi sorğunu anlayıb uyğun profilləri və layihələri tapsın.</p></div>
-        <div className="mx-auto mt-8 grid max-w-7xl grid-cols-1 gap-5 lg:grid-cols-12">{categories.map((item) => <div key={item.title} className={item.span}><CategoryCard item={item} onChoose={(text) => choosePrompt(text, 'search')} /></div>)}</div>
+      <section className="ai-category-section px-5 py-16 sm:px-8 sm:py-20">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-9 flex flex-col gap-7 lg:mb-11 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <span className="ai-category-eyebrow"><Sparkles size={14} /> Ailancer-də imkanlar</span>
+              <h2 className="mt-4 text-3xl font-extrabold leading-tight text-slate-950 sm:text-4xl lg:text-5xl">Bacarıq axtar, <span className="text-blue-700">işini irəli apar.</span></h2>
+              <p className="mt-4 max-w-xl text-base leading-7 text-slate-600">Layihənə uyğun sahəni seç. Lumi ehtiyacını dəqiqləşdirib uyğun profilləri və açıq elanları tapmağa kömək edəcək.</p>
+            </div>
+            <button type="button" className="ai-category-assist group" onClick={() => choosePrompt('Layihəm üçün uyğun sahəni və freelancerləri tap', 'search')}>
+              <span className="ai-category-buddy" aria-hidden="true"><Bot size={29} /></span>
+              <span className="grid gap-1 text-left"><strong>Lumi-dən kömək al</strong><small>Uyğun sahəni tapmağa başla</small></span>
+              <ArrowRight className="ml-auto transition-transform group-hover:translate-x-1" size={19} />
+            </button>
+          </div>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">{categories.map((item) => <CategoryCard key={item.title} item={item} onChoose={(text) => choosePrompt(text, 'search')} />)}</div>
+        </div>
       </section>
 
       <section className="relative overflow-hidden border-y border-slate-200 bg-[#f7faff] px-5 py-16 sm:px-8 sm:py-20">
@@ -340,7 +355,7 @@ export default function AnaSayfa() {
 
       <section className="bg-white px-5 py-16 sm:px-8 sm:py-20">
         <div className="mx-auto max-w-7xl">
-          <div className="max-w-3xl"><h2 className="text-3xl font-extrabold sm:text-4xl">İşə götür, ya iş tap. Eyni platformada.</h2><p className="mt-3 text-sm leading-6 text-slate-600">Freelancer.az profilləri, tapşırıqları və mesajları birləşdirir. Uyğun nəticəni seç, əlaqəni platformada davam etdir.</p></div>
+          <div className="max-w-3xl"><h2 className="text-3xl font-extrabold sm:text-4xl">İşə götür, ya iş tap. Eyni platformada.</h2><p className="mt-3 text-sm leading-6 text-slate-600">Ailancer profilləri, tapşırıqları və mesajları birləşdirir. Uyğun nəticəni seç, əlaqəni platformada davam etdir.</p></div>
           <div className="mt-10 grid gap-5 lg:grid-cols-2">
             <article className="group relative overflow-hidden border border-blue-200 bg-[linear-gradient(135deg,#eff6ff_0%,#fff_62%,#e0f2fe_100%)] p-7 sm:p-9">
               <div className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rotate-12 border border-blue-200/70 bg-white/30 transition-transform duration-700 group-hover:rotate-6 group-hover:scale-110" />
@@ -370,14 +385,14 @@ export default function AnaSayfa() {
 
       <section className="bg-white px-5 py-16 sm:px-8 sm:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.8fr_1.2fr]">
-          <div><h2 className="text-3xl font-extrabold sm:text-4xl">Başlamazdan əvvəl</h2><p className="mt-3 max-w-sm text-sm leading-6 text-slate-600">Axtarış və Freelancer.az-dakı növbəti addımlar barədə.</p><div className="mt-6 flex items-center gap-2 text-sm font-semibold text-slate-600"><CircleHelp size={18} className="text-blue-700" /> Başqa sualın var? <button type="button" onClick={() => navigate('/faq')} className="text-blue-700 hover:underline">FAQ bölməsinə keç</button></div></div>
+          <div><h2 className="text-3xl font-extrabold sm:text-4xl">Başlamazdan əvvəl</h2><p className="mt-3 max-w-sm text-sm leading-6 text-slate-600">Axtarış və Ailancer-dəki növbəti addımlar barədə.</p><div className="mt-6 flex items-center gap-2 text-sm font-semibold text-slate-600"><CircleHelp size={18} className="text-blue-700" /> Başqa sualın var? <button type="button" onClick={() => navigate('/faq')} className="text-blue-700 hover:underline">FAQ bölməsinə keç</button></div></div>
           <div className="divide-y divide-slate-200 border-y border-slate-200">
             {[
               { q: 'AI ilə necə axtarış edə bilərəm?', a: 'Lumi alətindən freelancer və layihə axtarışını seç, ehtiyacını təbii dildə izah et. AI yalnız platformanın təqdim etdiyi açıq profil və elanları sıralayır.' },
               { q: 'Uyğunluq balı nə deməkdir?', a: 'Bu, AI-nin təqdim etdiyin ehtiyacla platformadakı açıq profil və elanlar arasında hesabladığı təxmini uyğunluqdur. Keyfiyyət, etibarlılıq və nəticəyə zəmanət vermir.' },
               { q: 'Portfolio mətnini AI ilə dəyişə bilərəm?', a: 'Portfolio yarat/redaktə et alətində mövcud mətnini göndər, Lumi yenilənmiş başlıq və təsvir qaralaması hazırlasın. Qaralamanı yoxlayıb portfel formasına köçürə bilərsən; media əlavə etmək və dərc etmək sənin təsdiqindən sonra baş verir.' },
               { q: 'Axtardığım şəxs çıxmasa nə edim?', a: 'Bacarıq və layihəni daha dəqiq izah et. Lumi yalnız hazırda yüklənən açıq freelancer profilləri və elanları araşdıra bilər; məlumat yoxdursa nəticə uydurmur.' },
-              { q: 'Freelancer və sifarişçi necə əlaqə qurur?', a: 'Uyğun profil və ya elan seçildikdən sonra mövcud Freelancer.az profil, tapşırıq və mesajlaşma səhifələrindən əlaqəni davam etdirə bilərsən.' },
+              { q: 'Freelancer və sifarişçi necə əlaqə qurur?', a: 'Uyğun profil və ya elan seçildikdən sonra Ailancer-dəki profil, tapşırıq və mesajlaşma səhifələrindən əlaqəni davam etdirə bilərsən.' },
             ].map((item) => <details key={item.q} className="group py-5"><summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-bold text-slate-800"><span>{item.q}</span><ChevronDown size={18} className="shrink-0 text-slate-400 transition group-open:rotate-180 group-open:text-blue-700" /></summary><p className="max-w-3xl pt-3 pr-8 text-sm leading-7 text-slate-600">{item.a}</p></details>)}
           </div>
         </div>
@@ -386,7 +401,7 @@ export default function AnaSayfa() {
       <section className="bg-[#f1f6ff] px-5 py-12 sm:px-8 sm:py-16">
         <div className="relative mx-auto max-w-7xl overflow-hidden rounded-2xl border border-blue-200 bg-white px-6 py-10 shadow-[0_20px_55px_-42px_rgba(37,99,235,.45)] sm:px-10 sm:py-14 lg:px-16">
           <div className="pointer-events-none absolute -right-12 -top-24 h-80 w-80 rotate-12 border border-blue-100 bg-blue-50/70" />
-          <div className="relative flex flex-col justify-between gap-8 md:flex-row md:items-center"><div><h2 className="max-w-2xl text-3xl font-extrabold text-slate-950 sm:text-4xl">Növbəti iş birliyinə başla.</h2><p className="mt-3 max-w-xl text-sm leading-6 text-slate-600">Freelancer.az-da hesab yarat, profilini tamamla və platformadan istifadə et.</p></div><button type="button" onClick={() => navigate('/giris?mode=register')} className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-blue-700 px-6 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-blue-800">Qeydiyyatdan keç <ArrowUpRight size={17} /></button></div>
+          <div className="relative flex flex-col justify-between gap-8 md:flex-row md:items-center"><div><h2 className="max-w-2xl text-3xl font-extrabold text-slate-950 sm:text-4xl">Növbəti iş birliyinə başla.</h2><p className="mt-3 max-w-xl text-sm leading-6 text-slate-600">Ailancer-də hesab yarat, profilini tamamla və platformadan istifadə et.</p></div><button type="button" onClick={() => navigate('/giris?mode=register')} className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-blue-700 px-6 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-blue-800">Qeydiyyatdan keç <ArrowUpRight size={17} /></button></div>
         </div>
       </section>
     </main>

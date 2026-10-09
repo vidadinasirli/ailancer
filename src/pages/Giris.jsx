@@ -80,7 +80,7 @@ export default function Giris() {
           </div>
 
           <div className="relative z-10 text-sm text-slate-500">
-            © 2026 Freelancer.az
+            © 2026 Ailancer
           </div>
         </div>
 

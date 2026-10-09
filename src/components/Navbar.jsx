@@ -127,14 +127,14 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2 cursor-pointer group">
           <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-sky-400 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-500/30 group-hover:rotate-12 transition-transform">
-            F
+            A
           </div>
           <span className="text-2xl font-black tracking-tight text-slate-900">
-            Freelancer<span className="text-blue-600">.az</span>
+            Ailancer
           </span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-8 font-semibold text-slate-600">
+        <div className="hidden lg:flex items-center gap-8 font-semibold text-slate-600">
           {NAV_LINKS.map((link) => (
             <NavLink
               key={link.to}
@@ -148,7 +148,7 @@ export default function Navbar() {
           ))}
         </div>
 
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-4">
           {user ? (
             <div className="flex items-center gap-4">
               <Link to="/mesajlar" className="flex items-center gap-2 hover:text-blue-600 font-semibold text-slate-600 transition-colors">
@@ -264,15 +264,17 @@ export default function Navbar() {
         </div>
 
         <button
-          className="md:hidden text-slate-900 bg-white/50 p-2 rounded-lg backdrop-blur-md border border-slate-200"
+          className="lg:hidden text-slate-900 bg-white/50 p-2 rounded-lg backdrop-blur-md border border-slate-200"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label={mobileMenuOpen ? 'Menyunu bağla' : 'Menyunu aç'}
+          aria-expanded={mobileMenuOpen}
         >
           {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
 
       {mobileMenuOpen && (
-        <div className="absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-2xl py-6 px-6 flex flex-col gap-4 md:hidden">
+        <div className="absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-2xl py-6 px-6 flex flex-col gap-4 lg:hidden">
           {NAV_LINKS.map((link) => (
             <Link key={link.to} to={link.to} className="text-left py-2 text-lg font-bold text-slate-800 hover:text-blue-600">
               {link.label}

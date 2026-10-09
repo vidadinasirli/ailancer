@@ -13,7 +13,7 @@ export default function TermsOfService() {
           <section>
             <h2 className="text-2xl font-bold text-slate-900 mb-4">1. Qəbul</h2>
             <p className="text-slate-600 leading-relaxed">
-              Bu İstifadə Şərtləri ("Şərtlər") Freelancer.az ("Platform") istifadə ədədikdə tətbiq olunur. Platforma daxil olmaqla, siz bu şərtləri qəbul edirsiz. Əgər razı deyilsinizsə, platformadan istifadə etməyin.
+              Bu İstifadə Şərtləri ("Şərtlər") Ailancer platformasından istifadə zamanı tətbiq olunur. Platformadan istifadə etməklə bu şərtləri qəbul edirsiniz. Əgər razı deyilsinizsə, platformadan istifadə etməyin.
             </p>
           </section>
 
@@ -44,7 +44,7 @@ export default function TermsOfService() {
           <section>
             <h2 className="text-2xl font-bold text-slate-900 mb-4">4. Müəllif Hüquqları</h2>
             <p className="text-slate-600">
-              Platformadaki bütün məzmun (dizayn, mətn, şəkillər, kodu) Freelancer.az-ın müəlliflik hüquqlu mülkiyyətidir. Xüsusi icazə olmadan yenidən istehsal, dəyişdirmə və ya paylaya bilməzsiniz.
+              Platformadakı məzmun (dizayn, mətn, şəkillər və kod) Ailancer-ə və ya müvafiq hüquq sahiblərinə məxsusdur. İcazə olmadan onu yenidən istehsal, dəyişdirmək və ya yaymaq olmaz.
             </p>
           </section>
 
