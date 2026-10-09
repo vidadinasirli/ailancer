@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Premium base sizing — one consistent, slightly larger scale, site-wide */
+html {
+  scroll-behavior: smooth;
+  font-size: 16px; /* refined, modern scale — not oversized */
+}
+
+body {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.02em;
+}
+
+/* ---------- Account "curtain" dropdown ---------- */
+.account-curtain {
+  transform-origin: top center;
+  transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.account-curtain-closed {
+  opacity: 0;
+  transform: perspective(800px) rotateX(-12deg) scaleY(0.85) translateY(-6px);
+}
+.account-curtain-open {
+  opacity: 1;
+  transform: perspective(800px) rotateX(0deg) scaleY(1) translateY(0);
+  pointer-events: auto;
+}
+
+/* ---------- Subtle glitch touch for sidebar / accent headings ---------- */
+.glitch-hover {
+  position: relative;
+  display: inline-block;
+}
+.glitch-hover::before,
+.glitch-hover::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+.glitch-hover:hover::before {
+  color: #2563eb;
+  transform: translate(1.5px, 0);
+  opacity: 0.6;
+  animation: glitch-shift 0.35s steps(2, end) 1;
+}
+.glitch-hover:hover::after {
+  color: #06b6d4;
+  transform: translate(-1.5px, 0);
+  opacity: 0.6;
+  animation: glitch-shift 0.35s steps(2, end) 1 reverse;
+}
+@keyframes glitch-shift {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(2px, 0.5px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ---------- Tasteful 3D touch for right-hand sidebar cards (filters / Klub) ---------- */
+.sidebar-card {
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sidebar-card:hover {
+  transform: perspective(1200px) rotateY(-1.5deg) rotateX(0.5deg) translateY(-3px);
+  box-shadow: 0 25px 50px -20px rgba(37, 99, 235, 0.18);
+}
+
+/* Custom scrollbar (used across pages) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+@media (max-width: 640px) {
+  html { font-size: 15px; }
+  h1, h2, h3, h4, h5, h6 { overflow-wrap: anywhere; }
+  button, input, select, textarea { max-width: 100%; }
+}

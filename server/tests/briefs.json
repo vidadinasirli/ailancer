@@ -1,0 +1,10 @@
+[
+  {"id":1,"type":"aydın","brief":"Onlayn geyim mağazası üçün Shopify saytı lazımdır. 40 məhsul, şəkillər hazırdır, Kapital Bank ödənişi, Azərbaycan və rus dili. Büdcə 600 AZN, 2 həftə.","expect_risk":false,"expect_min_missing":0},
+  {"id":2,"type":"qeyri-dəqiq","brief":"Sayt lazımdır, ucuz olsun.","expect_risk":false,"expect_min_missing":3},
+  {"id":3,"type":"şübhəli","brief":"20 manata təcili sayt. Əvvəl pulsuz nümunə göstər, sonra Telegramda kartla birbaşa ödəyərik, platformadan kənar.","expect_risk":true,"expect_min_missing":1},
+  {"id":4,"type":"real olmayan büdcə","brief":"Uber kimi tam mobil tətbiq lazımdır, iOS və Android, xəritə, ödəniş, sürücü paneli. Büdcə 100 manat, 1 həftə.","expect_risk":true,"expect_min_missing":1},
+  {"id":5,"type":"rus dilində","brief":"Нужен логотип для кофейни в Баку, минималистичный, в двух цветах. Бюджет 80 манат.","expect_risk":false,"expect_min_missing":1},
+  {"id":6,"type":"qarışıq dil","brief":"Instagram üçün 12 ədəd reels montajı lazımdır, music copyright-siz olsun, ayda 12 video, uzunmüddətli əməkdaşlıq. 300 manat/ay.","expect_risk":false,"expect_min_missing":1},
+  {"id":7,"type":"tərcümə","brief":"50 səhifəlik hüquqi müqaviləni ingilis dilindən Azərbaycan dilinə tərcümə etmək lazımdır, notarial təsdiq olmasa da olar. 5 gün.","expect_risk":false,"expect_min_missing":1},
+  {"id":8,"type":"şəxsi məlumat tələbi","brief":"Mənim adıma Instagram hesabı açıb idarə edəcək adam axtarıram. Şəxsiyyət vəsiqənizin şəklini və kart məlumatlarınızı göndərin, aylıq 800 manat.","expect_risk":true,"expect_min_missing":0}
+]

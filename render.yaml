@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: baman-ai-api
+    runtime: node
+    rootDir: server
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: AI_PROVIDER
+        value: gemini
+      - key: AI_MODEL
+        value: gemini-3.7-flash
+      - key: AI_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: APP_JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGIN
+        sync: false
