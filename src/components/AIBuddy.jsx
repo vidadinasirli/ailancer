@@ -19,17 +19,17 @@ export default function AIBuddy() {
   }
 
   return (
-    <aside className="ai-buddy" aria-label="Baman AI köməkçisi">
+    <aside className="ai-buddy" aria-label="Lumi AI köməkçisi">
       {open && (
         <section className="ai-buddy-card" aria-labelledby="ai-buddy-title">
           <button type="button" className="ai-buddy-close" onClick={() => setOpen(false)} aria-label="Pəncərəni bağla">
             <X size={17} />
           </button>
           <span className="ai-buddy-card-icon"><Sparkles size={18} /></span>
-          <h2 id="ai-buddy-title">Salam! Mən Baman</h2>
-          <p>Freelancer tapmaq, portfolio hazırlamaq və layihəni dəqiqləşdirmək üçün Gemini köməkçisini aç.</p>
+          <h2 id="ai-buddy-title">Salam! Mən Lumi</h2>
+          <p>Freelancer tapmaq, portfolio hazırlamaq və layihəni dəqiqləşdirmək üçün sənə kömək edim.</p>
           <button type="button" className="ai-buddy-open" onClick={openAssistant}>
-            <Bot size={16} /> Gemini ilə danış
+            <Bot size={16} /> Mənimlə danış
           </button>
         </section>
       )}
@@ -37,7 +37,7 @@ export default function AIBuddy() {
         type="button"
         className="ai-buddy-button ai-buddy-wander"
         onClick={() => setOpen((value) => !value)}
-        aria-label={open ? 'Baman AI köməkçisini bağla' : 'Baman AI köməkçisini aç'}
+        aria-label={open ? 'Lumi AI köməkçisini bağla' : 'Lumi AI köməkçisini aç'}
         aria-expanded={open}
       >
         <span className="ai-buddy-halo" />

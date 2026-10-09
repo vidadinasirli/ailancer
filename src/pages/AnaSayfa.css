@@ -100,10 +100,10 @@
   max-width: 650px;
   margin: 24px 0 0;
   color: var(--ai-ink);
-  font-size: clamp(3rem, 6.2vw, 5.6rem);
-  font-weight: 850;
-  letter-spacing: -.075em;
-  line-height: .99;
+  font-size: clamp(2.8rem, 5.7vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -.065em;
+  line-height: 1.04;
 }
 
 .ai-hero-copy h1 span {
@@ -117,8 +117,8 @@
   max-width: 500px;
   margin: 20px 0 0;
   color: #53617d;
-  font-size: 16px;
-  line-height: 1.8;
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.75;
 }
 
 .ai-hero-actions {
@@ -386,6 +386,18 @@
 .ai-home .ai-chat-shell {
   transform-style: preserve-3d;
   box-shadow: 0 35px 90px -60px rgb(30 64 175 / 60%), 0 18px 42px -36px rgb(2 132 199 / 45%);
+}
+
+.ai-home {
+  font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-optical-sizing: auto;
+}
+
+.ai-home p,
+.ai-home button,
+.ai-home input,
+.ai-home textarea {
+  letter-spacing: -.01em;
 }
 
 .ai-home .ai-enter { animation: ai-hero-enter .65s cubic-bezier(.2, .7, .2, 1) both; }

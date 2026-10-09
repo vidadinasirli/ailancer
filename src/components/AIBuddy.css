@@ -24,7 +24,7 @@
 
 .ai-buddy-wander {
   transform-style: preserve-3d;
-  animation: ai-buddy-wander 13s cubic-bezier(.37, 0, .63, 1) infinite;
+  animation: ai-buddy-wander 8s cubic-bezier(.37, 0, .63, 1) infinite;
 }
 
 .ai-buddy-button:focus-visible,
@@ -207,16 +207,16 @@
 .ai-buddy-open:hover { background: #1e40af; }
 
 @keyframes ai-buddy-float {
-  0%, 100% { transform: translate3d(0, 0, 0) rotateX(-12deg) rotateY(-16deg) rotateZ(-4deg); }
-  50% { transform: translate3d(0, -6px, 9px) rotateX(10deg) rotateY(15deg) rotateZ(5deg); }
+  0%, 100% { transform: translate3d(0, 0, 0) rotateX(-12deg) rotateY(-16deg) rotateZ(-5deg); }
+  50% { transform: translate3d(0, -10px, 9px) rotateX(10deg) rotateY(15deg) rotateZ(7deg); }
 }
 
 @keyframes ai-buddy-wander {
   0%, 100% { transform: translate3d(0, 0, 0) rotateY(0); }
-  18% { transform: translate3d(-11px, -8px, 0) rotateY(-14deg); }
-  37% { transform: translate3d(-21px, 2px, 0) rotateY(12deg); }
-  56% { transform: translate3d(-14px, -16px, 0) rotateY(18deg); }
-  75% { transform: translate3d(-5px, -9px, 0) rotateY(-12deg); }
+  18% { transform: translate3d(-12px, -12px, 0) rotateY(-16deg); }
+  37% { transform: translate3d(-22px, 3px, 0) rotateY(14deg); }
+  56% { transform: translate3d(-15px, -20px, 0) rotateY(20deg); }
+  75% { transform: translate3d(-6px, -11px, 0) rotateY(-14deg); }
 }
 
 @keyframes ai-buddy-blink {

@@ -11,6 +11,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 import './AnaSayfa.css';
 
 const AI_API = (import.meta.env.VITE_AI_API_URL || (import.meta.env.DEV ? '/api' : '')).replace(/\/+$/, '');
+const ASSISTANT_NAME = 'Lumi';
 
 const assistantTools = [
   { id: 'general', label: 'AI ilə danış', icon: Bot },
@@ -34,8 +35,8 @@ const categories = [
 ];
 
 const steps = [
-  { title: 'Ehtiyacını izah et', text: 'Bacarıq, layihə və büdcəni adi dildə yaz; Gemini məqsədini anlamağa çalışsın.', icon: MessageSquareText },
-  { title: 'AI nəticəsini yoxla', text: 'Gemini mövcud profil və elanlardan uyğun seçimləri səbəbləri ilə təklif edir.', icon: Target },
+  { title: 'Ehtiyacını izah et', text: 'Bacarıq, layihə və büdcəni adi dildə yaz; Lumi məqsədini anlamağa çalışsın.', icon: MessageSquareText },
+  { title: 'AI nəticəsini yoxla', text: 'Lumi mövcud profil və elanlardan uyğun seçimləri səbəbləri ilə təklif edir.', icon: Target },
   { title: 'Platformada davam et', text: 'Profilə və ya layihəyə keç, detalları yoxla və əlaqəni Freelancer.az-da qur.', icon: BadgeCheck },
 ];
 
@@ -88,7 +89,7 @@ export default function AnaSayfa() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [aiStatus, setAiStatus] = useState(() => (AI_API ? null : {
-    error: 'Gemini backend host edilməyib. VITE_AI_API_URL dəyişənini backend ünvanı ilə təyin edin.',
+    error: 'Lumi xidməti hələ qoşulmayıb. Sayt konfiqurasiyasını yoxlayın.',
   }));
 
   useEffect(() => {
@@ -104,7 +105,7 @@ export default function AnaSayfa() {
         if (active) setAiStatus(status);
       })
       .catch(() => {
-        if (active) setAiStatus({ error: 'Gemini backend-ə qoşulmaq olmadı. Host və AI_API_KEY konfiqurasiyasını yoxlayın.' });
+        if (active) setAiStatus({ error: 'Lumi xidmətinə qoşulmaq olmadı. Backend konfiqurasiyasını yoxlayın.' });
       });
     return () => { active = false; };
   }, []);
@@ -113,7 +114,7 @@ export default function AnaSayfa() {
     event?.preventDefault();
     if (!query.trim() || isLoading) return;
     if (!AI_API) {
-      setError('Gemini backend host edilməyib. VITE_AI_API_URL təyin edin və frontend-i yenidən build edin.');
+      setError('Lumi xidməti qoşulmayıb. Saytın AI ünvanı konfiqurasiyasını yoxlayın.');
       return;
     }
     const prompt = query.trim();
@@ -125,7 +126,7 @@ export default function AnaSayfa() {
     requestAnimationFrame(() => document.getElementById('ai-chat')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
     try {
       if (mode === 'brief') {
-        if (!AI_API) throw new Error('Gemini backend host edilməyib. VITE_AI_API_URL təyin olunmalıdır.');
+        if (!AI_API) throw new Error('Lumi xidməti qoşulmayıb.');
         const response = await fetch(`${AI_API}/ai/analyze-brief`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -238,7 +239,7 @@ export default function AnaSayfa() {
         <div className="relative mx-auto max-w-7xl">
           <header className="ai-hero-layout">
             <div className="ai-hero-copy">
-              <span className="ai-hero-kicker"><span className="ai-live-dot" /> Freelancer.az · Gemini AI ilə</span>
+              <span className="ai-hero-kicker"><span className="ai-live-dot" /> Freelancer.az · Lumi ilə</span>
               <h1>İşini izah et.<br /><span>Düzgün addımı tap.</span></h1>
               <p>Freelancer axtar, portfolio mətni hazırla və layihə briefini təkmilləşdir — hamısı bir ağıllı məkanda.</p>
               <div className="ai-hero-actions">
@@ -252,7 +253,7 @@ export default function AnaSayfa() {
               <div className="ai-hero-proof"><span className="ai-proof-avatars" aria-hidden="true"><i>F</i><i>UI</i><i>AZ</i></span><span><strong>İnsan + AI</strong><small> qərar yenə də səndədir</small></span><span className="ai-proof-divider" /><span className="ai-proof-secure"><ShieldCheck size={15} /> Yoxlanıla bilən nəticələr</span></div>
             </div>
 
-            <div className="ai-hero-visual" aria-label="Freelancer.az Gemini AI köməkçisi">
+            <div className="ai-hero-visual" aria-label={`Freelancer.az ${ASSISTANT_NAME} köməkçisi`}>
               <div className="ai-visual-orbit ai-visual-orbit-outer" />
               <div className="ai-visual-orbit ai-visual-orbit-inner" />
               <div className="ai-visual-core">
@@ -277,12 +278,12 @@ export default function AnaSayfa() {
 
           <div id="ai-chat" className="ai-enter ai-delay-1 ai-chat-shell relative z-10 mx-auto mt-6 max-w-4xl overflow-hidden rounded-2xl border border-blue-100 bg-white sm:mt-6">
             <div className="flex items-center justify-between gap-3 border-b border-slate-200 bg-white px-4 py-3 sm:px-6 sm:py-4">
-              <div className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-700 text-white"><WandSparkles size={20} /></span><span><span className="block text-sm font-extrabold text-slate-900">Gemini AI · Freelancer.az</span><span className="block text-xs text-slate-500">Axtar, yarat, təkmilləşdir</span></span></div>
-              <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold ${aiStatus?.assistantReady ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}><Sparkles size={14} />{aiStatus?.assistantReady ? 'Gemini açarı qurulub' : aiStatus?.error || (aiStatus ? 'Gemini konfiqurasiyasını yoxlayın' : 'AI bağlantısı yoxlanılır')}</span>
+              <div className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-700 text-white"><WandSparkles size={20} /></span><span><span className="block text-sm font-extrabold text-slate-900">{ASSISTANT_NAME} · Freelancer.az</span><span className="block text-xs text-slate-500">Axtar, yarat, təkmilləşdir</span></span></div>
+              <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold ${aiStatus?.assistantReady ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}><Sparkles size={14} />{aiStatus?.assistantReady ? `${ASSISTANT_NAME} hazırdır` : aiStatus?.error || `${ASSISTANT_NAME} bağlantısı yoxlanılır`}</span>
             </div>
 
             <div className="max-h-[620px] space-y-5 overflow-y-auto bg-slate-50/70 px-4 py-5 sm:px-6">
-              {!messages.length && <div className="flex items-start gap-3"><span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-700"><Bot size={19} /></span><div><p className="text-sm font-bold text-slate-800">Freelancer.az AI köməkçin</p><p className="mt-1 max-w-2xl text-sm leading-6 text-slate-600 sm:text-[15px]">Freelancer və layihələri təbii dildə axtar, portfolio mətnini yarat və ya redaktə et, müraciət hazırla, briefini analiz et.</p></div></div>}
+              {!messages.length && <div className="flex items-start gap-3"><span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-700"><Bot size={19} /></span><div><p className="text-sm font-bold text-slate-800">Lumi — sənin iş yoldaşın</p><p className="mt-1 max-w-2xl text-sm leading-6 text-slate-600 sm:text-[15px]">Freelancer və layihələri təbii dildə axtar, portfolio mətnini yarat və ya redaktə et, müraciət hazırla, briefini analiz et.</p></div></div>}
               {!messages.length && <div className="flex flex-wrap gap-2 pl-12">
                 {starterPrompts.map(({ text, mode: nextMode, icon: Icon }) => <button key={text} type="button" onClick={() => choosePrompt(text, nextMode)} className="group inline-flex min-h-9 items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-left text-xs font-semibold text-slate-600 transition hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-800 sm:text-[13px]"><Icon size={14} className="shrink-0 text-blue-600" />{text}<ArrowUpRight size={13} className="ml-1 text-slate-400" /></button>)}
               </div>}
@@ -303,16 +304,16 @@ export default function AnaSayfa() {
                   </>}
                 </article>
               ))}
-              {isLoading && <div className="flex items-center gap-3 text-sm text-slate-500" role="status"><LoaderCircle className="animate-spin text-blue-600" size={20} />Gemini sorğunu işləyir...</div>}
+              {isLoading && <div className="flex items-center gap-3 text-sm text-slate-500" role="status"><LoaderCircle className="animate-spin text-blue-600" size={20} />Lumi sorğunu işləyir...</div>}
               {error && <p className="ml-11 rounded-lg bg-amber-50 p-3 text-sm text-amber-800">{error}</p>}
             </div>
 
             <form onSubmit={runSearch} className="border-t border-slate-200 bg-white p-3 sm:p-4">
               <div className="mb-3 flex flex-wrap gap-2" aria-label="AI aləti">{assistantTools.map(({ id, label, icon: Icon }) => <button key={id} type="button" onClick={() => setMode(id)} aria-pressed={mode === id} className={`inline-flex min-h-9 items-center gap-2 rounded-lg px-3 text-xs font-bold transition ${mode === id ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-600 hover:bg-blue-50 hover:text-blue-800'}`}><Icon size={14} />{label}</button>)}</div>
-              <label htmlFor="ai-search" className="mb-2 block px-1 text-xs font-bold text-slate-700">Gemini-yə yaz</label>
+              <label htmlFor="ai-search" className="mb-2 block px-1 text-xs font-bold text-slate-700">Lumi-yə yaz</label>
               <div className="flex items-end gap-2">
                 <textarea ref={composerRef} id="ai-search" rows={2} value={query} onChange={(event) => setQuery(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); runSearch(event); } }} placeholder="Məsələn: büdcəm 500 AZN-dir, mağazam üçün uyğun freelancer tap..." className="min-h-[58px] w-full resize-y rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm leading-6 text-slate-800 outline-none placeholder:text-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 sm:text-[15px]" />
-                <button type="submit" disabled={!query.trim() || isLoading} aria-label="Gemini-yə göndər" className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-blue-700 px-4 text-sm font-extrabold text-white transition hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-45">{isLoading ? <LoaderCircle size={18} className="animate-spin" /> : <Send size={16} />}<span className="hidden sm:inline">Göndər</span></button>
+                <button type="submit" disabled={!query.trim() || isLoading} aria-label="Lumi-yə göndər" className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-blue-700 px-4 text-sm font-extrabold text-white transition hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-45">{isLoading ? <LoaderCircle size={18} className="animate-spin" /> : <Send size={16} />}<span className="hidden sm:inline">Göndər</span></button>
               </div>
             </form>
           </div>
@@ -320,7 +321,7 @@ export default function AnaSayfa() {
       </section>
 
       <section className="bg-white px-5 pb-16 sm:px-8 sm:pb-20">
-        <div className="mx-auto max-w-5xl text-center"><h2 className="text-3xl font-extrabold sm:text-4xl">AI ilə başlamaq üçün sahə seç</h2><p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-slate-600">Kateqoriya seç, Gemini sorğunu anlayıb uyğun profilləri və layihələri tapsın.</p></div>
+        <div className="mx-auto max-w-5xl text-center"><h2 className="text-3xl font-extrabold sm:text-4xl">AI ilə başlamaq üçün sahə seç</h2><p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-slate-600">Kateqoriya seç, Lumi sorğunu anlayıb uyğun profilləri və layihələri tapsın.</p></div>
         <div className="mx-auto mt-8 grid max-w-7xl grid-cols-1 gap-5 lg:grid-cols-12">{categories.map((item) => <div key={item.title} className={item.span}><CategoryCard item={item} onChoose={(text) => choosePrompt(text, 'search')} /></div>)}</div>
       </section>
 
@@ -372,10 +373,10 @@ export default function AnaSayfa() {
           <div><h2 className="text-3xl font-extrabold sm:text-4xl">Başlamazdan əvvəl</h2><p className="mt-3 max-w-sm text-sm leading-6 text-slate-600">Axtarış və Freelancer.az-dakı növbəti addımlar barədə.</p><div className="mt-6 flex items-center gap-2 text-sm font-semibold text-slate-600"><CircleHelp size={18} className="text-blue-700" /> Başqa sualın var? <button type="button" onClick={() => navigate('/faq')} className="text-blue-700 hover:underline">FAQ bölməsinə keç</button></div></div>
           <div className="divide-y divide-slate-200 border-y border-slate-200">
             {[
-              { q: 'AI ilə necə axtarış edə bilərəm?', a: 'Gemini alətindən freelancer və layihə axtarışını seç, ehtiyacını təbii dildə izah et. AI yalnız platformanın təqdim etdiyi açıq profil və elanları sıralayır.' },
-              { q: 'Uyğunluq balı nə deməkdir?', a: 'Bu, Gemini-nin təqdim etdiyin ehtiyacla platformadakı açıq profil və elanlar arasında hesabladığı təxmini uyğunluqdur. Keyfiyyət, etibarlılıq və nəticəyə zəmanət vermir.' },
-              { q: 'Portfolio mətnini AI ilə dəyişə bilərəm?', a: 'Portfolio yarat/redaktə et alətində mövcud mətnini göndər, Gemini yenilənmiş başlıq və təsvir qaralaması hazırlasın. Qaralamanı yoxlayıb portfel formasına köçürə bilərsən; media əlavə etmək və dərc etmək sənin təsdiqindən sonra baş verir.' },
-              { q: 'Axtardığım şəxs çıxmasa nə edim?', a: 'Bacarıq və layihəni daha dəqiq izah et. Gemini yalnız hazırda yüklənən açıq freelancer profilləri və elanları araşdıra bilər; məlumat yoxdursa nəticə uydurmur.' },
+              { q: 'AI ilə necə axtarış edə bilərəm?', a: 'Lumi alətindən freelancer və layihə axtarışını seç, ehtiyacını təbii dildə izah et. AI yalnız platformanın təqdim etdiyi açıq profil və elanları sıralayır.' },
+              { q: 'Uyğunluq balı nə deməkdir?', a: 'Bu, AI-nin təqdim etdiyin ehtiyacla platformadakı açıq profil və elanlar arasında hesabladığı təxmini uyğunluqdur. Keyfiyyət, etibarlılıq və nəticəyə zəmanət vermir.' },
+              { q: 'Portfolio mətnini AI ilə dəyişə bilərəm?', a: 'Portfolio yarat/redaktə et alətində mövcud mətnini göndər, Lumi yenilənmiş başlıq və təsvir qaralaması hazırlasın. Qaralamanı yoxlayıb portfel formasına köçürə bilərsən; media əlavə etmək və dərc etmək sənin təsdiqindən sonra baş verir.' },
+              { q: 'Axtardığım şəxs çıxmasa nə edim?', a: 'Bacarıq və layihəni daha dəqiq izah et. Lumi yalnız hazırda yüklənən açıq freelancer profilləri və elanları araşdıra bilər; məlumat yoxdursa nəticə uydurmur.' },
               { q: 'Freelancer və sifarişçi necə əlaqə qurur?', a: 'Uyğun profil və ya elan seçildikdən sonra mövcud Freelancer.az profil, tapşırıq və mesajlaşma səhifələrindən əlaqəni davam etdirə bilərsən.' },
             ].map((item) => <details key={item.q} className="group py-5"><summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-bold text-slate-800"><span>{item.q}</span><ChevronDown size={18} className="shrink-0 text-slate-400 transition group-open:rotate-180 group-open:text-blue-700" /></summary><p className="max-w-3xl pt-3 pr-8 text-sm leading-7 text-slate-600">{item.a}</p></details>)}
           </div>
