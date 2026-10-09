@@ -51,7 +51,7 @@ Bu layihə üçün sadə başlanğıc kombinasiyası **Supabase Free (PostgreSQL
 
 1. **Supabase:** yeni layihə açın. Database settings-dəki `Session pooler` connection string-i Render-də `DATABASE_URL` secret kimi saxlayın. Bu layihə backend-dən PostgreSQL-ə qoşulur; service-role və DB açarlarını frontend-ə heç vaxt qoymayın.
 2. **Render:** GitHub repozitoriyasını Render Blueprint-ə qoşun və [render.yaml](./render.yaml)-ı deploy edin. Web service üçün root directory `server`, build `npm ci`, start `npm start`, health check isə `/api/health` olmalıdır. Render dashboard-da `AI_API_KEY` secret-ini və `DATABASE_URL`-ni Supabase pooler URL-i ilə təyin edin. `APP_JWT_SECRET` Blueprint tərəfindən avtomatik yaradılır. Sonra backend URL-ini qeyd edin: `https://<service>.onrender.com`.
-3. **Frontend:** Vercel və ya Netlify-də əsas repozitoriyanı deploy edin; build `npm run build`, output `dist`. Build environment-də hər iki dəyişənə eyni API URL-i yazın:
+3. **Frontend:** Vercel və ya Netlify-də əsas repozitoriyanı deploy edin; build `npm run build`, output `dist`. Vercel SPA marşrutları üçün `vercel.json` konfiqurasiyasını avtomatik istifadə edir. Build environment-də hər iki dəyişənə eyni API URL-i yazın:
 
    ```text
    VITE_API_URL=https://<service>.onrender.com/api
