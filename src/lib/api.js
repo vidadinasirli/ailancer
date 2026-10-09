@@ -1,6 +1,6 @@
 export const API_BASE_URL = (import.meta.env.DEV
   ? (import.meta.env.VITE_LOCAL_API_URL || 'http://localhost:4000/api')
-  : (import.meta.env.VITE_API_URL || '')).replace(/\/+$/, '');
+  : (import.meta.env.VITE_API_URL || '/api')).replace(/\/+$/, '');
 const TOKEN_KEY = 'freelancer_az_token';
 const publicCache = new Map();
 const publicRequests = new Map();
@@ -45,7 +45,7 @@ async function request(path, { method = 'GET', body, auth = true } = {}) {
    } catch (err) {
     throw new Error(import.meta.env.DEV
       ? 'Serverə qoşulmaq mümkün olmadı. Backend işə salındığından əmin olun (npm run server).'
-      : 'Backend ünvanına qoşulmaq mümkün olmadı. VITE_API_URL dəyərini yoxlayın.');
+      : 'Backend ünvanına qoşulmaq mümkün olmadı. API xidmətinin deploy vəziyyətini yoxlayın.');
    }
   const isJson = res.headers.get('content-type')?.includes('application/json');
   const data = isJson ? await res.json().catch(() => ({})) : null;

@@ -10,7 +10,7 @@ import { api, getApiHealth } from '../lib/api.js';
 import { useAuth } from '../context/AuthContext.jsx';
 import './AnaSayfa.css';
 
-const AI_API = (import.meta.env.VITE_AI_API_URL || (import.meta.env.DEV ? '/api' : '')).replace(/\/+$/, '');
+const AI_API = (import.meta.env.VITE_AI_API_URL || '/api').replace(/\/+$/, '');
 const ASSISTANT_NAME = 'Lumi';
 
 const assistantTools = [
