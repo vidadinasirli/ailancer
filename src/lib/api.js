@@ -1,6 +1,6 @@
 export const API_BASE_URL = (import.meta.env.DEV
   ? (import.meta.env.VITE_LOCAL_API_URL || 'http://localhost:4000/api')
-  : (import.meta.env.VITE_API_URL || '/api')).replace(/\/+$/, '');
+  : '/api').replace(/\/+$/, '');
 const TOKEN_KEY = 'freelancer_az_token';
 const publicCache = new Map();
 const publicRequests = new Map();
