@@ -161,10 +161,9 @@ export default function Giris() {
                   </div>
                   <input
                     type="text"
-                    value={role === 'freelancer' ? nickname : customerType === 'company' ? companyName : fullName}
+                    value={role === 'musteri' && customerType === 'company' ? companyName : fullName}
                     onChange={(event) => {
-                      if (role === 'freelancer') setNickname(event.target.value);
-                      else if (customerType === 'company') setCompanyName(event.target.value);
+                      if (role === 'musteri' && customerType === 'company') setCompanyName(event.target.value);
                       else setFullName(event.target.value);
                     }}
                     className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none"
@@ -205,7 +204,7 @@ export default function Giris() {
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none"
                   placeholder="••••••••"
-                  minLength={6}
+                  minLength={8}
                   required
                 />
               </div>
