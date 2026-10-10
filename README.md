@@ -53,7 +53,7 @@ Bu layihə üçün sadə başlanğıc kombinasiyası **Supabase Free (PostgreSQL
 2. **Render:** GitHub repozitoriyasını Render Blueprint-ə qoşun və [render.yaml](./render.yaml)-ı deploy edin. Web service üçün root directory `server`, build `npm ci`, start `npm start`, health check isə `/api/health` olmalıdır. Render dashboard-da `AI_API_KEY` secret-ini və `DATABASE_URL`-ni Supabase pooler URL-i ilə təyin edin. `APP_JWT_SECRET` Blueprint tərəfindən avtomatik yaradılır; mövcud servisdə yoxdursa, Environment bölməsində uzun və təsadüfi dəyər kimi ayrıca əlavə edin. Sonra backend URL-ini qeyd edin: `https://<service>.onrender.com`.
 3. **Frontend:** Vercel-də əsas repozitoriyanı import edin; Vite tətbiqini (repo kökü, `./`) seçin, build `npm run build`, output `dist`. `vercel.json` SPA marşrutlarını və `/api/*` sorğularını `https://ailancer-api.onrender.com` backend-inə yönləndirir. Production frontend API sorğularını həmin same-origin proxy ilə göndərir; Vercel-də `VITE_API_URL` və `VITE_AI_API_URL` təyin etməyin, əks halda birbaşa Render sorğuları CORS səbəbindən bloklana bilər. Backend dəyişdiriləndə `vercel.json` faylındakı rewrite destination-ı yeniləyin.
 
-   `CORS_ORIGIN` boş olduqda backend brauzer origin-lərinə açıq CORS cavabı verir. İstehsalda bunu Vercel domeni ilə məhdudlaşdırın.
+   Production frontend `https://ailancer-zeta.vercel.app` domenindən istifadə edir; backend bu origin-ə həmişə icazə verir. Başqa xüsusi domenlər də istifadə olunarsa, Render-də `CORS_ORIGIN` dəyişəninə vergüllə ayrılmış origin-ləri (`https://example.com`, sonda `/` olmadan) əlavə edin. `CORS_ORIGIN` boş olduqda digər brauzer origin-ləri də açıq qalır.
 
 ## API əhatəsi və limitlər
 

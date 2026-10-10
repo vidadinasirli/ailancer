@@ -7,12 +7,16 @@ import { databaseStatus, init, provider, listAnalyses } from './store.js';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
-const allowedOrigins = (process.env.CORS_ORIGIN || '').split(',').map((origin) => origin.trim()).filter(Boolean);
+const primaryFrontendOrigin = 'https://ailancer-zeta.vercel.app';
+const allowedOrigins = (process.env.CORS_ORIGIN || '')
+  .split(',')
+  .map((origin) => origin.trim().replace(/\/+$/, ''))
+  .filter(Boolean);
 
 app.set('trust proxy', 1); // Render arxasında düzgün IP üçün
 app.use(cors({
   origin(origin, callback) {
-    if (!origin || !allowedOrigins.length || allowedOrigins.includes(origin)) return callback(null, true);
+    if (!origin || !allowedOrigins.length || origin === primaryFrontendOrigin || allowedOrigins.includes(origin)) return callback(null, true);
     return callback(new Error('Bu origin üçün CORS icazəsi yoxdur.'));
   },
 }));
