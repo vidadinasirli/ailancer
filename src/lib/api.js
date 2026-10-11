@@ -128,7 +128,13 @@ export const api = {
   deleteProjectComment: (id, commentId) => request(`/projects/${id}/comments/${commentId}`, { method: 'DELETE' }),
   likeProjectComment: (id, commentId) => request(`/projects/${id}/comments/${commentId}/like`, { method: 'POST' }),
   deleteProject: (id) => request(`/projects/${id}`, { method: 'DELETE' }),
-  getCategories: () => request('/categories', { auth: false }),
+  getCategories: async () => {
+    const categories = await request('/categories', { auth: false });
+    if (!Array.isArray(categories)) throw new Error('Kateqoriyalar backend-dən düzgün alınmadı.');
+    return categories
+      .map((category) => (typeof category === 'string' ? category : category?.name))
+      .filter((category) => typeof category === 'string' && category.trim());
+  },
   addCategory: async (name) => {
     const result = await request('/categories', { method: 'POST', body: { name } });
     publicCache.delete('GET:/categories');
