@@ -644,7 +644,7 @@ export default function Tapsiriqlar() {
                         <div className="min-w-0">
                           <h3 className="text-base sm:text-xl font-bold text-slate-900 mb-2 truncate">{task.title}</h3>
                           <p className="text-slate-500 text-sm leading-relaxed whitespace-pre-wrap break-words line-clamp-4">{task.description}</p>
-                          <p className="text-slate-400 text-xs mt-2 font-semibold"><button type="button" onClick={(event) => { event.stopPropagation(); navigate(`/profil?userId=${task.ownerId}`); }} className="text-left hover:text-blue-700 hover:underline">{task.ownerName}</button> · {formatPostedAt(task.createdAt, currentTime)} · {task.applicationCount || 0} təklif</p>
+                          <p className="text-slate-400 text-xs mt-2 font-semibold"><button type="button" onClick={(event) => { event.stopPropagation(); navigate(`/profil?userId=${task.ownerId}`); }} className="text-left hover:text-blue-700 hover:underline">{task.ownerName}</button>{task.isDemo && <span className="ml-2 rounded-full bg-violet-100 px-2 py-0.5 text-[10px] font-bold text-violet-800">{task.demoLabel || 'Demo hesabı'}</span>} · {formatPostedAt(task.createdAt, currentTime)} · {task.applicationCount || 0} təklif</p>
                           {!!task.categories?.length && (
                             <div className="flex flex-wrap gap-2 mt-3">
                               {task.categories.map((category) => (
@@ -725,6 +725,7 @@ export default function Tapsiriqlar() {
                           <span className="text-slate-400 bg-slate-100 px-2 py-1 rounded-md">{post.author}</span>
                         </div>
                         <h4 className="font-bold text-slate-800 text-lg group-hover:text-blue-600 transition-colors mb-4 leading-snug">{post.title}</h4>
+                        {post.isDemo && <span className="mb-4 inline-block rounded-full bg-violet-100 px-2 py-0.5 text-[10px] font-bold text-violet-800">{post.demoLabel || 'Demo hesabı'}</span>}
                         <div className="flex items-center gap-5 text-sm text-slate-500 font-semibold">
                           <span className="flex items-center gap-2"><MessageCircle className="w-4 h-4 text-slate-400 group-hover:text-blue-500 transition-colors" /> {post.comments} rəy</span>
                           <span className="flex items-center gap-2"><Eye className="w-4 h-4 text-slate-400 group-hover:text-indigo-500 transition-colors" /> {post.views} baxış</span>
@@ -1168,6 +1169,7 @@ export default function Tapsiriqlar() {
                               <h3 className="text-lg sm:text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
                                 {freelancer.name}
                               </h3>
+                              {freelancer.isDemo && <span className="rounded-full bg-violet-100 px-2.5 py-1 text-[10px] font-bold text-violet-800">{freelancer.demoLabel || 'Demo hesabı'}</span>}
                             </div>
                             <p className="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-2 max-w-2xl">
                               {freelancer.description}
@@ -1268,6 +1270,7 @@ export default function Tapsiriqlar() {
                           <span className="text-slate-400 bg-slate-100 px-2 py-1 rounded-md">{post.author}</span>
                         </div>
                         <h4 className="font-bold text-slate-800 text-lg group-hover:text-blue-600 transition-colors mb-4 leading-snug">{post.title}</h4>
+                        {post.isDemo && <span className="mb-4 inline-block rounded-full bg-violet-100 px-2 py-0.5 text-[10px] font-bold text-violet-800">{post.demoLabel || 'Demo hesabı'}</span>}
                         <div className="flex items-center gap-5 text-sm text-slate-500 font-semibold">
                           <span className="flex items-center gap-2"><MessageCircle className="w-4 h-4 text-slate-400 group-hover:text-blue-500 transition-colors" /> {post.comments} rəy</span>
                           <span className="flex items-center gap-2"><Eye className="w-4 h-4 text-slate-400 group-hover:text-indigo-500 transition-colors" /> {post.views} baxış</span>

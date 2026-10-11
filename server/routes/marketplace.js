@@ -86,7 +86,16 @@ function profileFor(user) {
 }
 
 function taskFor(row) {
-  return { ...row.payload, id: row.id, ownerId: row.owner_id, ownerName: row.owner_name, status: row.status, createdAt: row.created_at };
+  return {
+    ...row.payload,
+    id: row.id,
+    ownerId: row.owner_id,
+    ownerName: row.owner_name,
+    isDemo: Boolean(row.owner_profile?.isDemo || row.payload.isDemo),
+    demoLabel: row.owner_profile?.demoLabel || row.payload.demoLabel || '',
+    status: row.status,
+    createdAt: row.created_at,
+  };
 }
 
 router.post('/auth/register', databaseRequired, async (req, res, next) => {
@@ -140,8 +149,34 @@ router.get('/auth/me', authenticated, (req, res) => res.json({ user: safeUser(re
 
 router.get('/users/freelancers', async (_req, res, next) => {
   try {
-    const rows = await sql`SELECT id, full_name, role, profile FROM users WHERE role = 'freelancer' AND COALESCE((profile->>'isProfileVisible')::boolean, true) ORDER BY created_at DESC LIMIT 100`;
-    res.json(rows.map((row) => ({ ...row.profile, id: row.id, fullName: row.full_name, role: row.role })));
+    const rows = await sql`
+      SELECT u.id, u.full_name, u.role, u.profile,
+        (SELECT COUNT(*)::int FROM profile_items i WHERE i.user_id = u.id AND i.kind = 'experience') AS work_experience_count,
+        (SELECT COUNT(*)::int FROM profile_items i WHERE i.user_id = u.id AND i.kind = 'certificate') AS certificate_count,
+        COALESCE((SELECT jsonb_agg(i.payload || jsonb_build_object('id', i.id) ORDER BY i.created_at DESC) FROM profile_items i WHERE i.user_id = u.id AND i.kind = 'specialty'), '[]'::jsonb) AS specialties,
+        COALESCE((SELECT jsonb_agg(p.payload || jsonb_build_object('id', p.id, 'image', COALESCE(p.payload->>'image', p.payload->>'imageUrl', p.payload->'mediaUrls'->>0)) ORDER BY p.created_at DESC) FROM projects p WHERE p.owner_id = u.id), '[]'::jsonb) AS projects,
+        (SELECT COUNT(*)::int FROM task_reviews r WHERE r.freelancer_id = u.id AND r.rating >= 4) AS positive_reviews,
+        (SELECT COUNT(*)::int FROM task_reviews r WHERE r.freelancer_id = u.id AND r.rating <= 2) AS negative_reviews,
+        (SELECT COUNT(*)::int FROM task_applications a JOIN tasks t ON t.id = a.task_id WHERE a.freelancer_id = u.id AND a.status = 'accepted' AND t.status = 'completed') AS completed_orders
+      FROM users u
+      WHERE u.role = 'freelancer' AND COALESCE((u.profile->>'isProfileVisible')::boolean, true)
+      ORDER BY u.created_at DESC LIMIT 100`;
+    res.json(rows.map((row) => ({
+      ...row.profile,
+      id: row.id,
+      fullName: row.full_name,
+      role: row.role,
+      specialties: row.specialties,
+      projects: row.projects,
+      workExperienceCount: row.work_experience_count,
+      certificateCount: row.certificate_count,
+      stats: {
+        ...(row.profile.stats || {}),
+        views: Number(row.profile.views || 0),
+        completedOrders: row.completed_orders,
+        customerReviews: { pos: `+${row.positive_reviews}`, neg: `-${row.negative_reviews}` },
+      },
+    })));
   } catch (error) {
     next(error);
   }
@@ -165,7 +200,12 @@ router.get('/users/:id', async (req, res, next) => {
       sql`SELECT is_online, last_seen FROM user_social_data WHERE user_id = ${row.id}`,
     ]);
     const profile = row.profile || {};
-    const mappedProjects = projects.map((project) => ({ ...project.payload, id: project.id, createdAt: project.created_at }));
+    const mappedProjects = projects.map((project) => ({
+      ...project.payload,
+      id: project.id,
+      image: project.payload.image || project.payload.imageUrl || project.payload.mediaUrls?.[0] || '',
+      createdAt: project.created_at,
+    }));
     const mappedReviews = reviews.map((review) => ({
       id: review.id,
       rating: review.rating,
@@ -249,7 +289,7 @@ router.get('/tasks', async (_req, res, next) => {
   try {
     const search = String(_req.query.search || '').trim().slice(0, 120);
     const rows = await sql`
-      SELECT t.id, t.owner_id, t.payload, t.status, t.created_at, u.full_name AS owner_name
+      SELECT t.id, t.owner_id, t.payload, t.status, t.created_at, u.full_name AS owner_name, u.profile AS owner_profile
       FROM tasks t JOIN users u ON u.id = t.owner_id
       WHERE t.status = 'open'
         AND (${search} = '' OR t.title ILIKE ${`%${search}%`} OR t.payload->>'description' ILIKE ${`%${search}%`})
@@ -290,7 +330,7 @@ router.post('/tasks', authenticated, async (req, res, next) => {
 
 router.get('/tasks/:id', async (req, res, next) => {
   try {
-    const [row] = await sql`SELECT t.id, t.owner_id, t.payload, t.status, t.created_at, u.full_name AS owner_name FROM tasks t JOIN users u ON u.id = t.owner_id WHERE t.id = ${req.params.id}`;
+    const [row] = await sql`SELECT t.id, t.owner_id, t.payload, t.status, t.created_at, u.full_name AS owner_name, u.profile AS owner_profile FROM tasks t JOIN users u ON u.id = t.owner_id WHERE t.id = ${req.params.id}`;
     if (!row) return res.status(404).json({ error: 'Layihə tapılmadı.' });
     res.json(taskFor(row));
   } catch (error) {

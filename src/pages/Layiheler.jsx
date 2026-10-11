@@ -7,7 +7,8 @@ import { PORTFOLIO_CATEGORY_OPTIONS } from '../lib/categoryOptions.js';
 const CATEGORIES = ['İnformasiya texnologiyaları', 'Dizayn', 'Media'];
 
 function ProjectMedia({ project, detail = false }) {
-  const isVideo = /\.(mp4|webm|mov|ogg)(\?|$)/i.test(project.image || '');
+  const mediaSource = project.image || project.imageUrl || project.mediaUrls?.[0] || '';
+  const isVideo = /\.(mp4|webm|mov|ogg)(\?|$)/i.test(mediaSource);
   const videoRef = useRef(null);
   const mediaClass = detail
     ? 'w-full h-full max-h-[560px] object-contain'
@@ -47,7 +48,7 @@ function ProjectMedia({ project, detail = false }) {
       {isVideo ? (
         <video
           ref={videoRef}
-          src={project.image}
+          src={mediaSource}
           title={project.title}
           muted
           playsInline
@@ -59,7 +60,7 @@ function ProjectMedia({ project, detail = false }) {
           className={`${mediaClass} relative z-10`}
         />
       ) : (
-        <img src={project.image} alt={project.title} className={`${mediaClass} relative z-10`} />
+        <img src={mediaSource} alt={project.title} onError={(event) => { event.currentTarget.style.display = 'none'; }} className={`${mediaClass} relative z-10`} />
       )}
     </div>
   );
@@ -137,7 +138,7 @@ export default function Layiheler() {
           {loading && <div className="py-16 flex justify-center text-blue-600"><Loader2 className="animate-spin" /></div>}
           {error && <div className="p-4 rounded-xl bg-red-50 text-red-700">{error}</div>}
           {!loading && !error && projects.length === 0 && <div className="py-16 text-center text-slate-500">Axtarışa uyğun layihə tapılmadı.</div>}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">{visibleProjects.map((project) => <article key={project.id} onClick={() => navigate(`/layiheler/${project.id}`)} className="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:-translate-y-1 hover:shadow-xl transition-all cursor-pointer"><ProjectMedia project={project} /><div className="p-4"><div className="flex justify-between gap-3"><h2 className="font-bold text-slate-900 line-clamp-2">{project.title}</h2><button type="button" aria-label="Layihəni bəyən" onClick={async (event) => { event.stopPropagation(); const result = await api.likeProject(project.id); setProjects((items) => items.map((item) => item.id === project.id ? { ...item, likes: result.likes, liked: result.liked } : item)); }} className={`rounded-full p-1 transition-colors ${project.liked ? 'text-red-500 bg-red-50' : 'text-slate-300 hover:text-red-500 hover:bg-red-50'}`}><Heart className="w-5 h-5" fill={project.liked ? 'currentColor' : 'none'} /></button></div><p className="text-sm text-slate-500 mt-1">{project.author}</p><div className="flex items-center gap-4 text-xs text-slate-400 mt-4"><span className="text-blue-600">{project.category}</span><span className="flex items-center gap-1"><Eye className="w-4 h-4" />{project.views}</span><span className="flex items-center gap-1"><MessageCircle className="w-4 h-4" />{project.likes}</span></div></div></article>)}</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">{visibleProjects.map((project) => <article key={project.id} onClick={() => navigate(`/layiheler/${project.id}`)} className="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:-translate-y-1 hover:shadow-xl transition-all cursor-pointer"><ProjectMedia project={project} /><div className="p-4"><div className="flex justify-between gap-3"><h2 className="font-bold text-slate-900 line-clamp-2">{project.title}</h2><button type="button" aria-label="Layihəni bəyən" onClick={async (event) => { event.stopPropagation(); const result = await api.likeProject(project.id); setProjects((items) => items.map((item) => item.id === project.id ? { ...item, likes: result.likes, liked: result.liked } : item)); }} className={`rounded-full p-1 transition-colors ${project.liked ? 'text-red-500 bg-red-50' : 'text-slate-300 hover:text-red-500 hover:bg-red-50'}`}><Heart className="w-5 h-5" fill={project.liked ? 'currentColor' : 'none'} /></button></div><div className="mt-1 flex items-center gap-2"><p className="text-sm text-slate-500">{project.author}</p>{project.isDemo && <span className="rounded-full bg-violet-50 px-2 py-0.5 text-[10px] font-bold text-violet-700">Demo hesabı</span>}</div><div className="flex items-center gap-4 text-xs text-slate-400 mt-4"><span className="text-blue-600">{project.category}</span><span className="flex items-center gap-1"><Eye className="w-4 h-4" />{project.views}</span><span className="flex items-center gap-1"><MessageCircle className="w-4 h-4" />{project.likes}</span></div></div></article>)}</div>
         </section>
         <aside className="lg:col-span-3 self-start glass-panel rounded-3xl shadow-[0_15px_40px_-15px_rgba(0,0,0,0.05)] lg:sticky lg:top-28 overflow-hidden">
           <div className="p-8">
@@ -162,6 +163,7 @@ export default function Layiheler() {
                     <span className="text-slate-400 truncate">{post.author}</span>
                   </div>
                   <h3 className="font-bold text-slate-800 line-clamp-1 group-hover:text-blue-600">{post.title}</h3>
+                  {post.isDemo && <span className="mt-1 inline-block rounded-full bg-violet-100 px-2 py-0.5 text-[10px] font-bold text-violet-800">{post.demoLabel || 'Demo hesabı'}</span>}
                   <div className="flex items-center gap-4 text-xs text-slate-400 mt-4">
                     <span className="flex items-center gap-1"><MessageCircle className="w-4 h-4" />{post.comments}</span>
                     <span className="flex items-center gap-1"><Eye className="w-4 h-4" />{post.views}</span>

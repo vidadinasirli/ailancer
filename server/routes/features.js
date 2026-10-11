@@ -6,6 +6,7 @@ import { authenticated, databaseRequired, optionalAuthenticated } from './market
 const router = express.Router();
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const validId = (value) => UUID.test(String(value || ''));
+const projectImage = (payload) => payload.image || payload.imageUrl || payload.mediaUrls?.[0] || '';
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 50 * 1024 * 1024, files: 1 },
@@ -217,6 +218,7 @@ router.get('/projects', optionalAuthenticated, async (req, res, next) => {
       ownerId: row.owner_id,
       ownerName: row.full_name,
       author: row.payload.author || row.full_name,
+      image: projectImage(row.payload),
       createdAt: row.created_at,
       views: Number(row.payload.views || 0),
       likes: row.likes,
@@ -232,7 +234,7 @@ router.get('/projects/liked', authenticated, async (req, res, next) => {
         (SELECT COUNT(*)::int FROM project_likes l WHERE l.project_id = p.id) AS likes
       FROM project_likes l JOIN projects p ON p.id = l.project_id JOIN users u ON u.id = p.owner_id
       WHERE l.user_id = ${req.user.id} ORDER BY l.created_at DESC`;
-    res.json(rows.map((row) => ({ ...row.payload, id: row.id, ownerId: row.owner_id, author: row.payload.author || row.author, likes: row.likes, createdAt: row.created_at })));
+    res.json(rows.map((row) => ({ ...row.payload, id: row.id, ownerId: row.owner_id, author: row.payload.author || row.author, image: projectImage(row.payload), likes: row.likes, createdAt: row.created_at })));
   } catch (error) { next(error); }
 });
 
@@ -267,6 +269,7 @@ router.get('/projects/:id', optionalAuthenticated, async (req, res, next) => {
       ownerId: project.owner_id,
       ownerName: owner.full_name,
       author: project.payload.author || owner.full_name,
+      image: projectImage(project.payload),
       createdAt: project.created_at,
       views: Number(project.payload.views || 0),
       likes: counts.likes,

@@ -60,3 +60,15 @@ Bu layihə üçün sadə başlanğıc kombinasiyası **Supabase Free (PostgreSQL
 Marketplace endpoint-ləri `server/routes/marketplace.js` və `server/routes/features.js` daxilindədir. Qeydiyyat/giriş, profil məlumatları, iş təcrübəsi və sertifikatlar, tapşırıqlar/müraciətlər/rəylər, portfolio/bəyənmə/şərhlər, Klub, mesajlaşma/bloklama, bildirişlər, sosial linklər/onlayn status, dəstək forması və media yükləmə API-ləri PostgreSQL istifadə edir. Media faylları 50 MB-a qədər `uploaded_media` cədvəlində saxlanılır; bu yanaşma Supabase layihəsinin database storage limitlərinə daxildir. `/api/health` yalnız PostgreSQL bağlantısı və sxem başlanğıcı uğurlu olduqda `200` və `database.ready:true` qaytarır.
 
 AI portfolio mətni qaralama kimi yaradır. Portfolio dərc etmə və media istifadəsi istifadəçinin təsdiqini tələb edir.
+
+## Demo məlumatları
+
+Təqdimat üçün nümunə hesab və məzmun yaratmaq istəyəndə əvvəlcə `server\.env` faylındakı `DATABASE_URL`-nin düzgün bazaya qoşulduğunu yoxlayın. Seed skripti mövcud cədvəlləri başladır, nümunə hesabları, portfolio, tapşırıq və Klub yazılarını təkrar işə salmada yeniləyir; demo olmayan hesabı heç vaxt yeniləmir. Nümunə hesablar `.invalid` e-poçt ünvanlarından istifadə edir, giriş üçün parol yaratmır və bütün görünən profillərdə “Demo hesabı” kimi işarələnir.
+
+PowerShell-də repo kökündən yalnız yoxlanmış verilənlər bazası üçün başladın:
+
+```powershell
+$env:DEMO_SEED_CONFIRM = "YES"
+npm --prefix server run seed:demo
+Remove-Item Env:DEMO_SEED_CONFIRM
+```

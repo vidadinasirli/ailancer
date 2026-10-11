@@ -226,6 +226,7 @@ export default function Profil() {
                     <div className="flex-1 pt-4">
                       <div className="flex items-center gap-3 mb-1">
                         <h1 className="text-3xl font-black text-slate-900">{displayProfile.fullName || user?.fullName || 'İstifadəçi'}</h1>
+                        {displayProfile.isDemo && <span className="rounded-full bg-violet-100 px-3 py-1 text-xs font-bold text-violet-800">{displayProfile.demoLabel || 'Demo hesabı'}</span>}
                       </div>
                       <p className="text-slate-500 font-medium mb-4">@{(displayProfile.nickname || displayProfile.fullName || 'istifadeci').toLowerCase().replace(/\s+/g, '')}</p>
                       
