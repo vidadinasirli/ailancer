@@ -61,12 +61,12 @@ export default function Profil() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    const profileId = requestedProfileId || profileData?.id;
+    const profileId = requestedProfileId || user?.id || profileData?.id;
     if (!profileId) return;
     api.getUser(profileId).then(setDisplayProfile).catch(() => {
       if (!requestedProfileId) setDisplayProfile(profileData);
     });
-  }, [requestedProfileId, profileData]);
+  }, [requestedProfileId, user?.id, profileData]);
 
   useEffect(() => {
     const draftParam = searchParams.get('aiDraft');
