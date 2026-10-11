@@ -22,7 +22,7 @@ const PROFILE_DEFAULTS = {
   customerType: 'employer',
 };
 
-function databaseRequired(_req, res, next) {
+export function databaseRequired(_req, res, next) {
   if (!sql) return res.status(503).json({ error: 'Marketplace verilənlər bazası qoşulmayıb. DATABASE_URL təyin edin.' });
   next();
 }
@@ -41,7 +41,7 @@ function tokenFor(user) {
   return `${unsigned}.${signature}`;
 }
 
-function verifyToken(token) {
+export function verifyToken(token) {
   const [header, payload, signature] = String(token || '').split('.');
   if (!header || !payload || !signature || !process.env.APP_JWT_SECRET) return null;
   const expected = createHmac('sha256', process.env.APP_JWT_SECRET).update(`${header}.${payload}`).digest();
@@ -56,13 +56,25 @@ function verifyToken(token) {
   }
 }
 
-async function authenticated(req, res, next) {
+export async function authenticated(req, res, next) {
   const subject = verifyToken(req.get('authorization')?.replace(/^Bearer\s+/i, ''));
   if (!subject) return res.status(401).json({ error: 'Sessiya bitib və ya etibarsızdır. Yenidən daxil olun.' });
   try {
     const [user] = await sql`SELECT id, email, full_name, role, profile FROM users WHERE id = ${subject}`;
     if (!user) return res.status(401).json({ error: 'Hesab tapılmadı. Yenidən daxil olun.' });
     req.user = user;
+    next();
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function optionalAuthenticated(req, res, next) {
+  const subject = verifyToken(req.get('authorization')?.replace(/^Bearer\s+/i, ''));
+  if (!subject) return next();
+  try {
+    const [user] = await sql`SELECT id, email, full_name, role, profile FROM users WHERE id = ${subject}`;
+    if (user) req.user = user;
     next();
   } catch (error) {
     next(error);
@@ -139,7 +151,55 @@ router.get('/users/:id', async (req, res, next) => {
   try {
     const [row] = await sql`SELECT id, full_name, role, profile FROM users WHERE id = ${req.params.id}`;
     if (!row) return res.status(404).json({ error: 'İstifadəçi tapılmadı.' });
-    res.json({ ...row.profile, id: row.id, fullName: row.full_name, role: row.role });
+    const [specialties, experiences, certificates, projects, reviews, stats, social] = await Promise.all([
+      sql`SELECT id, payload, created_at, updated_at FROM profile_items WHERE user_id = ${row.id} AND kind = 'specialty' ORDER BY created_at DESC`,
+      sql`SELECT id, payload, created_at, updated_at FROM profile_items WHERE user_id = ${row.id} AND kind = 'experience' ORDER BY created_at DESC`,
+      sql`SELECT id, payload, created_at, updated_at FROM profile_items WHERE user_id = ${row.id} AND kind = 'certificate' ORDER BY created_at DESC`,
+      sql`SELECT id, payload, created_at FROM projects WHERE owner_id = ${row.id} ORDER BY created_at DESC LIMIT 100`,
+      sql`SELECT r.id, r.rating, r.text, r.created_at, t.title AS task_title, u.id AS author_id, u.full_name AS author_name, u.profile AS author_profile
+        FROM task_reviews r JOIN tasks t ON t.id = r.task_id JOIN users u ON u.id = r.reviewer_id
+        WHERE r.freelancer_id = ${row.id} ORDER BY r.created_at DESC LIMIT 100`,
+      sql`SELECT COUNT(*) FILTER (WHERE t.status = 'completed')::int AS completed_orders
+        FROM task_applications a JOIN tasks t ON t.id = a.task_id
+        WHERE a.freelancer_id = ${row.id} AND a.status = 'accepted'`,
+      sql`SELECT is_online, last_seen FROM user_social_data WHERE user_id = ${row.id}`,
+    ]);
+    const profile = row.profile || {};
+    const mappedProjects = projects.map((project) => ({ ...project.payload, id: project.id, createdAt: project.created_at }));
+    const mappedReviews = reviews.map((review) => ({
+      id: review.id,
+      rating: review.rating,
+      text: review.text,
+      createdAt: review.created_at,
+      taskTitle: review.task_title,
+      authorId: review.author_id,
+      authorName: review.author_name,
+      authorAvatarUrl: review.author_profile?.avatarUrl || '',
+    }));
+    const positiveReviews = mappedReviews.filter((review) => review.rating >= 4).length;
+    const negativeReviews = mappedReviews.filter((review) => review.rating <= 2).length;
+    res.json({
+      ...profile,
+      id: row.id,
+      fullName: row.full_name,
+      name: row.full_name,
+      username: profile.nickname ? `@${profile.nickname}` : `@${row.full_name.toLowerCase().replace(/\s+/g, '')}`,
+      role: row.role,
+      description: profile.about || '',
+      skills: profile.activityAreas || profile.skills || [],
+      specialties: specialties.map((item) => ({ ...item.payload, id: item.id })),
+      workExperiences: experiences.map((item) => ({ ...item.payload, id: item.id })),
+      certificates: certificates.map((item) => ({ ...item.payload, id: item.id })),
+      portfolio: mappedProjects,
+      reviews: mappedReviews,
+      stats: {
+        views: Number(profile.views || 0),
+        completedOrders: stats[0]?.completed_orders || 0,
+        conflictJobs: 0,
+        customerReviews: { pos: `+${positiveReviews}`, neg: `-${negativeReviews}` },
+      },
+      onlineStatus: { isOnline: social[0]?.is_online || false, lastSeen: social[0]?.last_seen || null },
+    });
   } catch (error) {
     next(error);
   }
@@ -187,10 +247,12 @@ router.get('/categories', async (_req, res, next) => {
 
 router.get('/tasks', async (_req, res, next) => {
   try {
+    const search = String(_req.query.search || '').trim().slice(0, 120);
     const rows = await sql`
       SELECT t.id, t.owner_id, t.payload, t.status, t.created_at, u.full_name AS owner_name
       FROM tasks t JOIN users u ON u.id = t.owner_id
       WHERE t.status = 'open'
+        AND (${search} = '' OR t.title ILIKE ${`%${search}%`} OR t.payload->>'description' ILIKE ${`%${search}%`})
       ORDER BY t.created_at DESC LIMIT 100`;
     res.json(rows.map(taskFor));
   } catch (error) {

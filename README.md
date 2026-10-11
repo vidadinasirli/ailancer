@@ -43,7 +43,7 @@ Tələblər: Node.js 20 və ya daha yeni versiya.
 
    Backend health: `http://localhost:4000/api/health`; Gemini status: `http://localhost:4000/api/ai/status`. Frontend: Vite-in göstərdiyi ünvan, adətən `http://localhost:5173`. PostgreSQL qurulmayıbsa marketplace health `503` və `database.ready:false` qaytarır; server isə bunu yaddaşda saxlanılan işlək məlumat kimi göstərmir.
 
-`server` eyni Node.js xidmətində AI və marketplace API-sini verir. Cari başlanğıc API-si qeydiyyat/giriş, profilin əsas məlumatları, freelancer siyahısı, layihə elanı yaratmaq/siyahılamaq/müraciət etmək və portfolio layihəsi yaratmaq/oxumaq endpoint-lərini saxlayır. Mesajlaşma, fayl yükləmə, sosial klub, bəyənmə və layihə şərhləri kimi frontend səthlər üçün ayrıca endpoint və storage işi hələ tamamlanmalıdır; həmin funksiyaları bu backend-də mövcud kimi qəbul etməyin.
+`server` eyni Node.js xidmətində AI və marketplace API-sini verir. Marketplace endpoint-ləri PostgreSQL-də hesabları, profilləri və təcrübə/sertifikat məlumatlarını, tapşırıq və müraciətləri, portfolio və şərhləri, mesajları, bildirişləri, klub yazılarını, dəstək müraciətlərini və yüklənən medianı saxlayır. Server başlanarkən cədvəllər `CREATE TABLE IF NOT EXISTS` ilə əlavə olunur; mövcud cədvəllər və məlumatlar silinmir.
 
 ## Pulsuz hostinq
 
@@ -57,6 +57,6 @@ Bu layihə üçün sadə başlanğıc kombinasiyası **Supabase Free (PostgreSQL
 
 ## API əhatəsi və limitlər
 
-Marketplace üçün `server/routes/marketplace.js` hazırda qeydiyyat/giriş (şifrə hash-i və müddətli imzalı token), əsas profil oxuma/redaktə, açıq freelancer siyahısı, açıq tapşırıqlar, tapşırıq yaratma/silmə/müraciət və portfolio layihələrini oxuma/yazma endpoint-lərini verir. Verilənlər bazası cədvəlləri `DATABASE_URL` qoşulduqda server başlanarkən yaradılır. Mesajlaşma, fayl storage, klub, bildirişlər, bəyənmələr, şərhlər və təkliflərin idarəsi tamamlanmayıb; onları təqdimat öncəsi ayrıca həyata keçirmək və sınaqdan keçirmək lazımdır.
+Marketplace endpoint-ləri `server/routes/marketplace.js` və `server/routes/features.js` daxilindədir. Qeydiyyat/giriş, profil məlumatları, iş təcrübəsi və sertifikatlar, tapşırıqlar/müraciətlər/rəylər, portfolio/bəyənmə/şərhlər, Klub, mesajlaşma/bloklama, bildirişlər, sosial linklər/onlayn status, dəstək forması və media yükləmə API-ləri PostgreSQL istifadə edir. Media faylları 50 MB-a qədər `uploaded_media` cədvəlində saxlanılır; bu yanaşma Supabase layihəsinin database storage limitlərinə daxildir. `/api/health` yalnız PostgreSQL bağlantısı və sxem başlanğıcı uğurlu olduqda `200` və `database.ready:true` qaytarır.
 
-AI portfolio mətnini qaralama kimi yaradır. Portfolio media/fayl yükləməsi və dərc etmə istifadəçinin təsdiqini tələb edir; backend-də fayl yükləmə xidməti hazır deyil.
+AI portfolio mətni qaralama kimi yaradır. Portfolio dərc etmə və media istifadəsi istifadəçinin təsdiqini tələb edir.

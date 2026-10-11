@@ -44,7 +44,7 @@ export default function Mesajlar() {
 
   const [conversations, setConversations] = useState([]);
   const [conversationSearch, setConversationSearch] = useState('');
-  const [activeUserId, setActiveUserId] = useState(searchParams.get('to') ? Number(searchParams.get('to')) : null);
+  const [activeUserId, setActiveUserId] = useState(searchParams.get('to') || null);
   const [activeUser, setActiveUser] = useState(null);
   const [messages, setMessages] = useState([]);
   const [messageText, setMessageText] = useState('');
