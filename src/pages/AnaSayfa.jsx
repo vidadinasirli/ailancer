@@ -8,6 +8,9 @@ import {
 } from 'lucide-react';
 import { api, getApiHealth } from '../lib/api.js';
 import { useAuth } from '../context/AuthContext.jsx';
+import { BackgroundPaths } from '../components/ui/background-paths.tsx';
+import { SpotlightCard } from '../components/ui/spotlight-card.jsx';
+import { Button } from '../components/ui/button';
 import './AnaSayfa.css';
 
 const AI_API = (import.meta.env.DEV ? (import.meta.env.VITE_AI_API_URL || '/api') : '/api').replace(/\/+$/, '');
@@ -28,10 +31,10 @@ const starterPrompts = [
 ];
 
 const categories = [
-  { title: 'Proqramlaşdırma', detail: 'Veb, mobil tətbiq, frontend və backend', icon: Code2, query: 'Proqramlaşdırma və veb developer', image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Proqramçı noutbukda işləyir' },
-  { title: 'Dizayn və kreativ', detail: 'UI/UX, loqo, brend və illüstrasiya', icon: PenTool, query: 'Dizayn və kreativ mütəxəssis', image: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Rəngli kreativ dizayn nümunələri' },
-  { title: 'Marketinq', detail: 'SMM, SEO, reklam və kontent', icon: Megaphone, query: 'Marketinq SMM və SEO mütəxəssisi', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Rəqəmsal marketinq göstəriciləri olan ekran' },
-  { title: 'Biznes dəstəyi', detail: 'Tərcümə, maliyyə, araşdırma və məsləhət', icon: BriefcaseBusiness, query: 'Biznes dəstəyi tərcümə və maliyyə', image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Komanda ortaq layihəni müzakirə edir' },
+  { title: 'Proqramlaşdırma', detail: 'Veb, mobil tətbiq, frontend və backend', icon: Code2, query: 'Proqramlaşdırma və veb developer', tone: 'code', tags: ['React · API', 'Veb · Mobil'] },
+  { title: 'Dizayn və kreativ', detail: 'UI/UX, loqo, brend və illüstrasiya', icon: PenTool, query: 'Dizayn və kreativ mütəxəssis', tone: 'design', tags: ['UI · UX', 'Brend sistemi'] },
+  { title: 'Marketinq', detail: 'SMM, SEO, reklam və kontent', icon: Megaphone, query: 'Marketinq SMM və SEO mütəxəssisi', tone: 'marketing', tags: ['SEO · SMM', 'Kontent'] },
+  { title: 'Biznes dəstəyi', detail: 'Tərcümə, maliyyə, araşdırma və məsləhət', icon: BriefcaseBusiness, query: 'Biznes dəstəyi tərcümə və maliyyə', tone: 'business', tags: ['Araşdırma', 'Məsləhət'] },
 ];
 
 const steps = [
@@ -67,17 +70,20 @@ function ResultCard({ result, onClick }) {
 function CategoryCard({ item, onChoose }) {
   const Icon = item.icon;
   return (
-    <button type="button" onClick={() => onChoose(item.query)} className="ai-depth-card group overflow-hidden border border-slate-200 bg-white text-left shadow-[0_18px_45px_-36px_rgba(15,23,42,.65)] transition duration-500 hover:border-blue-300 hover:shadow-[0_28px_60px_-35px_rgba(37,99,235,.5)]">
-      <span className="ai-category-image relative block aspect-[1.55] overflow-hidden bg-slate-200">
-        <img src={item.image} alt={item.imageAlt} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-110" />
-        <span className="ai-category-image-shade absolute inset-0" />
-        <span className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/50 bg-slate-950/30 px-3 py-1.5 text-xs font-bold text-white backdrop-blur-md"><Icon size={14} /> Ailancer sahəsi</span>
+    <SpotlightCard as="button" type="button" onClick={() => onChoose(item.query)} className="ai-depth-card group overflow-hidden border border-slate-200 bg-white text-left shadow-[0_18px_45px_-36px_rgba(15,23,42,.65)] transition duration-500 hover:border-blue-300 hover:shadow-[0_28px_60px_-35px_rgba(37,99,235,.5)]">
+      <span className={`ai-category-art ai-category-art-${item.tone} relative block aspect-[1.55] overflow-hidden`}>
+        <span className="ai-category-art-grid" />
+        <span className="ai-category-art-orbit ai-category-art-orbit-one" />
+        <span className="ai-category-art-orbit ai-category-art-orbit-two" />
+        <span className="ai-category-art-icon"><Icon size={25} /></span>
+        <span className="ai-category-art-tag ai-category-art-tag-one">{item.tags[0]}</span>
+        <span className="ai-category-art-tag ai-category-art-tag-two">{item.tags[1]}</span>
         <span className="ai-category-arrow absolute bottom-4 right-4 grid h-11 w-11 place-items-center rounded-full bg-white text-blue-700 shadow-lg transition group-hover:rotate-45"><ArrowUpRight size={20} /></span>
       </span>
       <span className="flex min-h-[126px] items-center justify-between gap-4 px-5 py-5 sm:px-6">
         <span><span className="flex items-center gap-2 text-lg font-extrabold text-slate-900 sm:text-xl"><Icon size={20} className="text-blue-700" />{item.title}</span><span className="mt-2 block text-sm leading-6 text-slate-600">{item.detail}</span></span>
       </span>
-    </button>
+    </SpotlightCard>
   );
 }
 
@@ -235,6 +241,7 @@ export default function AnaSayfa() {
   return (
     <main className="ai-home overflow-hidden bg-white text-slate-900">
       <section className="ai-hero relative isolate px-5 pb-10 pt-20 sm:px-8 sm:pb-14 sm:pt-24 lg:pb-20 lg:pt-16">
+        <BackgroundPaths />
         <div className="ai-hero-grid" aria-hidden="true" />
         <div className="ai-hero-glow ai-hero-glow-one" aria-hidden="true" />
         <div className="ai-hero-glow ai-hero-glow-two" aria-hidden="true" />
@@ -245,30 +252,36 @@ export default function AnaSayfa() {
               <h1>İşini izah et.<br /><span>Düzgün addımı tap.</span></h1>
               <p>Freelancer axtar, portfolio mətni hazırla və layihə briefini təkmilləşdir — hamısı bir ağıllı məkanda.</p>
               <div className="ai-hero-actions">
-                <button type="button" className="ai-hero-primary" onClick={() => { document.getElementById('ai-chat')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); composerRef.current?.focus({ preventScroll: true }); }}>
+                <Button type="button" className="ai-hero-primary" onClick={() => { document.getElementById('ai-chat')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); composerRef.current?.focus({ preventScroll: true }); }}>
                   <Sparkles size={17} /> AI ilə başla <ArrowRight size={16} />
-                </button>
-                <button type="button" className="ai-hero-secondary" onClick={() => navigate('/tapsiriqlar')}>
+                </Button>
+                <Button type="button" variant="outline" className="ai-hero-secondary" onClick={() => navigate('/tapsiriqlar')}>
                   Layihələrə bax <ArrowUpRight size={16} />
-                </button>
+                </Button>
               </div>
               <div className="ai-hero-proof"><span className="ai-proof-avatars" aria-hidden="true"><i>F</i><i>UI</i><i>AZ</i></span><span><strong>İnsan + AI</strong><small> qərar yenə də səndədir</small></span><span className="ai-proof-divider" /><span className="ai-proof-secure"><ShieldCheck size={15} /> Yoxlanıla bilən nəticələr</span></div>
             </div>
 
-            <div className="ai-hero-visual" aria-label={`Ailancer ${ASSISTANT_NAME} köməkçisi`}>
-              <div className="ai-visual-orbit ai-visual-orbit-outer" />
-              <div className="ai-visual-orbit ai-visual-orbit-inner" />
-              <div className="ai-visual-core">
-                <span className="ai-core-sheen" />
-                <span className="ai-core-face"><i /><i /><b /></span>
-                <span className="ai-core-spark ai-core-spark-one">✦</span>
-                <span className="ai-core-spark ai-core-spark-two">✧</span>
-              </div>
-              <div className="ai-float-card ai-float-search"><span className="ai-float-icon"><Search size={15} /></span><span><strong>Ağıllı uyğunluq</strong><small>İstedadını kəşf et</small></span><span className="ai-match-score">98%</span></div>
-              <div className="ai-float-card ai-float-brief"><span className="ai-float-icon ai-float-icon-lilac"><WandSparkles size={15} /></span><span><strong>Brief hazırdır</strong><small>3 aydın mərhələ</small></span><BadgeCheck className="ai-float-check" size={17} /></div>
-              <span className="ai-visual-tag ai-visual-tag-one"><Code2 size={13} /> bacarıq</span>
-              <span className="ai-visual-tag ai-visual-tag-two"><Sparkles size={13} /> ideya</span>
-              <span className="ai-visual-label"><span className="ai-live-dot" /> AI ilə işləyir</span>
+            <div className="ai-hero-visual" aria-label={`${ASSISTANT_NAME} köməkçisinin nümunə iş axını`}>
+              <SpotlightCard className="ai-copilot-panel">
+                <div className="ai-copilot-heading">
+                  <span className="ai-copilot-mark"><WandSparkles size={19} /></span>
+                  <span><strong>Lumi ilə iş axını</strong><small>Ailancer AI köməkçisi</small></span>
+                  <span className="ai-copilot-status"><span className="ai-live-dot" /> Hazırdır</span>
+                </div>
+                <div className="ai-copilot-body">
+                  <span className="ai-copilot-overline">NÜMUNƏ SORĞU</span>
+                  <div className="ai-copilot-prompt">“Onlayn mağazam üçün uyğun veb developer tapmağa kömək et.”</div>
+                  <div className="ai-copilot-response">
+                    <span className="ai-copilot-response-mark"><Sparkles size={14} /></span>
+                    <span><strong>Əvvəlcə ehtiyacı aydınlaşdıraq</strong><small>Bacarıqları, büdcəni və layihə müddətini bir sorğuda dəqiqləşdir.</small></span>
+                  </div>
+                  <div className="ai-copilot-chips"><span><Code2 size={13} /> Bacarıq uyğunluğu</span><span><ShieldCheck size={13} /> Nəzarət səndədir</span></div>
+                </div>
+                <div className="ai-copilot-footer"><span><span className="ai-live-dot" /> Nəticələr mövcud profillərdən</span><ArrowUpRight size={16} /></div>
+              </SpotlightCard>
+              <span className="ai-visual-orbit ai-visual-orbit-outer" />
+              <span className="ai-visual-orbit ai-visual-orbit-inner" />
             </div>
           </header>
 
@@ -278,13 +291,37 @@ export default function AnaSayfa() {
             <div><span className="ai-metric-icon"><Target size={16} /></span><span><strong>Dəqiqləşdir</strong><small> brief və növbəti addımlar</small></span></div>
           </div>
 
-          <div id="ai-chat" className="ai-enter ai-delay-1 ai-chat-shell relative z-10 mx-auto mt-6 max-w-4xl overflow-hidden rounded-2xl border border-blue-100 bg-white sm:mt-6">
-            <div className="flex items-center justify-between gap-3 border-b border-slate-200 bg-white px-4 py-3 sm:px-6 sm:py-4">
+        </div>
+      </section>
+
+      <div className="ai-capabilities-marquee" aria-label="Ailancer platform capabilities">
+        <div className="ai-capabilities-track" aria-hidden="true">
+          {[0, 1].map((copy) => (
+            <span className="ai-capabilities-set" key={copy}>
+              {['AI ilə freelancer axtar', 'Portfolio yarat', 'Layihəni paylaş', 'Birbaşa əlaqə qur', 'Briefini dəqiqləşdir'].map((label) => (
+                <span className="ai-capability-word" key={`${copy}-${label}`}><Sparkles size={13} />{label}</span>
+              ))}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <section className="ai-chat-section relative isolate overflow-hidden px-5 py-14 sm:px-8 sm:py-20">
+        <div className="ai-chat-section-glow" aria-hidden="true" />
+        <div className="relative z-10 mx-auto max-w-6xl">
+          <div className="ai-chat-intro mx-auto mb-8 max-w-3xl text-center">
+            <span className="ai-category-eyebrow"><Sparkles size={14} /> Lumi AI köməkçisi</span>
+            <h2 className="mt-4 text-3xl font-extrabold leading-tight text-slate-950 sm:text-4xl lg:text-5xl">Fikrinizi yazın. <span className="text-blue-700">Növbəti addımı birlikdə tapaq.</span></h2>
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-600">Freelancer tapmaqdan brief hazırlamağa qədər — Lumi ilə söhbət edərək başlayın.</p>
+          </div>
+
+          <div id="ai-chat" className="ai-enter ai-delay-1 ai-chat-shell relative z-10 isolate mx-auto max-w-4xl overflow-hidden rounded-2xl border border-blue-100 bg-white/90">
+            <div className="relative z-10 flex items-center justify-between gap-3 border-b border-slate-200 bg-white/90 px-4 py-3 sm:px-6 sm:py-4">
               <div className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-700 text-white"><WandSparkles size={20} /></span><span><span className="block text-sm font-extrabold text-slate-900">{ASSISTANT_NAME} · Ailancer</span><span className="block text-xs text-slate-500">Axtar, yarat, təkmilləşdir</span></span></div>
               <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold ${aiStatus?.assistantReady ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}><Sparkles size={14} />{aiStatus?.assistantReady ? `${ASSISTANT_NAME} hazırdır` : aiStatus?.error || `${ASSISTANT_NAME} bağlantısı yoxlanılır`}</span>
             </div>
 
-            <div className="max-h-[620px] space-y-5 overflow-y-auto bg-slate-50/70 px-4 py-5 sm:px-6">
+            <div className="ai-chat-messages relative z-10 max-h-[620px] space-y-5 overflow-y-auto bg-slate-50/70 px-4 py-5 sm:px-6">
               {!messages.length && <div className="flex items-start gap-3"><span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-700"><Bot size={19} /></span><div><p className="text-sm font-bold text-slate-800">Lumi — sənin iş yoldaşın</p><p className="mt-1 max-w-2xl text-sm leading-6 text-slate-600 sm:text-[15px]">Freelancer və layihələri təbii dildə axtar, portfolio mətnini yarat və ya redaktə et, müraciət hazırla, briefini analiz et.</p></div></div>}
               {!messages.length && <div className="flex flex-wrap gap-2 pl-12">
                 {starterPrompts.map(({ text, mode: nextMode, icon: Icon }) => <button key={text} type="button" onClick={() => choosePrompt(text, nextMode)} className="group inline-flex min-h-9 items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-left text-xs font-semibold text-slate-600 transition hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-800 sm:text-[13px]"><Icon size={14} className="shrink-0 text-blue-600" />{text}<ArrowUpRight size={13} className="ml-1 text-slate-400" /></button>)}
@@ -310,7 +347,7 @@ export default function AnaSayfa() {
               {error && <p className="ml-11 rounded-lg bg-amber-50 p-3 text-sm text-amber-800">{error}</p>}
             </div>
 
-            <form onSubmit={runSearch} className="border-t border-slate-200 bg-white p-3 sm:p-4">
+            <form onSubmit={runSearch} className="relative z-10 border-t border-slate-200 bg-white/90 p-3 sm:p-4">
               <div className="mb-3 flex flex-wrap gap-2" aria-label="AI aləti">{assistantTools.map(({ id, label, icon: Icon }) => <button key={id} type="button" onClick={() => setMode(id)} aria-pressed={mode === id} className={`inline-flex min-h-9 items-center gap-2 rounded-lg px-3 text-xs font-bold transition ${mode === id ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-600 hover:bg-blue-50 hover:text-blue-800'}`}><Icon size={14} />{label}</button>)}</div>
               <label htmlFor="ai-search" className="mb-2 block px-1 text-xs font-bold text-slate-700">Lumi-yə yaz</label>
               <div className="flex items-end gap-2">

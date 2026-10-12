@@ -2,6 +2,7 @@ import { ALL_CATEGORY_OPTIONS } from '../lib/categoryOptions.js';
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { TiltCard } from '../components/Effects.jsx';
+import { SpotlightCard } from '../components/ui/spotlight-card.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 import { api } from '../lib/api.js';
 import CommentActions from '../components/CommentActions.jsx';
@@ -184,7 +185,7 @@ export default function Tapsiriqlar() {
         description: profile.about || 'Profil məlumatı əlavə edilməyib.',
         skills: [...new Set([...(profile.activityAreas || []), ...(profile.specialties || []).map((item) => item.category).filter(Boolean)])],
         stats: { ...(profile.stats || {}), views: profile.stats?.projectViews || 0, customerReviews: profile.stats?.customerReviews || { pos: '+0', neg: '-0' }, registration: profile.createdAt || '', lastActive: profile.status || 'Aktiv' },
-        coverImage: profile.bannerUrl || 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1200',
+        coverImage: profile.bannerUrl || null,
         portfolio: profile.projects || [],
       })));
     } catch {
@@ -636,7 +637,8 @@ export default function Tapsiriqlar() {
 
                   <div className="space-y-4 mt-6">
                     {visibleTasks.map((task) => (
-                      <div 
+                      <SpotlightCard
+                        as="div"
                         key={task.id} 
                         onClick={() => handleTaskClick(task)}
                         className="premium-card bg-white/80 p-4 sm:p-6 rounded-2xl border border-slate-200 cursor-pointer flex justify-between items-center gap-4"
@@ -658,8 +660,8 @@ export default function Tapsiriqlar() {
                             {task.price} {task.currency}
                           </div>}
                           {task.priceType === 'Razılaşma yolu ilə' ? <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">Razılaşma yolu ilə</div> : <div className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">{formatTaskPriceType(task.priceType)}</div>}
-                        </div>
                       </div>
+                      </SpotlightCard>
                     ))}
                   </div>
                 </div>
@@ -1308,11 +1310,20 @@ export default function Tapsiriqlar() {
                 <div className="glass-panel rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_-20px_rgba(0,0,0,0.1)] relative">
                   {/* Cover Image */}
                   <div className="h-48 md:h-60 w-full relative overflow-hidden group">
-                    <img 
-                      src={selectedFreelancer.coverImage} 
-                      alt="Cover" 
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
+                    {selectedFreelancer.coverImage ? (
+                      <img
+                        src={selectedFreelancer.coverImage}
+                        alt=""
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="relative h-full overflow-hidden bg-[radial-gradient(ellipse_at_75%_30%,rgba(147,112,255,.34),transparent_38%),radial-gradient(ellipse_at_18%_85%,rgba(194,255,103,.16),transparent_35%),linear-gradient(130deg,#111322,#202038)]" aria-hidden="true">
+                        <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(190,182,255,.16)_1px,transparent_1px),linear-gradient(90deg,rgba(190,182,255,.16)_1px,transparent_1px)] [background-size:36px_36px] [mask-image:radial-gradient(ellipse_at_center,#000,transparent_78%)]" />
+                        <div className="absolute left-1/2 top-1/2 grid h-20 w-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-3xl border border-violet-200/25 bg-white/5 text-violet-100 shadow-[0_0_80px_rgba(147,112,255,.22)] backdrop-blur-xl">
+                          <Layout className="h-8 w-8" />
+                        </div>
+                      </div>
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent"></div>
                     <div className="absolute top-4 right-4 bg-black/40 backdrop-blur text-white text-xs font-bold px-3 py-1.5 rounded-lg">
                       {selectedFreelancer.onlineStatus?.isOnline ? 'Onlayn' : 'Offline'}
