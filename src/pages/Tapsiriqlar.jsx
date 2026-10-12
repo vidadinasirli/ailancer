@@ -575,14 +575,14 @@ export default function Tapsiriqlar() {
         }
       `}</style>
 
-      <main className="flex-grow max-w-[1440px] mx-auto px-2 sm:px-4 lg:px-5 py-6 w-full relative z-10">
+      <main className="ai-marketplace-page ai-tasks-page flex-grow max-w-[1440px] mx-auto px-2 sm:px-4 lg:px-5 py-6 w-full relative z-10">
         
         {/* VIEW: TASKS */}
         {currentView === 'tasks' && (
           !selectedTask ? (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 animate-in fade-in duration-500">
               <div className="lg:col-span-8 space-y-6">
-                <div className="glass-panel rounded-3xl p-6 shadow-[0_15px_40px_-15px_rgba(0,0,0,0.05)] relative z-30 overflow-visible">
+                <div className="ai-task-list-header glass-panel rounded-3xl p-6 shadow-[0_15px_40px_-15px_rgba(0,0,0,0.05)] relative z-30 overflow-visible">
                   <div className="flex items-center justify-between mb-6 gap-4 flex-wrap">
                     <div>
                       <h1 className="text-2xl sm:text-3xl font-black text-slate-900">İş Elanları</h1>
@@ -598,7 +598,7 @@ export default function Tapsiriqlar() {
                     )}
                   </div>
 
-                  <div className="flex w-full bg-white/90 backdrop-blur border border-slate-200/80 rounded-2xl overflow-visible focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500 transition-all shadow-sm group relative z-50">
+                  <div className="ai-task-search-bar flex w-full bg-white/90 backdrop-blur border border-slate-200/80 rounded-2xl overflow-visible focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500 transition-all shadow-sm group relative z-50">
                     <div className="flex items-center pl-4 pr-2 text-slate-400 group-focus-within:text-blue-500 transition-colors">
                       <Search className="w-5 h-5" />
                     </div>
@@ -629,7 +629,7 @@ export default function Tapsiriqlar() {
                     </div>
                   )}
                   {!tasksLoading && tasksError && (
-                    <div className="p-4 rounded-xl bg-red-50 text-red-700 font-medium text-sm">{tasksError}</div>
+                    <div className="ai-marketplace-error p-4 rounded-xl bg-red-50 text-red-700 font-medium text-sm">{tasksError}</div>
                   )}
                   {!tasksLoading && !tasksError && tasks.length === 0 && (
                     <div className="p-10 text-center text-slate-400">Hələ heç bir tapşırıq yoxdur.</div>

@@ -42,8 +42,8 @@ export default function LayiheDetay() {
     const timer = window.setTimeout(() => document.getElementById(location.hash.slice(1))?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 0);
     return () => window.clearTimeout(timer);
   }, [project?.id, location.hash]);
-  if (error) return <div className="min-h-screen pt-32 text-center text-red-600">{error}</div>;
-  if (!project) return <div className="min-h-screen pt-32 text-center text-slate-400">Layihə yüklənir...</div>;
+  if (error) return <div className="ai-project-detail min-h-screen pt-32 text-center text-red-600">{error}</div>;
+  if (!project) return <div className="ai-project-detail min-h-screen pt-32 text-center text-slate-400">Layihə yüklənir...</div>;
   const like = async () => {
     const result = await api.likeProject(project.id);
     setProject({ ...project, likes: result.likes, liked: result.liked });
@@ -96,10 +96,10 @@ export default function LayiheDetay() {
   const mediaUrls = Array.isArray(project.mediaUrls) && project.mediaUrls.length
     ? project.mediaUrls
     : [project.image || project.imageUrl].filter(Boolean);
-  return <div className="min-h-screen bg-[#F8FAFC] pt-28 pb-20 px-4"><main className="max-w-5xl mx-auto">
-    <button onClick={() => navigate('/layiheler')} className="flex items-center gap-2 text-slate-600 font-semibold mb-6"><ArrowLeft className="w-5 h-5" /> Layihələrə qayıt</button>
-    <article className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm grid lg:grid-cols-2">
-      <div className="w-full min-h-[520px] bg-gradient-to-br from-blue-100 via-cyan-50 to-indigo-100 p-5 sm:p-8 space-y-6">
+  return <div className="ai-project-detail min-h-screen bg-[#F8FAFC] pt-28 pb-20 px-4"><main className="max-w-6xl mx-auto">
+    <button onClick={() => navigate('/layiheler')} className="ai-detail-back flex items-center gap-2 text-slate-600 font-semibold mb-6"><ArrowLeft className="w-5 h-5" /> Layihələrə qayıt</button>
+    <article className="ai-detail-shell bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm grid lg:grid-cols-2">
+      <div className="ai-detail-gallery w-full min-h-[520px] bg-gradient-to-br from-blue-100 via-cyan-50 to-indigo-100 p-5 sm:p-8 space-y-6">
         {mediaUrls.map((url) => /\.(mp4|webm|mov|ogg)(\?|$)/i.test(url) ? (
           <video key={url} src={url} title={project.title} controls playsInline className="w-full max-h-[720px] object-contain rounded-2xl bg-slate-950/10" />
         ) : (
@@ -107,9 +107,9 @@ export default function LayiheDetay() {
         ))}
         {!mediaUrls.length && <p className="m-auto text-sm font-medium text-slate-500">Bu layihə üçün şəkil əlavə edilməyib.</p>}
       </div>
-      <div className="p-7 sm:p-10"><div className="flex items-start justify-between gap-4"><span className="text-sm text-blue-600 font-bold">{project.category}</span><div className="flex gap-2"><button type="button" onClick={share} title="Layihəni paylaş" className="p-2 rounded-lg border border-slate-200 text-slate-500 hover:text-blue-600 hover:border-blue-200"><Share2 className="w-4 h-4" /></button><button type="button" onClick={() => navigate(`/sikayet?project=${encodeURIComponent(project.title)}&projectId=${project.id}`)} title="Layihəni şikayət et" className="p-2 rounded-lg border border-slate-200 text-slate-500 hover:text-orange-600 hover:border-orange-200"><Flag className="w-4 h-4" /></button></div></div><h1 className="text-3xl font-black text-slate-900 mt-3">{project.title}</h1><p className="text-slate-500 mt-2">Hazırlayan: {project.author}</p>{project.isDemo && <span className="mt-2 inline-block rounded-full bg-violet-100 px-2.5 py-1 text-[10px] font-bold text-violet-800">{project.demoLabel || 'Demo hesabı'}</span>}<p className="text-slate-700 leading-relaxed mt-8 whitespace-pre-wrap">{project.description}</p><div className="flex gap-4 mt-8 text-sm text-slate-500"><span><Eye className="inline w-4 h-4" /> {project.views}</span><button onClick={like} className={`flex items-center gap-1 ${project.liked ? 'text-red-500' : 'hover:text-red-500'}`}><Heart className="w-4 h-4" fill={project.liked ? 'currentColor' : 'none'} /> {project.likes}</button><span><MessageCircle className="inline w-4 h-4" /> {project.commentsList?.length || 0}</span></div>{notice && <p role="status" className="mt-4 text-sm font-semibold text-blue-600">{notice}</p>}</div>
+      <div className="ai-detail-copy p-7 sm:p-10"><div className="flex items-start justify-between gap-4"><span className="ai-detail-category text-sm text-blue-600 font-bold">{project.category}</span><div className="flex gap-2"><button type="button" onClick={share} title="Layihəni paylaş" className="ai-detail-icon-button p-2 rounded-lg border border-slate-200 text-slate-500 hover:text-blue-600 hover:border-blue-200"><Share2 className="w-4 h-4" /></button><button type="button" onClick={() => navigate(`/sikayet?project=${encodeURIComponent(project.title)}&projectId=${project.id}`)} title="Layihəni şikayət et" className="ai-detail-icon-button p-2 rounded-lg border border-slate-200 text-slate-500 hover:text-orange-600 hover:border-orange-200"><Flag className="w-4 h-4" /></button></div></div><h1 className="text-3xl font-black text-slate-900 mt-3">{project.title}</h1><p className="text-slate-500 mt-2">Hazırlayan: {project.author}</p>{project.isDemo && <span className="mt-2 inline-block rounded-full bg-violet-100 px-2.5 py-1 text-[10px] font-bold text-violet-800">{project.demoLabel || 'Demo hesabı'}</span>}<p className="text-slate-700 leading-relaxed mt-8 whitespace-pre-wrap">{project.description}</p><div className="ai-detail-stats flex gap-4 mt-8 text-sm text-slate-500"><span><Eye className="inline w-4 h-4" /> {project.views}</span><button onClick={like} className={`flex items-center gap-1 ${project.liked ? 'text-red-500' : 'hover:text-red-500'}`}><Heart className="w-4 h-4" fill={project.liked ? 'currentColor' : 'none'} /> {project.likes}</button><span><MessageCircle className="inline w-4 h-4" /> {project.commentsList?.length || 0}</span></div>{notice && <p role="status" className="mt-4 text-sm font-semibold text-blue-600">{notice}</p>}</div>
     </article>
-    <section className="mt-6 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8">
+    <section className="ai-detail-comments mt-6 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8">
       <h2 className="text-xl font-black text-slate-900 flex items-center gap-2"><MessageCircle className="w-5 h-5 text-blue-600" /> Şərhlər</h2>
       <div className="flex gap-3 mt-5">
         <input value={commentText} onChange={(event) => setCommentText(event.target.value)} placeholder="Layihə haqqında fikrinizi yazın..." className="flex-1 rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-500" />

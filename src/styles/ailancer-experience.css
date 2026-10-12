@@ -924,3 +924,292 @@
     transition: none;
   }
 }
+
+.ailancer-shell .ai-marketplace-page {
+  background:
+    radial-gradient(ellipse at 85% 2%, rgb(121 91 232 / 9%), transparent 32%),
+    linear-gradient(180deg, #0b0c14, #0a0b12 72%);
+}
+
+.ailancer-shell .ai-marketplace-page > main {
+  padding-top: clamp(2rem, 5vw, 4rem);
+  padding-bottom: clamp(3rem, 7vw, 6rem);
+}
+
+.ailancer-shell .ai-marketplace-page :is(.ai-task-list-header, .ai-projects-page header) {
+  border: 1px solid rgb(182 166 255 / 16%);
+  background:
+    radial-gradient(ellipse at 92% 0%, rgb(120 92 231 / 12%), transparent 38%),
+    linear-gradient(135deg, rgb(23 23 39 / 96%), rgb(13 15 25 / 95%));
+  box-shadow: 0 30px 90px -62px rgb(127 100 255 / 48%), inset 0 1px rgb(255 255 255 / 5%);
+  backdrop-filter: blur(22px);
+}
+
+.ailancer-shell .ai-marketplace-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.ailancer-shell .ai-marketplace-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #c4b7ff;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.ailancer-shell .ai-marketplace-eyebrow svg { color: var(--experience-lime); }
+
+.ailancer-shell .ai-marketplace-count {
+  color: #b9a7ff;
+  font-size: .7em;
+  font-weight: 750;
+}
+
+.ailancer-shell .ai-marketplace-live {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 12px;
+  border: 1px solid rgb(194 255 103 / 17%);
+  border-radius: 999px;
+  background: rgb(194 255 103 / 5%);
+  color: #d0efac;
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.ailancer-shell .ai-marketplace-live > span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--experience-lime);
+  box-shadow: 0 0 14px rgb(194 255 103 / 65%);
+}
+
+.ailancer-shell .ai-marketplace-page input:not([type="checkbox"]),
+.ailancer-shell .ai-marketplace-page textarea,
+.ailancer-shell .ai-project-detail input {
+  border-color: rgb(182 166 255 / 19%);
+  background-color: rgb(8 10 17 / 78%);
+  color: #f2efff;
+}
+
+.ailancer-shell .ai-marketplace-page input::placeholder,
+.ailancer-shell .ai-project-detail input::placeholder { color: #85869a; }
+
+.ailancer-shell .ai-projects-page .ai-project-card {
+  border-color: rgb(182 166 255 / 15%);
+  background:
+    linear-gradient(145deg, rgb(25 24 41 / 97%), rgb(13 15 25 / 98%));
+  box-shadow: 0 22px 65px -48px rgb(0 0 0 / 90%), inset 0 1px rgb(255 255 255 / 4%);
+}
+
+.ailancer-shell .ai-projects-page .ai-project-card:hover {
+  border-color: rgb(194 255 103 / 28%);
+  box-shadow: 0 30px 80px -48px rgb(123 99 239 / 52%), inset 0 1px rgb(255 255 255 / 6%);
+}
+
+.ailancer-shell .ai-project-media {
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 72% 26%, rgb(136 106 255 / 26%), transparent 42%),
+    radial-gradient(ellipse at 23% 83%, rgb(92 224 181 / 13%), transparent 38%),
+    linear-gradient(145deg, #11121f, #1a1a30 58%, #111522);
+}
+
+.ailancer-shell .ai-project-media-grid {
+  z-index: 0;
+  background-image:
+    linear-gradient(rgb(194 183 255 / 7%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(194 183 255 / 7%) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse at center, #000 0%, transparent 83%);
+}
+
+.ailancer-shell .ai-project-media-orb {
+  position: absolute;
+  z-index: 0;
+  width: 42%;
+  aspect-ratio: 1;
+  border: 1px solid rgb(190 170 255 / 32%);
+  border-radius: 50%;
+  box-shadow: 0 0 45px rgb(142 115 255 / 12%), inset 0 0 35px rgb(142 115 255 / 8%);
+  transform: rotate(-28deg) scaleY(.55);
+}
+
+.ailancer-shell .ai-project-media-orb-one { animation: ai-orbit-rotate 38s linear infinite; }
+
+.ailancer-shell .ai-project-media-orb-two {
+  width: 60%;
+  border-style: dashed;
+  border-color: rgb(194 255 103 / 22%);
+  animation: ai-orbit-rotate-reverse 52s linear infinite;
+}
+
+.ailancer-shell .ai-project-media-empty {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  color: #e2dcff;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.ailancer-shell .ai-project-media-empty svg {
+  color: var(--experience-lime);
+  filter: drop-shadow(0 0 22px rgb(194 255 103 / 35%));
+}
+
+.ailancer-shell .ai-project-media img,
+.ailancer-shell .ai-project-media video {
+  background: rgb(7 8 14 / 86%);
+}
+
+.ailancer-shell .ai-marketplace-empty {
+  display: grid;
+  min-height: 220px;
+  align-content: center;
+  justify-items: center;
+  gap: 10px;
+  border: 1px dashed rgb(182 166 255 / 24%);
+  border-radius: 24px;
+  background: radial-gradient(ellipse at center, rgb(120 92 231 / 8%), transparent 68%);
+  color: #b8b3c9;
+  text-align: center;
+}
+
+.ailancer-shell .ai-marketplace-empty svg { color: var(--experience-lime); }
+.ailancer-shell .ai-marketplace-empty strong { color: #eeebfb; font-size: 14px; }
+.ailancer-shell .ai-marketplace-empty span { font-size: 11px; }
+
+.ailancer-shell .ai-marketplace-error {
+  border: 1px solid rgb(255 119 137 / 22%);
+  background: rgb(109 30 52 / 22%);
+  color: #ffbdc7;
+}
+
+.ailancer-shell .ai-projects-page aside,
+.ailancer-shell .ai-tasks-page aside {
+  border: 1px solid rgb(182 166 255 / 14%);
+  background: linear-gradient(145deg, rgb(21 22 37 / 97%), rgb(13 15 25 / 96%));
+}
+
+.ailancer-shell .ai-task-list-header h1 {
+  color: #f8f6ff;
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
+  letter-spacing: -.045em;
+}
+
+.ailancer-shell .ai-task-search-bar {
+  border-color: rgb(182 166 255 / 18%);
+  background: rgb(8 10 17 / 80%);
+}
+
+.ailancer-shell .ai-task-search-bar > button:nth-of-type(1) {
+  border-radius: 0 13px 13px 0;
+  background: linear-gradient(110deg, #c2ff67, #96eab7 54%, #b6a2ff);
+  color: #11130e;
+}
+
+.ailancer-shell .ai-tasks-page .premium-card {
+  border-color: rgb(182 166 255 / 15%) !important;
+  background: linear-gradient(145deg, rgb(24 24 41 / 96%), rgb(13 15 25 / 96%));
+  box-shadow: 0 22px 65px -48px rgb(0 0 0 / 92%), inset 0 1px rgb(255 255 255 / 4%);
+}
+
+.ailancer-shell .ai-tasks-page .premium-card:hover {
+  border-color: rgb(194 255 103 / 28%) !important;
+  box-shadow: 0 28px 75px -48px rgb(125 101 243 / 55%), inset 0 1px rgb(255 255 255 / 6%);
+}
+
+.ailancer-shell .ai-project-detail {
+  background:
+    radial-gradient(ellipse at 78% 4%, rgb(121 91 232 / 11%), transparent 36%),
+    linear-gradient(180deg, #0b0c14, #0a0b12 76%);
+}
+
+.ailancer-shell .ai-detail-back {
+  color: #d5caff;
+  transition: color .2s ease, transform .2s ease;
+}
+
+.ailancer-shell .ai-detail-back:hover { color: var(--experience-lime); transform: translateX(-3px); }
+
+.ailancer-shell .ai-detail-shell,
+.ailancer-shell .ai-detail-comments {
+  border-color: rgb(182 166 255 / 17%);
+  background: linear-gradient(145deg, rgb(22 23 38 / 97%), rgb(13 15 25 / 98%));
+  box-shadow: 0 32px 95px -62px rgb(126 99 241 / 58%), inset 0 1px rgb(255 255 255 / 5%);
+}
+
+.ailancer-shell .ai-detail-gallery {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 75% 25%, rgb(135 103 255 / 20%), transparent 44%),
+    radial-gradient(ellipse at 20% 80%, rgb(194 255 103 / 9%), transparent 38%),
+    #0d0f19;
+}
+
+.ailancer-shell .ai-detail-gallery::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background-image: linear-gradient(rgb(194 183 255 / 6%) 1px, transparent 1px), linear-gradient(90deg, rgb(194 183 255 / 6%) 1px, transparent 1px);
+  background-size: 36px 36px;
+  content: '';
+  mask-image: radial-gradient(ellipse at center, #000, transparent 82%);
+}
+
+.ailancer-shell .ai-detail-gallery img,
+.ailancer-shell .ai-detail-gallery video {
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgb(182 166 255 / 14%);
+  background: rgb(6 8 14 / 82%);
+  box-shadow: 0 20px 60px rgb(0 0 0 / 35%);
+}
+
+.ailancer-shell .ai-detail-icon-button {
+  border-color: rgb(182 166 255 / 20%);
+  background: rgb(255 255 255 / 4%);
+  color: #c6bfdc;
+}
+
+.ailancer-shell .ai-detail-category { color: #c6b8ff; }
+.ailancer-shell .ai-detail-stats { color: #aaa7ba; }
+
+.ailancer-shell .ai-detail-comments input {
+  border-color: rgb(182 166 255 / 20%);
+  background: rgb(8 10 17 / 82%);
+  color: #f2efff;
+}
+
+.ailancer-shell .ai-detail-comments input::placeholder { color: #85869a; }
+
+@media (max-width: 640px) {
+  .ailancer-shell .ai-marketplace-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ailancer-shell .ai-marketplace-live { align-self: flex-start; }
+  .ailancer-shell .ai-projects-page header { padding: 20px; }
+  .ailancer-shell .ai-detail-gallery { min-height: 300px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ailancer-shell .ai-project-media-orb { animation: none; }
+}
