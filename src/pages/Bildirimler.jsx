@@ -28,9 +28,9 @@ export default function Bildirimler() {
       window.clearInterval(interval);
     };
   }, [user]);
-  if (!user) return <div className="min-h-screen pt-32 text-center text-slate-500">Bildirişləri görmək üçün daxil olun.</div>;
+  if (!user) return <div className="ai-notifications-page min-h-screen pt-32 text-center text-slate-500">Bildirişləri görmək üçün daxil olun.</div>;
   return (
-    <div className="min-h-screen bg-[#F8FAFC] pt-28 pb-20 px-4">
+    <div className="ai-notifications-page min-h-screen bg-[#F8FAFC] pt-28 pb-20 px-4">
       <main className="max-w-3xl mx-auto">
         <div className="flex items-center gap-3 mb-8"><div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center"><Bell /></div><div><h1 className="text-3xl font-black text-slate-900">Bildirişlər</h1><p className="text-slate-500">Qəbul edilmiş tapşırıqlar, mesajlar və izləmələr</p></div></div>
         {error && <p className="mb-4 p-3 rounded-xl bg-red-50 text-red-700">{error}</p>}

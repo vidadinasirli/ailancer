@@ -147,7 +147,7 @@ export default function Kabinet() {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-[#F3F4F6] pt-28 pb-20 px-4 md:px-8 font-sans">
+    <div className="ai-dashboard-page min-h-screen bg-[#F3F4F6] pt-28 pb-20 px-4 md:px-8 font-sans">
       <style>{`
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .fade-tab { animation: fadeInUp 0.35s cubic-bezier(0.16,1,0.3,1); }
@@ -155,12 +155,12 @@ export default function Kabinet() {
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
 
-      <div className="max-w-[1200px] mx-auto">
+      <div className="ai-dashboard-content max-w-[1200px] mx-auto">
         <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-8 tracking-tight">Kabinet</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* SIDEBAR */}
-          <aside className="lg:col-span-4 space-y-4 sticky top-28 self-start">
+          <aside className="ai-dashboard-sidebar lg:col-span-4 space-y-4 sticky top-28 self-start">
             <SidebarGroup title="Kabinet">
               {DASHBOARD_SUBTABS.map((sub) => (
                 <SidebarButton
@@ -198,7 +198,7 @@ export default function Kabinet() {
           </aside>
 
           {/* MAIN */}
-          <main className="lg:col-span-8">
+          <main className="ai-dashboard-main lg:col-span-8">
             {activeTab === 'dashboard' && (
               <div key="dashboard" className="fade-tab bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
                 <div className="flex flex-wrap items-center justify-between p-6 border-b border-slate-200 bg-slate-50/50">

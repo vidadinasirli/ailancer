@@ -1516,3 +1516,154 @@
 @media (prefers-reduced-motion: reduce) {
   .ailancer-shell .ai-project-media-orb { animation: none; }
 }
+
+.ailancer-shell .ai-dashboard-page,
+.ailancer-shell .ai-notifications-page,
+.ailancer-shell .ai-credentials-page {
+  background:
+    radial-gradient(ellipse at 50% -14%, rgb(112 91 206 / 15%), transparent 46%),
+    #090a12;
+  color: #f4f2ff;
+}
+
+.ailancer-shell .ai-dashboard-content { max-width: 1320px; }
+.ailancer-shell .ai-dashboard-page h1 { color: #f5f2ff; }
+
+.ailancer-shell .ai-dashboard-page :is(.bg-white, .bg-slate-50, .bg-slate-50\/50, .bg-slate-100, .bg-blue-50\/30) {
+  background-color: rgb(255 255 255 / 3%) !important;
+}
+
+.ailancer-shell .ai-dashboard-page :is(.border-slate-100, .border-slate-200, .divide-slate-100 > :not([hidden]) ~ :not([hidden])) {
+  border-color: rgb(176 190 255 / 13%) !important;
+}
+
+.ailancer-shell .ai-dashboard-page :is(.text-slate-900, .text-slate-800, .text-slate-700) { color: #eeecfb !important; }
+.ailancer-shell .ai-dashboard-page :is(.text-slate-600, .text-slate-500, .text-slate-400) { color: #a6aec2 !important; }
+
+.ailancer-shell .ai-dashboard-sidebar > div,
+.ailancer-shell .ai-dashboard-main > div,
+.ailancer-shell .ai-dashboard-main section,
+.ailancer-shell .ai-dashboard-main form {
+  border-color: rgb(176 190 255 / 14%) !important;
+  background: linear-gradient(145deg, rgb(20 22 37 / 97%), rgb(13 15 25 / 97%)) !important;
+  box-shadow: 0 22px 70px rgb(0 0 0 / 22%), inset 0 1px rgb(255 255 255 / 4%);
+}
+
+.ailancer-shell .ai-dashboard-sidebar > div > div:first-child {
+  background: rgb(255 255 255 / 3%) !important;
+}
+
+.ailancer-shell .ai-dashboard-sidebar button { transition: background .2s ease, color .2s ease; }
+.ailancer-shell .ai-dashboard-sidebar button:hover { background: rgb(169 148 255 / 8%) !important; }
+.ailancer-shell .ai-dashboard-sidebar button[class*="border-blue-500"] {
+  border-left-color: var(--experience-lime) !important;
+  background: rgb(169 148 255 / 10%) !important;
+  color: #e6e0ff !important;
+}
+
+.ailancer-shell .ai-dashboard-page .fade-tab > :is(div, section) { border-color: rgb(176 190 255 / 14%); }
+.ailancer-shell .ai-dashboard-page input:not([type="checkbox"]),
+.ailancer-shell .ai-dashboard-page textarea,
+.ailancer-shell .ai-dashboard-page select {
+  border-color: rgb(184 184 225 / 17%) !important;
+  background-color: rgb(255 255 255 / 4%) !important;
+  color: #f2efff !important;
+}
+
+.ailancer-shell .ai-dashboard-page :is(input, textarea)::placeholder { color: #787d93 !important; }
+.ailancer-shell .ai-dashboard-page input:focus,
+.ailancer-shell .ai-dashboard-page textarea:focus,
+.ailancer-shell .ai-dashboard-page select:focus {
+  border-color: rgb(181 160 255 / 65%) !important;
+  box-shadow: 0 0 0 3px rgb(164 142 255 / 12%);
+}
+
+.ailancer-shell .ai-dashboard-page button.bg-blue-600,
+.ailancer-shell .ai-dashboard-page button.bg-blue-700 {
+  border-color: transparent;
+  background: linear-gradient(110deg, #c2ff67, #91e2b5) !important;
+  color: #10130f !important;
+}
+
+.ailancer-shell .ai-dashboard-page button[class*="text-blue-"],
+.ailancer-shell .ai-dashboard-page a.text-blue-700 { color: #c2ff67 !important; }
+.ailancer-shell .ai-dashboard-page .text-blue-600 { color: #c2ff67 !important; }
+.ailancer-shell .ai-dashboard-page .bg-blue-50 { background: rgb(169 148 255 / 10%) !important; }
+.ailancer-shell .ai-dashboard-page .bg-red-50 { background: rgb(255 100 124 / 9%) !important; }
+.ailancer-shell .ai-dashboard-page .bg-green-50 { background: rgb(194 255 103 / 8%) !important; }
+
+.ailancer-shell .ai-notifications-page main > div:first-child > div:first-child {
+  border: 1px solid rgb(194 255 103 / 25%);
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgb(194 255 103 / 13%), rgb(169 148 255 / 16%));
+  color: var(--experience-lime);
+}
+
+.ailancer-shell .ai-notifications-page h1,
+.ailancer-shell .ai-notifications-page h2 { color: #f2efff; }
+.ailancer-shell .ai-notifications-page p { color: #aeb2c7; }
+.ailancer-shell .ai-notifications-page article,
+.ailancer-shell .ai-notifications-page main > div:last-child > div {
+  border-color: rgb(176 190 255 / 14%) !important;
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgb(20 22 37 / 97%), rgb(13 15 25 / 97%)) !important;
+  box-shadow: 0 18px 54px rgb(0 0 0 / 17%);
+}
+
+.ailancer-shell .ai-notifications-page article.border-blue-300 {
+  border-color: rgb(194 255 103 / 28%) !important;
+  background: linear-gradient(110deg, rgb(194 255 103 / 5%), rgb(169 148 255 / 7%)) !important;
+}
+
+.ailancer-shell .ai-notifications-page .text-blue-600 { color: var(--experience-lime) !important; }
+.ailancer-shell .ai-notifications-page .bg-red-100 { background: rgb(255 100 124 / 13%) !important; }
+.ailancer-shell .ai-notifications-page .text-red-700 { color: #ffabb8 !important; }
+.ailancer-shell .ai-notifications-page .bg-red-50 { background: rgb(255 100 124 / 8%) !important; }
+
+.ailancer-shell .ai-credentials-page h1,
+.ailancer-shell .ai-credentials-page h2,
+.ailancer-shell .ai-credentials-page h3 { color: #f2efff; }
+
+.ailancer-shell .ai-credentials-page :is(.text-slate-800, .text-slate-700, .text-slate-600) { color: #d2cee2 !important; }
+.ailancer-shell .ai-credentials-page :is(.text-slate-500, .text-slate-400) { color: #a6aec2 !important; }
+.ailancer-shell .ai-credentials-page :is(.border-slate-100, .border-slate-200) { border-color: rgb(176 190 255 / 14%) !important; }
+.ailancer-shell .ai-credentials-page :is(.bg-white, .bg-slate-50, .bg-slate-100, .bg-blue-50) { background-color: rgb(255 255 255 / 4%) !important; }
+
+.ailancer-shell .ai-credentials-page section,
+.ailancer-shell .ai-credentials-page form {
+  border-color: rgb(176 190 255 / 14%) !important;
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgb(20 22 37 / 97%), rgb(13 15 25 / 97%)) !important;
+  box-shadow: 0 20px 60px rgb(0 0 0 / 20%);
+}
+
+.ailancer-shell .ai-credentials-page input:not([type="checkbox"]),
+.ailancer-shell .ai-credentials-page textarea,
+.ailancer-shell .ai-credentials-page select {
+  border-color: rgb(184 184 225 / 17%) !important;
+  background-color: rgb(255 255 255 / 4%) !important;
+  color: #f2efff !important;
+}
+
+.ailancer-shell .ai-credentials-page input::placeholder,
+.ailancer-shell .ai-credentials-page textarea::placeholder { color: #787d93 !important; }
+.ailancer-shell .ai-credentials-page button.bg-blue-600 {
+  background: linear-gradient(110deg, #c2ff67, #91e2b5) !important;
+  color: #10130f !important;
+}
+
+.ailancer-shell .ai-credentials-page .text-blue-600,
+.ailancer-shell .ai-credentials-page .text-blue-700 { color: var(--experience-lime) !important; }
+.ailancer-shell .ai-credentials-page .bg-blue-50 { color: var(--experience-lime) !important; }
+
+@media (max-width: 1023px) {
+  .ailancer-shell .ai-dashboard-sidebar { position: static; }
+}
+
+@media (max-width: 640px) {
+  .ailancer-shell .ai-dashboard-page { padding-inline: 14px; }
+  .ailancer-shell .ai-dashboard-page .fade-tab > div,
+  .ailancer-shell .ai-dashboard-page .fade-tab > form { padding: 20px; }
+  .ailancer-shell .ai-notifications-page article { padding: 16px; }
+  .ailancer-shell .ai-credentials-page main { padding-inline: 0; }
+}
