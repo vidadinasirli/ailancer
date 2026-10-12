@@ -51,40 +51,40 @@ export default function Giris() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-24 pb-12 px-4 flex items-center justify-center relative overflow-hidden">
+    <div className="ai-auth-page min-h-screen bg-slate-50 pt-24 pb-12 px-4 flex items-center justify-center relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-400/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-indigo-500/20 rounded-full blur-[100px] translate-y-1/3 -translate-x-1/4 pointer-events-none"></div>
 
-      <div className="w-full max-w-5xl bg-white/70 backdrop-blur-2xl rounded-[2.5rem] shadow-2xl border border-white overflow-hidden grid grid-cols-1 md:grid-cols-2 relative z-10">
+      <div className="ai-auth-shell w-full max-w-5xl bg-white/70 backdrop-blur-2xl rounded-[2.5rem] shadow-2xl border border-white overflow-hidden grid grid-cols-1 md:grid-cols-2 relative z-10">
 
-        <div className="bg-slate-900 p-12 text-white relative overflow-hidden hidden md:flex flex-col justify-between">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/30 to-transparent z-0"></div>
+        <div className="ai-auth-visual bg-slate-900 p-12 text-white relative overflow-hidden hidden md:flex flex-col justify-between">
+          <div className="ai-auth-grid absolute inset-0 z-0" />
           <div className="absolute -top-20 -left-20 w-64 h-64 border border-white/10 rounded-full"></div>
           <div className="absolute top-40 -right-20 w-40 h-40 border border-white/10 rounded-full"></div>
 
           <div className="relative z-10">
-            <h2 className="text-4xl font-black mb-4 leading-tight">
-              Gələcəyin <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">İş Dünyasına</span><br/>
-              Addım Atın.
+            <span className="ai-auth-eyebrow"><span /> Ailancer platforması</span>
+            <h2 className="mt-5 text-4xl font-black mb-4 leading-tight">
+              Bacarığını <br/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">imkana çevir.</span>
             </h2>
-            <p className="text-slate-400">Minlərlə peşəkar freelancer və bizneslər sizi gözləyir.</p>
+            <p className="text-slate-400">İşini paylaş, uyğun insanları tap və platformada növbəti addımı at.</p>
           </div>
 
-          <div className="relative z-10 w-full aspect-square flex items-center justify-center perspective-[1000px]">
-             <div className="w-64 h-64 bg-gradient-to-tr from-blue-600 to-indigo-500 rounded-3xl shadow-[0_20px_50px_rgba(37,99,235,0.4)] border border-blue-400/30 flex items-center justify-center transform-gpu animate-[spin_15s_linear_infinite] hover:[animation-play-state:paused]">
-               <div className="w-[98%] h-[98%] bg-slate-900 rounded-[22px] flex items-center justify-center">
-                  <ShieldCheck className="w-24 h-24 text-blue-400 opacity-80" />
-               </div>
-             </div>
+          <div className="ai-auth-orb-stage relative z-10 w-full aspect-square flex items-center justify-center">
+             <div className="ai-auth-orb-ring ai-auth-orb-ring-one" />
+             <div className="ai-auth-orb-ring ai-auth-orb-ring-two" />
+             <div className="ai-auth-orb"><ShieldCheck className="w-16 h-16 text-white opacity-90" /></div>
+             <span className="ai-auth-orb-chip ai-auth-orb-chip-one"><Briefcase size={14} /> Bacarıqlar</span>
+             <span className="ai-auth-orb-chip ai-auth-orb-chip-two"><ArrowRight size={14} /> Yeni imkanlar</span>
           </div>
 
-          <div className="relative z-10 text-sm text-slate-500">
-            © 2026 Ailancer
+          <div className="relative z-10 flex items-center gap-2 text-xs text-slate-400">
+            <ShieldCheck size={15} /> Hesabın və qərarların sənə aiddir
           </div>
         </div>
 
-        <div className="p-10 md:p-16 flex flex-col justify-center">
+        <div className="ai-auth-form-pane p-10 md:p-16 flex flex-col justify-center">
           <div className="mb-8 text-center md:text-left">
             <h2 className="text-3xl font-extrabold text-slate-900 mb-2">
               {isLogin ? 'Xoş Gəlmisiniz!' : 'Hesab Yarat'}
@@ -94,7 +94,7 @@ export default function Giris() {
             </p>
           </div>
 
-          <div className="flex bg-slate-100 p-1 rounded-xl mb-6 relative">
+          <div className="ai-auth-mode-switch flex bg-slate-100 p-1 rounded-xl mb-6 relative">
             <div
               className={`absolute top-1 bottom-1 w-[calc(50%-4px)] bg-white rounded-lg shadow transition-all duration-300 ease-out ${isLogin ? 'left-1' : 'left-[calc(50%+3px)]'}`}
             ></div>

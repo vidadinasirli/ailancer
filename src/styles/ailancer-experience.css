@@ -1099,6 +1099,309 @@
   color: #ffbdc7;
 }
 
+.ailancer-shell .ai-auth-page {
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgb(113 91 221 / 14%), transparent 42%),
+    #090a12;
+  color: #f6f5ff;
+}
+
+.ailancer-shell .ai-auth-page > .pointer-events-none {
+  opacity: .45;
+  background: radial-gradient(circle, rgb(174 146 255 / 23%), transparent 68%);
+}
+
+.ailancer-shell .ai-auth-shell {
+  border: 1px solid rgb(192 185 255 / 17%);
+  border-radius: 32px;
+  background: rgb(16 18 30 / 94%);
+  box-shadow: 0 35px 120px rgb(0 0 0 / 55%), inset 0 1px rgb(255 255 255 / 5%);
+  backdrop-filter: blur(24px);
+}
+
+.ailancer-shell .ai-auth-visual {
+  min-height: 660px;
+  background:
+    radial-gradient(ellipse at 48% 60%, rgb(132 112 255 / 15%), transparent 44%),
+    linear-gradient(150deg, #17162a 0%, #10111d 58%, #111725 100%);
+}
+
+.ailancer-shell .ai-auth-grid {
+  background-image:
+    linear-gradient(rgb(185 177 255 / 5%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(185 177 255 / 5%) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: radial-gradient(ellipse at 50% 50%, #000 8%, transparent 78%);
+}
+
+.ailancer-shell .ai-auth-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #c6ff7e;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+.ailancer-shell .ai-auth-eyebrow > span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #c2ff67;
+  box-shadow: 0 0 15px rgb(194 255 103 / 80%);
+}
+
+.ailancer-shell .ai-auth-orb-stage {
+  min-height: 260px;
+  perspective: 900px;
+}
+
+.ailancer-shell .ai-auth-orb {
+  z-index: 1;
+  display: grid;
+  width: 150px;
+  height: 150px;
+  place-items: center;
+  border: 1px solid rgb(214 208 255 / 32%);
+  border-radius: 38px;
+  background:
+    radial-gradient(circle at 32% 24%, rgb(255 255 255 / 30%), transparent 34%),
+    linear-gradient(145deg, #a997ff 0%, #6d5be0 48%, #29365f 100%);
+  box-shadow: 0 30px 70px rgb(75 57 172 / 45%), inset 0 1px rgb(255 255 255 / 45%);
+  transform: rotateX(12deg) rotateY(-16deg) rotateZ(-6deg);
+  animation: auth-orb-float 6s ease-in-out infinite;
+}
+
+.ailancer-shell .ai-auth-orb-ring {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border: 1px solid rgb(190 174 255 / 20%);
+  border-radius: 50%;
+  transform: rotateX(66deg) rotateZ(-26deg);
+}
+
+.ailancer-shell .ai-auth-orb-ring-one {
+  box-shadow: 0 0 35px rgb(150 121 255 / 13%);
+}
+
+.ailancer-shell .ai-auth-orb-ring-two {
+  width: 310px;
+  height: 310px;
+  border-color: rgb(195 255 103 / 13%);
+  transform: rotateX(66deg) rotateZ(35deg);
+}
+
+.ailancer-shell .ai-auth-orb-chip {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 12px;
+  border: 1px solid rgb(212 205 255 / 17%);
+  border-radius: 12px;
+  background: rgb(26 26 44 / 82%);
+  box-shadow: 0 14px 36px rgb(0 0 0 / 28%);
+  color: #e8e4ff;
+  font-size: 11px;
+  font-weight: 700;
+  backdrop-filter: blur(14px);
+}
+
+.ailancer-shell .ai-auth-orb-chip svg { color: var(--experience-lime); }
+.ailancer-shell .ai-auth-orb-chip-one { top: 20%; left: 8%; }
+.ailancer-shell .ai-auth-orb-chip-two { right: 4%; bottom: 20%; }
+
+.ailancer-shell .ai-auth-form-pane {
+  background:
+    radial-gradient(ellipse at 100% 0%, rgb(155 140 255 / 7%), transparent 42%),
+    #11131f;
+}
+
+.ailancer-shell .ai-auth-form-pane h2 { color: #f6f5ff !important; }
+.ailancer-shell .ai-auth-form-pane p,
+.ailancer-shell .ai-auth-form-pane label { color: #afb3c7 !important; }
+
+.ailancer-shell .ai-auth-form-pane input:not([type="checkbox"]),
+.ailancer-shell .ai-auth-form-pane select {
+  border-color: rgb(184 184 225 / 16%) !important;
+  background: rgb(255 255 255 / 4%) !important;
+  color: #f5f3ff !important;
+}
+
+.ailancer-shell .ai-auth-form-pane input::placeholder { color: #787d93 !important; }
+.ailancer-shell .ai-auth-form-pane input:focus,
+.ailancer-shell .ai-auth-form-pane select:focus {
+  border-color: rgb(179 158 255 / 65%) !important;
+  box-shadow: 0 0 0 3px rgb(164 142 255 / 12%);
+}
+
+.ailancer-shell .ai-auth-mode-switch {
+  border: 1px solid rgb(184 184 225 / 12%);
+  background: rgb(255 255 255 / 4%);
+}
+
+.ailancer-shell .ai-auth-mode-switch > div {
+  border: 1px solid rgb(194 180 255 / 15%);
+  background: linear-gradient(120deg, rgb(178 160 255 / 18%), rgb(194 255 103 / 8%));
+  box-shadow: none;
+}
+
+.ailancer-shell .ai-auth-mode-switch button { color: #aaaec1 !important; }
+.ailancer-shell .ai-auth-mode-switch button.text-slate-900 { color: #f6f5ff !important; }
+.ailancer-shell .ai-auth-form-pane button[class*="border-blue-600"] {
+  border-color: rgb(190 171 255 / 60%) !important;
+  background: rgb(165 145 255 / 11%) !important;
+  color: #ddd5ff !important;
+}
+
+.ailancer-shell .ai-auth-form-pane button[class*="border-slate-200"] {
+  border-color: rgb(184 184 225 / 16%) !important;
+  background: rgb(255 255 255 / 3%);
+}
+
+.ailancer-shell .ai-auth-form-pane button[type="submit"] {
+  border: 0;
+  background: linear-gradient(105deg, #c2ff67, #9ae5a5 54%, #87ded1) !important;
+  box-shadow: 0 12px 30px rgb(163 245 132 / 14%);
+  color: #10130f !important;
+}
+
+.ailancer-shell .ai-auth-form-pane button[type="submit"]:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+.ailancer-shell .ai-profile-page {
+  background:
+    radial-gradient(ellipse at 50% -12%, rgb(122 101 220 / 15%), transparent 46%),
+    #090a12;
+  color: #f4f2ff;
+}
+
+.ailancer-shell .ai-profile-content { max-width: 1440px; }
+
+.ailancer-shell .ai-profile-page .glass-panel {
+  border-color: var(--experience-line) !important;
+  background:
+    linear-gradient(145deg, rgb(25 28 44 / 94%), rgb(15 17 29 / 96%)) !important;
+  box-shadow: 0 24px 70px rgb(0 0 0 / 23%), inset 0 1px rgb(255 255 255 / 4%) !important;
+  backdrop-filter: blur(18px);
+}
+
+.ailancer-shell .ai-profile-page .hero-pattern {
+  background-color: #191a2a;
+  background-image:
+    radial-gradient(ellipse at 18% 15%, rgb(185 159 255 / 32%), transparent 37%),
+    radial-gradient(ellipse at 82% 70%, rgb(194 255 103 / 15%), transparent 38%),
+    linear-gradient(135deg, #282348, #171a2a 55%, #202c32);
+  background-size: auto;
+}
+
+.ailancer-shell .ai-profile-page :is(h1, h2, h3, h4, .text-slate-900, .text-slate-800) { color: #f1efff !important; }
+.ailancer-shell .ai-profile-page :is(.text-slate-700, .text-slate-600, .text-slate-500) { color: #aeb2c7 !important; }
+.ailancer-shell .ai-profile-page :is(.border-slate-100, .border-slate-200, .border-slate-200\/60, .border-slate-200\/80) {
+  border-color: rgb(176 190 255 / 13%) !important;
+}
+
+.ailancer-shell .ai-profile-page :is(.bg-white, .bg-white\/70, .bg-slate-50, .bg-slate-100, .bg-slate-100\/80) {
+  background-color: rgb(255 255 255 / 5%) !important;
+}
+
+.ailancer-shell .ai-profile-page :is(input:not([type="checkbox"]), textarea, select) {
+  border-color: rgb(184 184 225 / 19%) !important;
+  background-color: rgb(255 255 255 / 4%) !important;
+  color: #f1efff !important;
+}
+
+.ailancer-shell .ai-profile-page :is(input, textarea)::placeholder { color: #787d93 !important; }
+.ailancer-shell .ai-profile-page button:not([class*="bg-blue-"]):not([class*="text-blue-"]):not([class*="bg-red-"]) {
+  color: #dedbf0;
+}
+
+.ailancer-shell .ai-profile-page .bg-blue-600 {
+  background: linear-gradient(110deg, #c2ff67, #91e2b5) !important;
+  color: #10130f !important;
+}
+
+.ailancer-shell .ai-profile-page .text-blue-600,
+.ailancer-shell .ai-profile-page .text-blue-700 { color: #c2ff67 !important; }
+
+.ailancer-shell .ai-profile-page .ai-portfolio-form {
+  border-radius: 28px;
+}
+
+.ailancer-shell .ai-messages-page {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgb(112 91 206 / 12%), transparent 42%),
+    #090a12;
+  color: #f3f1ff;
+}
+
+.ailancer-shell .ai-message-sidebar,
+.ailancer-shell .ai-message-thread {
+  border-color: var(--experience-line);
+  border-radius: 20px;
+  background: rgb(16 18 30 / 96%);
+  box-shadow: 0 22px 70px rgb(0 0 0 / 28%), inset 0 1px rgb(255 255 255 / 4%);
+}
+
+.ailancer-shell .ai-messages-page :is(header, footer) {
+  border-color: rgb(176 190 255 / 13%) !important;
+  background: rgb(255 255 255 / 2%) !important;
+}
+
+.ailancer-shell .ai-messages-page :is(h1, h2, .text-slate-900, .text-slate-800) { color: #f2efff !important; }
+.ailancer-shell .ai-messages-page :is(.text-slate-700, .text-slate-600, .text-slate-500) { color: #aeb2c7 !important; }
+.ailancer-shell .ai-messages-page :is(.border-slate-200, .border-slate-200\/60) { border-color: rgb(176 190 255 / 13%) !important; }
+.ailancer-shell .ai-messages-page :is(.bg-white, .bg-slate-50, .bg-\[\#F8FAFC\]) { background-color: rgb(255 255 255 / 3%) !important; }
+.ailancer-shell .ai-messages-page :is(input, textarea) {
+  color: #f1efff !important;
+}
+
+.ailancer-shell .ai-messages-page :is(input, textarea)::placeholder { color: #787d93 !important; }
+.ailancer-shell .ai-messages-page .chat-scroll { scrollbar-color: #45425f transparent; }
+.ailancer-shell .ai-messages-page .chat-scroll > div > button { border-radius: 12px; }
+.ailancer-shell .ai-messages-page .chat-scroll > div > button:hover,
+.ailancer-shell .ai-messages-page .chat-scroll > div > button.bg-blue-50 {
+  background: rgb(169 148 255 / 9%) !important;
+}
+
+.ailancer-shell .ai-messages-page button.bg-blue-600,
+.ailancer-shell .ai-messages-page button.bg-blue-700 {
+  background: linear-gradient(110deg, #c2ff67, #91e2b5) !important;
+  color: #10130f !important;
+}
+
+.ailancer-shell .ai-messages-page div.bg-blue-600.text-white {
+  background: linear-gradient(135deg, #a997ff, #8270e9) !important;
+  color: #fff !important;
+}
+
+@keyframes auth-orb-float {
+  0%, 100% { transform: translateY(0) rotateX(12deg) rotateY(-16deg) rotateZ(-6deg); }
+  50% { transform: translateY(-12px) rotateX(8deg) rotateY(-10deg) rotateZ(-3deg); }
+}
+
+@media (max-width: 767px) {
+  .ailancer-shell .ai-auth-shell { border-radius: 24px; }
+  .ailancer-shell .ai-auth-form-pane { padding: 32px 24px; }
+  .ailancer-shell .ai-profile-content { padding: 24px 16px; }
+  .ailancer-shell .ai-profile-page .glass-panel { border-radius: 22px; }
+  .ailancer-shell .ai-messages-page { padding-top: 84px; }
+  .ailancer-shell .ai-messages-page > main { height: calc(100svh - 6rem); padding-inline: 10px; }
+  .ailancer-shell .ai-message-sidebar,
+  .ailancer-shell .ai-message-thread { border-radius: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ailancer-shell .ai-auth-orb { animation: none; }
+}
+
 .ailancer-shell .ai-projects-page aside,
 .ailancer-shell .ai-tasks-page aside {
   border: 1px solid rgb(182 166 255 / 14%);

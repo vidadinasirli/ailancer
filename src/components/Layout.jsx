@@ -15,7 +15,7 @@ export default function Layout() {
         <Outlet />
       </main>
       {pathname !== '/mesajlar' && <Footer />}
-      {pathname !== '/' && pathname !== '/mesajlar' && <AIBuddy />}
+      {pathname !== '/' && pathname !== '/mesajlar' && pathname !== '/giris' && <AIBuddy />}
     </div>
   );
 }
