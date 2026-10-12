@@ -1667,3 +1667,239 @@
   .ailancer-shell .ai-notifications-page article { padding: 16px; }
   .ailancer-shell .ai-credentials-page main { padding-inline: 0; }
 }
+
+.ailancer-shell :is(.ai-info-page, .ai-legal-page, .ai-community-page) {
+  background:
+    radial-gradient(ellipse at 50% -12%, rgb(112 91 206 / 15%), transparent 47%),
+    #090a12;
+  color: #f3f1ff;
+}
+
+.ailancer-shell :is(.ai-info-page, .ai-legal-page, .ai-community-page) main { position: relative; }
+.ailancer-shell :is(.ai-info-page, .ai-legal-page, .ai-community-page) h1 {
+  color: #f7f5ff;
+  letter-spacing: -.045em;
+}
+
+.ailancer-shell :is(.ai-info-page, .ai-legal-page, .ai-community-page) h2,
+.ailancer-shell :is(.ai-info-page, .ai-legal-page, .ai-community-page) h3 {
+  color: #f0edff;
+}
+
+.ailancer-shell :is(.ai-info-page, .ai-legal-page, .ai-community-page) :is(.text-slate-800, .text-slate-700) { color: #d4d1e2 !important; }
+.ailancer-shell :is(.ai-info-page, .ai-legal-page, .ai-community-page) :is(.text-slate-600, .text-slate-500, .text-slate-400) { color: #a6aec2 !important; }
+.ailancer-shell :is(.ai-info-page, .ai-legal-page, .ai-community-page) :is(.border-slate-100, .border-slate-200, .border-slate-300, .border-blue-100, .border-blue-200) {
+  border-color: rgb(176 190 255 / 14%) !important;
+}
+
+.ailancer-shell :is(.ai-info-page, .ai-legal-page, .ai-community-page) a[class*="text-blue-"] { color: var(--experience-lime) !important; }
+
+.ailancer-shell .ai-info-page main > div:first-child {
+  position: relative;
+  padding: 32px 24px;
+  border: 1px solid rgb(182 166 255 / 14%);
+  border-radius: 28px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgb(169 148 255 / 15%), transparent 65%),
+    linear-gradient(145deg, rgb(22 24 40 / 88%), rgb(13 15 25 / 86%));
+  box-shadow: inset 0 1px rgb(255 255 255 / 5%);
+}
+
+.ailancer-shell .ai-info-page main > div:first-child p {
+  max-width: 700px;
+  margin-inline: auto;
+  color: #afb2c6;
+}
+
+.ailancer-shell .ai-info-page section,
+.ailancer-shell .ai-info-page main > div:not(:first-child) > div,
+.ailancer-shell .ai-info-page main > div:not(:first-child) > section {
+  border-color: rgb(176 190 255 / 14%) !important;
+}
+
+.ailancer-shell .ai-info-page :is(.bg-white, [class*="bg-white/"], .bg-blue-50, .bg-cyan-50, .bg-purple-50, .bg-orange-50) {
+  background: linear-gradient(145deg, rgb(20 22 37 / 97%), rgb(13 15 25 / 97%)) !important;
+}
+
+.ailancer-shell .ai-info-page [class*="bg-gradient-to-"] {
+  background:
+    radial-gradient(ellipse at 100% 0%, rgb(194 255 103 / 7%), transparent 52%),
+    linear-gradient(145deg, rgb(25 26 43 / 96%), rgb(15 17 29 / 97%)) !important;
+}
+
+.ailancer-shell .ai-info-page :is(input:not([type="checkbox"]), textarea, select) {
+  border-color: rgb(184 184 225 / 17%) !important;
+  background-color: rgb(255 255 255 / 4%) !important;
+  color: #f2efff !important;
+}
+
+.ailancer-shell .ai-info-page :is(input, textarea)::placeholder { color: #787d93 !important; }
+.ailancer-shell .ai-info-page :is(input, textarea, select):focus {
+  border-color: rgb(181 160 255 / 65%) !important;
+  box-shadow: 0 0 0 3px rgb(164 142 255 / 12%);
+}
+
+.ailancer-shell .ai-info-page button[class*="bg-blue-"],
+.ailancer-shell .ai-info-page button[class*="from-blue-"] {
+  border-color: transparent;
+  background: linear-gradient(110deg, #c2ff67, #91e2b5) !important;
+  color: #10130f !important;
+}
+
+.ailancer-shell .ai-info-page button[class*="bg-blue-"]:hover,
+.ailancer-shell .ai-info-page button[class*="from-blue-"]:hover { filter: brightness(1.06); }
+.ailancer-shell .ai-info-page .text-blue-600,
+.ailancer-shell .ai-info-page .text-blue-700,
+.ailancer-shell .ai-info-page .text-cyan-600,
+.ailancer-shell .ai-info-page .text-purple-600 { color: var(--experience-lime) !important; }
+
+.ailancer-shell .ai-about-page main > div:first-child,
+.ailancer-shell .ai-how-page main > div:first-child { margin-bottom: 36px; }
+
+.ailancer-shell .ai-about-page main > div:nth-child(2) > section,
+.ailancer-shell .ai-how-page main > div:nth-child(2) > div,
+.ailancer-shell .ai-how-page main > div:nth-child(2) > section {
+  border: 1px solid rgb(176 190 255 / 14%);
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgb(20 22 37 / 97%), rgb(13 15 25 / 97%));
+  box-shadow: 0 20px 65px rgb(0 0 0 / 18%);
+}
+
+.ailancer-shell .ai-about-page main > div:nth-child(2) > section svg,
+.ailancer-shell .ai-how-page main > div:nth-child(2) svg { filter: drop-shadow(0 0 14px rgb(194 255 103 / 15%)); }
+
+.ailancer-shell .ai-faq-page main > div:nth-child(2) > div {
+  overflow: hidden;
+  border: 1px solid rgb(176 190 255 / 14%);
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgb(20 22 37 / 97%), rgb(13 15 25 / 97%));
+  transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+.ailancer-shell .ai-faq-page main > div:nth-child(2) > div:hover {
+  transform: translateY(-2px);
+  border-color: rgb(194 255 103 / 26%);
+  box-shadow: 0 18px 48px rgb(0 0 0 / 22%);
+}
+
+.ailancer-shell .ai-faq-page main > div:nth-child(2) button:hover { background: rgb(169 148 255 / 7%); }
+.ailancer-shell .ai-faq-page main > div:nth-child(2) button span { color: #eeeaff; }
+.ailancer-shell .ai-faq-page main > div:nth-child(2) button svg { color: var(--experience-lime); }
+.ailancer-shell .ai-faq-page main > div:nth-child(2) > div > div:last-child { border-color: rgb(176 190 255 / 13%); color: #afb2c6; }
+
+.ailancer-shell .ai-contact-page main > div:nth-child(2) > div,
+.ailancer-shell .ai-contact-page main > div:nth-child(3),
+.ailancer-shell .ai-contact-page main > div:nth-child(4) {
+  border-color: rgb(176 190 255 / 14%);
+  border-radius: 22px;
+  background: linear-gradient(145deg, rgb(20 22 37 / 97%), rgb(13 15 25 / 97%));
+}
+
+.ailancer-shell .ai-contact-page main > div:nth-child(2) > div p.font-semibold { color: #eeeaff; }
+.ailancer-shell .ai-contact-page main > div:nth-child(2) > div svg { color: var(--experience-lime); }
+.ailancer-shell .ai-contact-page main > div:nth-child(3) { box-shadow: 0 24px 70px rgb(0 0 0 / 23%); }
+
+.ailancer-shell .ai-support-page > .pointer-events-none {
+  opacity: .4;
+  background: radial-gradient(circle, rgb(174 146 255 / 21%), transparent 68%);
+}
+
+.ailancer-shell .ai-support-page h2 svg { color: var(--experience-lime) !important; }
+.ailancer-shell .ai-support-page .bg-blue-600 {
+  background: linear-gradient(135deg, rgb(194 255 103 / 15%), rgb(169 148 255 / 15%)) !important;
+  color: var(--experience-lime) !important;
+}
+
+.ailancer-shell .ai-support-page > div.relative > div.grid > div > div,
+.ailancer-shell .ai-support-page > div.relative > div > div.grid > div > div {
+  border-color: rgb(176 190 255 / 14%) !important;
+  background: linear-gradient(145deg, rgb(20 22 37 / 97%), rgb(13 15 25 / 97%)) !important;
+}
+
+.ailancer-shell .ai-support-page button:hover { background-color: rgb(169 148 255 / 7%); }
+.ailancer-shell .ai-support-page .text-green-600 { color: var(--experience-lime) !important; }
+.ailancer-shell .ai-support-page .bg-green-50 { background: rgb(194 255 103 / 8%) !important; }
+.ailancer-shell .ai-support-page .text-red-600 { color: #ffabb8 !important; }
+.ailancer-shell .ai-support-page .bg-red-50 { background: rgb(255 100 124 / 8%) !important; }
+
+.ailancer-shell .ai-report-page main > div:first-child > div:first-child {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 18px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(255 176 105 / 22%);
+  border-radius: 17px;
+  background: rgb(255 140 83 / 10%);
+}
+
+.ailancer-shell .ai-report-page main > div:first-child > div:first-child svg { width: 30px; height: 30px; color: #ffb26f; }
+.ailancer-shell .ai-report-page main > div:nth-child(2) {
+  border-color: rgb(255 176 105 / 20%) !important;
+  background: linear-gradient(120deg, rgb(255 158 89 / 8%), rgb(194 255 103 / 3%)) !important;
+}
+
+.ailancer-shell .ai-report-page input:focus,
+.ailancer-shell .ai-report-page textarea:focus,
+.ailancer-shell .ai-report-page select:focus {
+  border-color: rgb(255 176 105 / 60%) !important;
+  box-shadow: 0 0 0 3px rgb(255 176 105 / 10%);
+}
+
+.ailancer-shell .ai-report-page button[class*="from-orange-"] {
+  background: linear-gradient(110deg, #ffc36c, #ff9677) !important;
+  color: #21140d !important;
+}
+
+.ailancer-shell .ai-legal-page main > div:first-child {
+  padding: 24px 0 28px;
+  border-bottom: 1px solid rgb(176 190 255 / 15%);
+}
+
+.ailancer-shell .ai-legal-page main > div:first-child p { color: #858ba2; }
+.ailancer-shell .ai-legal-page main > div:nth-child(2) {
+  border: 1px solid rgb(176 190 255 / 14%);
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgb(20 22 37 / 97%), rgb(13 15 25 / 97%));
+  box-shadow: 0 24px 70px rgb(0 0 0 / 18%);
+}
+
+.ailancer-shell .ai-legal-page main > div:nth-child(2) section + section {
+  padding-top: 24px;
+  border-top: 1px solid rgb(176 190 255 / 12%);
+}
+
+.ailancer-shell .ai-legal-page strong { color: #e9e6f7; }
+
+.ailancer-shell .ai-community-page main > div > div > section > header,
+.ailancer-shell .ai-community-page main > div > div > aside,
+.ailancer-shell .ai-community-page main > div > div > section > article,
+.ailancer-shell .ai-community-page main > div > article {
+  border-color: rgb(176 190 255 / 14%) !important;
+  background: linear-gradient(145deg, rgb(20 22 37 / 97%), rgb(13 15 25 / 97%)) !important;
+  box-shadow: 0 20px 65px rgb(0 0 0 / 18%);
+}
+
+.ailancer-shell .ai-community-page input:not([type="file"]),
+.ailancer-shell .ai-community-page textarea,
+.ailancer-shell .ai-community-page select {
+  border-color: rgb(184 184 225 / 17%) !important;
+  background-color: rgb(255 255 255 / 4%) !important;
+  color: #f2efff !important;
+}
+
+.ailancer-shell .ai-community-page input::placeholder,
+.ailancer-shell .ai-community-page textarea::placeholder { color: #787d93 !important; }
+.ailancer-shell .ai-community-page article:hover { border-color: rgb(194 255 103 / 23%) !important; }
+.ailancer-shell .ai-community-page .bg-blue-50 { background: rgb(169 148 255 / 10%) !important; }
+.ailancer-shell .ai-community-page .text-blue-600 { color: var(--experience-lime) !important; }
+.ailancer-shell .ai-community-page .bg-violet-100 { background: rgb(169 148 255 / 13%) !important; }
+.ailancer-shell .ai-community-page .text-violet-800 { color: #d4c8ff !important; }
+.ailancer-shell .ai-community-page .bg-red-50 { background: rgb(255 100 124 / 8%) !important; }
+
+@media (max-width: 640px) {
+  .ailancer-shell .ai-info-page main > div:first-child { padding: 24px 16px; border-radius: 22px; }
+  .ailancer-shell .ai-info-page :is(h1, h2) { overflow-wrap: anywhere; }
+  .ailancer-shell .ai-legal-page main > div:nth-child(2) { padding: 24px; border-radius: 20px; }
+  .ailancer-shell .ai-community-page main { padding-top: 12px; }
+}

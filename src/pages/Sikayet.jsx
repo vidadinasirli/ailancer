@@ -49,7 +49,7 @@ export default function Sikayet() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] pt-24 px-4 sm:px-6 lg:px-8">
+    <div className="ai-info-page ai-report-page min-h-screen bg-[#F8FAFC] pt-24 px-4 sm:px-6 lg:px-8">
       <main className="max-w-3xl mx-auto py-12">
         <div className="text-center mb-12">
           <div className="flex justify-center mb-4">

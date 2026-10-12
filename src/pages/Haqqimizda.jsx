@@ -3,10 +3,10 @@ import { Users, Target, Zap } from 'lucide-react';
 
 export default function Haqqimizda() {
   return (
-    <div className="min-h-screen bg-[#F8FAFC] pt-24 px-4 sm:px-6 lg:px-8">
+    <div className="ai-info-page ai-about-page min-h-screen bg-[#F8FAFC] pt-24 px-4 sm:px-6 lg:px-8">
       <main className="max-w-4xl mx-auto py-12">
         <div className="text-center mb-12">
-          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 mb-4">Haqq\u0131m\u0131zda</h1>
+          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 mb-4">Haqqımızda</h1>
           <p className="text-xl text-slate-600">Ailancer — Azərbaycanda istedadları və imkanları bir araya gətirən platforma</p>
         </div>
 

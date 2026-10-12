@@ -48,7 +48,7 @@ export default function FAQ() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] pt-24 px-4 sm:px-6 lg:px-8">
+    <div className="ai-info-page ai-faq-page min-h-screen bg-[#F8FAFC] pt-24 px-4 sm:px-6 lg:px-8">
       <main className="max-w-3xl mx-auto py-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-black text-slate-900 mb-4">Tez-Tez Soruşulan Suallar</h1>
