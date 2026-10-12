@@ -8,7 +8,9 @@ import UserProfileLink from '../components/UserProfileLink.jsx';
 import { ALL_CATEGORY_OPTIONS } from '../lib/categoryOptions.js';
 
 function daysAgo(value) {
-  return value ? Math.max(0, Math.floor((Date.now() - new Date(value.replace(' ', 'T') + 'Z')) / 86400000)) : 0;
+  if (!value) return 0;
+  const timestamp = new Date(value).getTime();
+  return Number.isFinite(timestamp) ? Math.max(0, Math.floor((Date.now() - timestamp) / 86400000)) : 0;
 }
 
 export default function Klub() {
