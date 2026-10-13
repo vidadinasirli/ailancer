@@ -10,11 +10,13 @@ import { api, getApiHealth } from '../lib/api.js';
 import { useAuth } from '../context/AuthContext.jsx';
 import { BackgroundPaths } from '../components/ui/background-paths.tsx';
 import { SpotlightCard } from '../components/ui/spotlight-card.jsx';
+import Velaris from '../components/ui/velaris.tsx';
 import { Button } from '../components/ui/button';
 import './AnaSayfa.css';
 
 const AI_API = (import.meta.env.DEV ? (import.meta.env.VITE_AI_API_URL || '/api') : '/api').replace(/\/+$/, '');
 const ASSISTANT_NAME = 'Lumi';
+const AI_CHAT_COLORS = ['#164b3b', '#2d8c66', '#075f50', '#30264b'];
 
 const assistantTools = [
   { id: 'general', label: 'AI ilə danış', icon: Bot },
@@ -315,7 +317,16 @@ export default function AnaSayfa() {
             <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-600">Freelancer tapmaqdan brief hazırlamağa qədər — Lumi ilə söhbət edərək başlayın.</p>
           </div>
 
-          <div id="ai-chat" className="ai-enter ai-delay-1 ai-chat-shell ai-chat-v2 relative z-10 mx-auto max-w-4xl">
+          <Velaris
+            id="ai-chat"
+            bg="#050806"
+            colors={AI_CHAT_COLORS}
+            speed={0.7}
+            grain={0.12}
+            height="auto"
+            className="ai-enter ai-delay-1 ai-chat-v2 relative z-10 mx-auto max-w-4xl"
+          >
+            <div className="ai-chat-v2-content">
             <header className="ai-chat-v2-header">
               <div className="ai-chat-v2-identity">
                 <span className="ai-chat-v2-mark"><WandSparkles size={19} /></span>
@@ -378,7 +389,8 @@ export default function AnaSayfa() {
                 <span className="ai-chat-v2-input-footer"><span>AI cavabları dəqiqləşdirmək üçün əlavə kontekst yaza bilərsən</span><button type="submit" disabled={!query.trim() || isLoading} aria-label="Lumi-yə göndər">{isLoading ? <LoaderCircle className="animate-spin" size={17} /> : <Send size={16} />}<span>Göndər</span></button></span>
               </label>
             </form>
-          </div>
+            </div>
+          </Velaris>
         </div>
       </section>
 

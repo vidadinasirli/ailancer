@@ -412,21 +412,29 @@
   overflow: hidden;
   border: 1px solid rgb(177 160 255 / 22%);
   border-radius: 26px;
-  background: linear-gradient(150deg, rgb(19 20 33 / 98%), rgb(10 11 19 / 99%) 62%);
+  background:
+    radial-gradient(ellipse at 14% 8%, rgb(22 75 59 / 75%), transparent 43%),
+    radial-gradient(ellipse at 84% 50%, rgb(48 38 75 / 44%), transparent 48%),
+    #050806;
   box-shadow: 0 42px 120px -68px rgb(126 97 242 / 66%), 0 28px 90px rgb(0 0 0 / 42%), inset 0 1px rgb(255 255 255 / 5%);
   backdrop-filter: blur(24px);
 }
 
+.ailancer-shell .ai-chat-v2 > canvas { z-index: 0; opacity: .88; }
+
 .ailancer-shell .ai-chat-v2::before {
   position: absolute;
-  z-index: -1;
+  z-index: 1;
   inset: 0;
   background:
-    radial-gradient(ellipse at 9% 0%, rgb(106 82 214 / 15%), transparent 42%),
-    radial-gradient(ellipse at 100% 34%, rgb(45 171 143 / 7%), transparent 34%);
+    linear-gradient(180deg, rgb(5 8 7 / 10%), rgb(5 8 7 / 40%)),
+    radial-gradient(ellipse at 9% 0%, rgb(106 82 214 / 9%), transparent 42%),
+    radial-gradient(ellipse at 100% 34%, rgb(45 171 143 / 6%), transparent 34%);
   content: '';
   pointer-events: none;
 }
+
+.ailancer-shell .ai-chat-v2-content { position: relative; z-index: 10; }
 
 .ailancer-shell .ai-chat-v2-header {
   display: flex;
@@ -484,7 +492,7 @@
 .ailancer-shell .ai-chat-v2-status.is-pending { border-color: rgb(255 213 126 / 14%); background: rgb(236 174 75 / 7%); color: #e9c88d; }
 .ailancer-shell .ai-chat-v2-status.is-pending i { background: #e9c88d; box-shadow: 0 0 12px rgb(233 200 141 / 65%); }
 
-.ailancer-shell .ai-chat-v2.ai-chat-shell .ai-chat-v2-thread {
+.ailancer-shell .ai-chat-v2 .ai-chat-v2-thread {
   position: relative;
   display: flex;
   min-height: 224px;
@@ -493,9 +501,8 @@
   gap: 22px;
   overflow: auto;
   padding: 27px clamp(16px, 4vw, 36px) 30px;
-  background-color: rgb(8 9 16 / 45%) !important;
-  background-image: radial-gradient(rgb(190 179 255 / 13%) .7px, transparent .7px) !important;
-  background-size: 22px 22px !important;
+  background-color: transparent !important;
+  background-image: none !important;
   scrollbar-color: rgb(135 117 202 / 35%) transparent;
 }
 
@@ -597,7 +604,7 @@
 .ailancer-shell .ai-chat-v2-loading small { color: #918da2; font-size: 10px; }
 .ailancer-shell .ai-chat-v2-error { margin: 0 0 0 48px; padding: 10px 12px; border: 1px solid rgb(241 190 111 / 18%); border-radius: 10px; background: rgb(191 130 47 / 8%); color: #e7c58e; font-size: 11px; line-height: 1.6; }
 
-.ailancer-shell .ai-chat-v2.ai-chat-shell > .ai-chat-v2-composer { padding: 13px 16px 17px; border-top: 1px solid rgb(186 177 255 / 10%); background: linear-gradient(180deg, rgb(17 18 30 / 75%), rgb(17 18 30 / 98%)); }
+.ailancer-shell .ai-chat-v2 .ai-chat-v2-composer { padding: 13px 16px 17px; border-top: 1px solid rgb(186 177 255 / 10%); background: linear-gradient(180deg, rgb(17 18 30 / 58%), rgb(17 18 30 / 92%)); }
 .ailancer-shell .ai-chat-v2-tools { display: flex; gap: 7px; overflow-x: auto; padding: 0 0 12px; scrollbar-width: none; }
 .ailancer-shell .ai-chat-v2-tools::-webkit-scrollbar { display: none; }
 .ailancer-shell .ai-chat-v2-tools button { display: inline-flex; min-height: 32px; flex: 0 0 auto; align-items: center; gap: 7px; padding: 0 10px; border: 1px solid rgb(174 164 218 / 12%); border-radius: 9px; background: rgb(255 255 255 / 3%); color: #a5a1b5; font-size: 10px; font-weight: 700; transition: border-color .2s ease, background .2s ease, color .2s ease; }
@@ -763,7 +770,7 @@
   .ailancer-shell .ai-chat-v2-identity strong { font-size: 12px; }
   .ailancer-shell .ai-chat-v2-identity strong span { display: none; }
   .ailancer-shell .ai-chat-v2-status { padding: 6px 9px; font-size: 9px; }
-  .ailancer-shell .ai-chat-v2.ai-chat-shell .ai-chat-v2-thread { min-height: 250px; max-height: 60vh; gap: 18px; padding: 20px 14px 22px; }
+  .ailancer-shell .ai-chat-v2 .ai-chat-v2-thread { min-height: 250px; max-height: 60vh; gap: 18px; padding: 20px 14px 22px; }
   .ailancer-shell .ai-chat-v2-welcome { gap: 9px; }
   .ailancer-shell .ai-chat-v2-avatar { width: 32px; height: 32px; border-radius: 10px; }
   .ailancer-shell .ai-chat-v2-welcome-copy p { font-size: 13px; }

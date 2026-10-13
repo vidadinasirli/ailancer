@@ -482,11 +482,6 @@
 .ai-hero-metrics strong { color: #263a65; font-size: 10px; font-weight: 850; }
 .ai-hero-metrics small { color: #76839e; font-size: 8px; line-height: 1.3; }
 
-.ai-home .ai-chat-shell {
-  transform-style: preserve-3d;
-  box-shadow: 0 35px 90px -60px rgb(30 64 175 / 60%), 0 18px 42px -36px rgb(2 132 199 / 45%);
-}
-
 .ai-home {
   font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
   font-optical-sizing: auto;
