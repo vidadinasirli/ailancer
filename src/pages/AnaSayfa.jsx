@@ -315,47 +315,70 @@ export default function AnaSayfa() {
             <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-600">Freelancer tapmaqdan brief hazırlamağa qədər — Lumi ilə söhbət edərək başlayın.</p>
           </div>
 
-          <SpotlightCard as="div" id="ai-chat" className="ai-enter ai-delay-1 ai-chat-shell ai-chat-spotlight relative z-10 mx-auto max-w-4xl rounded-2xl border border-blue-100 bg-white/90">
-            <div className="relative z-10 flex items-center justify-between gap-3 border-b border-slate-200 bg-white/90 px-4 py-3 sm:px-6 sm:py-4">
-              <div className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-700 text-white"><WandSparkles size={20} /></span><span><span className="block text-sm font-extrabold text-slate-900">{ASSISTANT_NAME} · Ailancer</span><span className="block text-xs text-slate-500">Axtar, yarat, təkmilləşdir</span></span></div>
-              <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold ${aiStatus?.assistantReady ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}><Sparkles size={14} />{aiStatus?.assistantReady ? `${ASSISTANT_NAME} hazırdır` : aiStatus?.error || `${ASSISTANT_NAME} bağlantısı yoxlanılır`}</span>
-            </div>
+          <div id="ai-chat" className="ai-enter ai-delay-1 ai-chat-shell ai-chat-v2 relative z-10 mx-auto max-w-4xl">
+            <header className="ai-chat-v2-header">
+              <div className="ai-chat-v2-identity">
+                <span className="ai-chat-v2-mark"><WandSparkles size={19} /></span>
+                <span><strong>{ASSISTANT_NAME}<span> / AILANCER</span></strong><small>Ağıllı iş yoldaşın</small></span>
+              </div>
+              <span className={`ai-chat-v2-status ${aiStatus?.assistantReady ? 'is-ready' : 'is-pending'}`}>
+                <i />{aiStatus?.assistantReady ? 'Onlayn' : aiStatus?.error ? 'Yoxlanıla bilmir' : 'Qoşulur'}
+              </span>
+            </header>
 
-            <div className="ai-chat-messages relative z-10 max-h-[620px] space-y-5 overflow-y-auto bg-slate-50/70 px-4 py-5 sm:px-6">
-              {!messages.length && <div className="flex items-start gap-3"><span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-700"><Bot size={19} /></span><div><p className="text-sm font-bold text-slate-800">Lumi — sənin iş yoldaşın</p><p className="mt-1 max-w-2xl text-sm leading-6 text-slate-600 sm:text-[15px]">Freelancer və layihələri təbii dildə axtar, portfolio mətnini yarat və ya redaktə et, müraciət hazırla, briefini analiz et.</p></div></div>}
-              {!messages.length && <div className="flex flex-wrap gap-2 pl-12">
-                {starterPrompts.map(({ text, mode: nextMode, icon: Icon }) => <button key={text} type="button" onClick={() => choosePrompt(text, nextMode)} className="group inline-flex min-h-9 items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-left text-xs font-semibold text-slate-600 transition hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-800 sm:text-[13px]"><Icon size={14} className="shrink-0 text-blue-600" />{text}<ArrowUpRight size={13} className="ml-1 text-slate-400" /></button>)}
-              </div>}
+            <div className="ai-chat-messages ai-chat-v2-thread">
+              {!messages.length && (
+                <div className="ai-chat-v2-welcome">
+                  <span className="ai-chat-v2-avatar"><Bot size={18} /></span>
+                  <div className="ai-chat-v2-welcome-copy">
+                    <span className="ai-chat-v2-overline">LUMI İLƏ BAŞLA</span>
+                    <p>Salam{profileData?.fullName ? `, ${profileData.fullName.split(' ')[0]}` : ''}. Bu gün nəyi birlikdə həll edək?</p>
+                    <span>Freelancer tap, portfolionu təkmilləşdir və ya yeni layihəni planlaşdır.</span>
+                  </div>
+                </div>
+              )}
+              {!messages.length && (
+                <div className="ai-chat-v2-suggestions" aria-label="Söhbətə başlama təklifləri">
+                  {starterPrompts.map(({ text, mode: nextMode, icon: Icon }) => (
+                    <button key={text} type="button" onClick={() => choosePrompt(text, nextMode)}>
+                      <Icon size={16} /><span>{text}</span><ArrowUpRight size={14} />
+                    </button>
+                  ))}
+                </div>
+              )}
               {messages.map((message, index) => (
-                <article key={`${message.role}-${index}`} className={message.role === 'user' ? 'ml-auto max-w-[88%] rounded-2xl rounded-br-sm bg-blue-700 px-4 py-3 text-sm leading-6 text-white' : 'max-w-full'}>
-                  {message.role === 'user' ? message.content : <>
-                    <div className="flex items-start gap-3"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-700"><Bot size={17} /></span><p className="pt-1 text-sm leading-6 text-slate-700">{message.content}</p></div>
-                    {message.results?.length > 0 && <div className="mt-3 rounded-xl border border-slate-200 bg-white px-4">{message.results.map((result, resultIndex) => <ResultCard key={`${result.type}-${result.data.id}-${resultIndex}`} result={result} onClick={() => openResult(result)} />)}</div>}
-                    {message.portfolio && <div className="ml-11 mt-3 space-y-3 rounded-xl border border-blue-200 bg-white p-4">
-                      <label className="block text-xs font-bold text-slate-600">Portfolio başlığı<input value={message.portfolio.title || ''} onChange={(event) => setMessages((current) => current.map((item, itemIndex) => itemIndex === index ? { ...item, portfolio: { ...item.portfolio, title: event.target.value } } : item))} className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-800" /></label>
-                      <label className="block text-xs font-bold text-slate-600">Kateqoriya<input value={message.portfolio.category || ''} onChange={(event) => setMessages((current) => current.map((item, itemIndex) => itemIndex === index ? { ...item, portfolio: { ...item.portfolio, category: event.target.value } } : item))} className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-800" /></label>
-                      <label className="block text-xs font-bold text-slate-600">Layihənin təsviri<textarea value={message.portfolio.description || ''} onChange={(event) => setMessages((current) => current.map((item, itemIndex) => itemIndex === index ? { ...item, portfolio: { ...item.portfolio, description: event.target.value } } : item))} rows={5} className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium leading-6 text-slate-800" /></label>
-                      <button type="button" onClick={() => openPortfolioDraft(message.portfolio)} className="inline-flex min-h-10 items-center gap-2 rounded-lg bg-blue-700 px-4 text-sm font-bold text-white hover:bg-blue-800">Portfolio formasına köçür <ArrowRight size={15} /></button>
-                      {!user && <p className="text-xs text-slate-500">Dərc etmək üçün hesabınıza daxil olun.</p>}
+                <article key={`${message.role}-${index}`} className={`ai-chat-v2-message ${message.role === 'user' ? 'is-user' : 'is-assistant'}`}>
+                  {message.role === 'assistant' && <span className="ai-chat-v2-avatar"><Bot size={17} /></span>}
+                  <div className="ai-chat-v2-message-body">
+                    <span className="ai-chat-v2-sender">{message.role === 'user' ? 'SƏN' : 'LUMI'}</span>
+                    <div className="ai-chat-v2-bubble">{message.content}</div>
+                    {message.results?.length > 0 && <div className="ai-chat-v2-result-list">{message.results.map((result, resultIndex) => <ResultCard key={`${result.type}-${result.data.id}-${resultIndex}`} result={result} onClick={() => openResult(result)} />)}</div>}
+                    {message.portfolio && <div className="ai-chat-v2-output ai-chat-v2-portfolio">
+                      <label>Portfolio başlığı<input value={message.portfolio.title || ''} onChange={(event) => setMessages((current) => current.map((item, itemIndex) => itemIndex === index ? { ...item, portfolio: { ...item.portfolio, title: event.target.value } } : item))} /></label>
+                      <label>Kateqoriya<input value={message.portfolio.category || ''} onChange={(event) => setMessages((current) => current.map((item, itemIndex) => itemIndex === index ? { ...item, portfolio: { ...item.portfolio, category: event.target.value } } : item))} /></label>
+                      <label>Layihənin təsviri<textarea value={message.portfolio.description || ''} onChange={(event) => setMessages((current) => current.map((item, itemIndex) => itemIndex === index ? { ...item, portfolio: { ...item.portfolio, description: event.target.value } } : item))} rows={5} /></label>
+                      <button type="button" onClick={() => openPortfolioDraft(message.portfolio)}>Portfolio formasına köçür <ArrowRight size={15} /></button>
+                      {!user && <p>Dərc etmək üçün hesabınıza daxil olun.</p>}
                     </div>}
-                    {message.proposal && <div className="ml-11 mt-3 rounded-xl border border-slate-200 bg-white p-4"><p className="whitespace-pre-wrap text-sm leading-6 text-slate-700">{message.proposal}</p><button type="button" onClick={() => copyText(message.proposal)} className="mt-3 rounded-lg border border-slate-200 px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50">Mətni köçür</button></div>}
-                    {message.analysis && <div className="ml-11 mt-3 grid gap-3 sm:grid-cols-2"><div className="rounded-xl border border-slate-200 bg-white p-4"><h3 className="text-sm font-bold">Brief xülasəsi</h3><p className="mt-2 text-sm leading-6 text-slate-600">{message.analysis.summary}</p><p className="mt-2 text-xs text-slate-500">Kateqoriya: {message.analysis.category}</p></div><div className="rounded-xl border border-slate-200 bg-white p-4"><h3 className="text-sm font-bold">Təxmini qiymət</h3><p className="mt-2 text-lg font-extrabold text-blue-800">{message.analysis.price_azn?.min}–{message.analysis.price_azn?.max} AZN</p><p className="text-xs text-slate-500">Qiymət yalnız ilkin təxmindir.</p></div></div>}
-                  </>}
+                    {message.proposal && <div className="ai-chat-v2-output"><p className="whitespace-pre-wrap">{message.proposal}</p><button type="button" onClick={() => copyText(message.proposal)}>Mətni köçür</button></div>}
+                    {message.analysis && <div className="ai-chat-v2-analysis"><div><h3>Brief xülasəsi</h3><p>{message.analysis.summary}</p><small>Kateqoriya: {message.analysis.category}</small></div><div><h3>Təxmini qiymət</h3><strong>{message.analysis.price_azn?.min}–{message.analysis.price_azn?.max} AZN</strong><small>Qiymət yalnız ilkin təxmindir.</small></div></div>}
+                  </div>
                 </article>
               ))}
-              {isLoading && <div className="flex items-center gap-3 text-sm text-slate-500" role="status"><LoaderCircle className="animate-spin text-blue-600" size={20} />Lumi sorğunu işləyir...</div>}
-              {error && <p className="ml-11 rounded-lg bg-amber-50 p-3 text-sm text-amber-800">{error}</p>}
+              {isLoading && <div className="ai-chat-v2-loading" role="status"><span className="ai-chat-v2-avatar"><Bot size={17} /></span><span><i /><i /><i /></span><small>Lumi cavab hazırlayır</small></div>}
+              {error && <p className="ai-chat-v2-error" role="alert">{error}</p>}
             </div>
 
-            <form onSubmit={runSearch} className="relative z-10 border-t border-slate-200 bg-white/90 p-3 sm:p-4">
-              <div className="mb-3 flex flex-wrap gap-2" aria-label="AI aləti">{assistantTools.map(({ id, label, icon: Icon }) => <button key={id} type="button" onClick={() => setMode(id)} aria-pressed={mode === id} className={`inline-flex min-h-9 items-center gap-2 rounded-lg px-3 text-xs font-bold transition ${mode === id ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-600 hover:bg-blue-50 hover:text-blue-800'}`}><Icon size={14} />{label}</button>)}</div>
-              <label htmlFor="ai-search" className="mb-2 block px-1 text-xs font-bold text-slate-700">Lumi-yə yaz</label>
-              <div className="flex items-end gap-2">
-                <textarea ref={composerRef} id="ai-search" rows={2} value={query} onChange={(event) => setQuery(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); runSearch(event); } }} placeholder="Məsələn: büdcəm 500 AZN-dir, mağazam üçün uyğun freelancer tap..." className="min-h-[58px] w-full resize-y rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm leading-6 text-slate-800 outline-none placeholder:text-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 sm:text-[15px]" />
-                <button type="submit" disabled={!query.trim() || isLoading} aria-label="Lumi-yə göndər" className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-blue-700 px-4 text-sm font-extrabold text-white transition hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-45">{isLoading ? <LoaderCircle size={18} className="animate-spin" /> : <Send size={16} />}<span className="hidden sm:inline">Göndər</span></button>
+            <form onSubmit={runSearch} className="ai-chat-v2-composer">
+              <div className="ai-chat-v2-tools" aria-label="AI aləti">
+                {assistantTools.map(({ id, label, icon: Icon }) => <button key={id} type="button" onClick={() => setMode(id)} aria-pressed={mode === id}><Icon size={14} /><span>{label}</span></button>)}
               </div>
+              <label className="ai-chat-v2-input" htmlFor="ai-search">
+                <textarea ref={composerRef} id="ai-search" rows={2} value={query} onChange={(event) => setQuery(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); runSearch(event); } }} placeholder="Lumi-yə yaz... Nə üzərində işləyirsən?" />
+                <span className="ai-chat-v2-input-footer"><span>AI cavabları dəqiqləşdirmək üçün əlavə kontekst yaza bilərsən</span><button type="submit" disabled={!query.trim() || isLoading} aria-label="Lumi-yə göndər">{isLoading ? <LoaderCircle className="animate-spin" size={17} /> : <Send size={16} />}<span>Göndər</span></button></span>
+              </label>
             </form>
-          </SpotlightCard>
+          </div>
         </div>
       </section>
 
