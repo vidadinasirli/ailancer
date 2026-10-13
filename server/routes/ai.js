@@ -55,8 +55,11 @@ function extractJson(text) {
   return JSON.parse(text.slice(start, end + 1));
 }
 
-const PROVIDER = (process.env.AI_PROVIDER || 'gemini').toLowerCase(); // gemini | openai | anthropic
+const PROVIDER = (process.env.AI_PROVIDER || 'gemini').toLowerCase(); // gemini | openai (Groq-compatible) | anthropic
 const AI_TIMEOUT_MS = 30000;
+const DEFAULT_MODEL = PROVIDER === 'openai'
+  ? 'openai/gpt-oss-120b'
+  : PROVIDER === 'anthropic' ? 'claude-sonnet-5-5' : 'gemini-3.7-flash';
 
 function userPrompt(brief) {
   return `Sifarişçinin briefi:\n"""\n${brief}\n"""`;
@@ -99,17 +102,19 @@ async function callGeminiPrompt(prompt) {
 }
 
 // OpenAI uyğun API: Groq, OpenRouter və s. (AI_BASE_URL ilə)
-async function callOpenAICompatible(brief) {
+async function callOpenAICompatiblePrompt({ prompt, systemPrompt, maxTokens, temperature }) {
   const base = (process.env.AI_BASE_URL || 'https://api.groq.com/openai/v1').replace(/\/$/, '');
   const res = await fetch(`${base}/chat/completions`, {
     method: 'POST',
     headers: { 'content-type': 'application/json', authorization: `Bearer ${process.env.AI_API_KEY}` },
     body: JSON.stringify({
-      model: process.env.AI_MODEL,
-      temperature: 0.3,
-      max_tokens: 1500,
-      messages: [{ role: 'system', content: SYSTEM_PROMPT }, { role: 'user', content: userPrompt(brief) }],
+      model: process.env.AI_MODEL || DEFAULT_MODEL,
+      temperature,
+      max_tokens: maxTokens,
+      response_format: { type: 'json_object' },
+      messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: prompt }],
     }),
+    signal: AbortSignal.timeout(AI_TIMEOUT_MS),
   });
   if (!res.ok) throw new Error(`AI xətası (${res.status}): ${(await res.text()).slice(0, 300)}`);
   const data = await res.json();
@@ -128,8 +133,17 @@ async function callAnthropic(brief) {
 }
 
 export async function analyzeBrief(brief) {
-  const call = PROVIDER === 'anthropic' ? callAnthropic : PROVIDER === 'openai' ? callOpenAICompatible : callGemini;
-  const { text, usage } = await call(brief);
+  let response;
+  if (PROVIDER === 'anthropic') response = await callAnthropic(brief);
+  else if (PROVIDER === 'openai') {
+    response = await callOpenAICompatiblePrompt({
+      prompt: userPrompt(brief),
+      systemPrompt: SYSTEM_PROMPT,
+      maxTokens: 1500,
+      temperature: 0.3,
+    });
+  } else response = await callGemini(brief);
+  const { text, usage } = response;
   return { result: extractJson(text), usage };
 }
 
@@ -156,16 +170,16 @@ router.get('/status', (_req, res) =>
   res.json({
     ok: true,
     provider: PROVIDER,
-    model: process.env.AI_MODEL || '(default)',
+    model: process.env.AI_MODEL || DEFAULT_MODEL,
     keyConfigured: Boolean(process.env.AI_API_KEY),
-    assistantProvider: 'gemini',
-    assistantModel: process.env.AI_MODEL || 'gemini-3.7-flash',
-    assistantReady: PROVIDER === 'gemini' && Boolean(process.env.AI_API_KEY),
+    assistantProvider: PROVIDER,
+    assistantModel: process.env.AI_MODEL || DEFAULT_MODEL,
+    assistantReady: ['gemini', 'openai'].includes(PROVIDER) && Boolean(process.env.AI_API_KEY),
   })
 );
 
 router.post('/assistant', limiter, async (req, res) => {
-  if (PROVIDER !== 'gemini') return res.status(503).json({ error: 'Ana səhifə köməkçisi üçün AI_PROVIDER=gemini seçin.' });
+  if (!['gemini', 'openai'].includes(PROVIDER)) return res.status(503).json({ error: 'Ana səhifə köməkçisi üçün Gemini və ya OpenAI-compatible AI provayderi seçin.' });
   if (!process.env.AI_API_KEY) return res.status(500).json({ error: 'AI açarı təyin olunmayıb.' });
   const mode = ['search', 'portfolio', 'proposal', 'general'].includes(req.body?.mode) ? req.body.mode : 'general';
   const messages = Array.isArray(req.body?.messages)
@@ -196,7 +210,14 @@ router.post('/assistant', limiter, async (req, res) => {
 
   try {
     const prompt = JSON.stringify({ mode, messages, profile, candidates });
-    const { text, usage } = await callGeminiPrompt(prompt);
+    const { text, usage } = PROVIDER === 'openai'
+      ? await callOpenAICompatiblePrompt({
+        prompt,
+        systemPrompt: ASSISTANT_PROMPT,
+        maxTokens: 3000,
+        temperature: 0.4,
+      })
+      : await callGeminiPrompt(prompt);
     const parsed = extractJson(text);
     const validIds = new Map(candidates.map((item) => [`${item.type}:${item.id}`, item]));
     const results = (Array.isArray(parsed.results) ? parsed.results : []).slice(0, 8).flatMap((item) => {
@@ -227,11 +248,11 @@ router.post('/assistant', limiter, async (req, res) => {
   } catch (e) {
     console.error(e);
     const status = Number(e?.message?.match(/^AI xətası \((\d{3})\):/)?.[1]);
-    if (status === 429) return res.status(502).json({ error: 'Gemini istifadə limiti dolub. Bir az sonra yenidən cəhd edin.' });
-    if (status === 503) return res.status(503).json({ error: 'Gemini hazırda çox yüklənib. Bir neçə dəqiqə sonra yenidən cəhd edin.' });
-    if (status === 401 || status === 403) return res.status(502).json({ error: 'Gemini API açarı yanlışdır və ya modelə giriş icazəsi yoxdur.' });
-    if (status === 404) return res.status(502).json({ error: 'Gemini modeli tapılmadı. AI_MODEL dəyərini yoxlayın.' });
-    if (e?.name === 'TimeoutError' || e?.name === 'AbortError') return res.status(504).json({ error: 'Gemini vaxtında cavab vermədi. Bir az sonra yenidən cəhd edin.' });
+    if (status === 429) return res.status(502).json({ error: 'AI provayderinin istifadə limiti dolub. Bir az sonra yenidən cəhd edin.' });
+    if (status === 503) return res.status(503).json({ error: 'AI xidməti hazırda çox yüklənib. Bir neçə dəqiqə sonra yenidən cəhd edin.' });
+    if (status === 401 || status === 403) return res.status(502).json({ error: 'AI API açarı yanlışdır və ya modelə giriş icazəsi yoxdur.' });
+    if (status === 404) return res.status(502).json({ error: 'AI modeli tapılmadı. AI_MODEL dəyərini yoxlayın.' });
+    if (e?.name === 'TimeoutError' || e?.name === 'AbortError') return res.status(504).json({ error: 'AI xidməti vaxtında cavab vermədi. Bir az sonra yenidən cəhd edin.' });
     res.status(502).json({ error: 'AI cavabı hazırlana bilmədi. Yenidən cəhd edin.' });
   }
 });
@@ -253,8 +274,8 @@ router.post('/analyze-brief', limiter, async (req, res) => {
     if (status === 401 || status === 403) error = 'AI API açarı yanlışdır və ya bu modelə giriş icazəsi yoxdur.';
     else if (status === 404) error = 'AI modeli tapılmadı. AI_MODEL dəyərini yoxlayın.';
     else if (status === 429) error = 'AI provayderinin sorğu və ya istifadə limiti dolub. Bir az sonra yenidən cəhd edin.';
-    else if (status === 503) error = 'Gemini hazırda çox yüklənib. Bir neçə dəqiqə sonra yenidən cəhd edin.';
-    else if (e?.name === 'TimeoutError' || e?.name === 'AbortError') error = 'Gemini vaxtında cavab vermədi. Bir az sonra yenidən cəhd edin.';
+    else if (status === 503) error = 'AI xidməti hazırda çox yüklənib. Bir neçə dəqiqə sonra yenidən cəhd edin.';
+    else if (e?.name === 'TimeoutError' || e?.name === 'AbortError') error = 'AI xidməti vaxtında cavab vermədi. Bir az sonra yenidən cəhd edin.';
     else if (status) error = `AI provayderi sorğunu qəbul etmədi (HTTP ${status}).`;
     res.status(status === 503 ? 503 : e?.name === 'TimeoutError' || e?.name === 'AbortError' ? 504 : 502).json({ error });
   }
