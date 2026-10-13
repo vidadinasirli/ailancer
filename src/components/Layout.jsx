@@ -8,14 +8,14 @@ import AIBuddy from './AIBuddy.jsx';
 export default function Layout() {
   const { pathname } = useLocation();
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-200 selection:text-blue-900 flex flex-col">
+    <div className="ailancer-shell min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-200 selection:text-blue-900 flex flex-col">
       <ScrollToTop />
       <Navbar />
       <main className="flex-grow">
         <Outlet />
       </main>
       {pathname !== '/mesajlar' && <Footer />}
-      <AIBuddy />
+      {pathname !== '/' && pathname !== '/mesajlar' && pathname !== '/giris' && <AIBuddy />}
     </div>
   );
 }

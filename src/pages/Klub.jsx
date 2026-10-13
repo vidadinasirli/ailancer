@@ -8,7 +8,9 @@ import UserProfileLink from '../components/UserProfileLink.jsx';
 import { ALL_CATEGORY_OPTIONS } from '../lib/categoryOptions.js';
 
 function daysAgo(value) {
-  return value ? Math.max(0, Math.floor((Date.now() - new Date(value.replace(' ', 'T') + 'Z')) / 86400000)) : 0;
+  if (!value) return 0;
+  const timestamp = new Date(value).getTime();
+  return Number.isFinite(timestamp) ? Math.max(0, Math.floor((Date.now() - timestamp) / 86400000)) : 0;
 }
 
 export default function Klub() {
@@ -111,7 +113,7 @@ export default function Klub() {
   const commentReportUrl = (item) => `/sikayet?commentType=klub-rəyi&commentId=${item.id}&comment=${encodeURIComponent(item.text)}&project=${encodeURIComponent(selected.title)}&projectId=${selected.id}`;
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] pt-24 px-4 sm:px-6 lg:px-8">
+    <div className="ai-community-page min-h-screen bg-[#F8FAFC] pt-24 px-4 sm:px-6 lg:px-8">
       <main className="max-w-7xl mx-auto py-8">
         {error && <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-xl text-sm">{error}</div>}
         {postId && loading ? (

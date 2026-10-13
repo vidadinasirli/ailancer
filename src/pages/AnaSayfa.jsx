@@ -8,10 +8,15 @@ import {
 } from 'lucide-react';
 import { api, getApiHealth } from '../lib/api.js';
 import { useAuth } from '../context/AuthContext.jsx';
+import { BackgroundPaths } from '../components/ui/background-paths.tsx';
+import { SpotlightCard } from '../components/ui/spotlight-card.jsx';
+import Velaris from '../components/ui/velaris.tsx';
+import { Button } from '../components/ui/button';
 import './AnaSayfa.css';
 
 const AI_API = (import.meta.env.DEV ? (import.meta.env.VITE_AI_API_URL || '/api') : '/api').replace(/\/+$/, '');
 const ASSISTANT_NAME = 'Lumi';
+const AI_CHAT_COLORS = ['#164b3b', '#2d8c66', '#075f50', '#30264b'];
 
 const assistantTools = [
   { id: 'general', label: 'AI ilə danış', icon: Bot },
@@ -28,10 +33,10 @@ const starterPrompts = [
 ];
 
 const categories = [
-  { title: 'Proqramlaşdırma', detail: 'Veb, mobil tətbiq, frontend və backend', icon: Code2, query: 'Proqramlaşdırma və veb developer', image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Proqramçı noutbukda işləyir' },
-  { title: 'Dizayn və kreativ', detail: 'UI/UX, loqo, brend və illüstrasiya', icon: PenTool, query: 'Dizayn və kreativ mütəxəssis', image: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Rəngli kreativ dizayn nümunələri' },
-  { title: 'Marketinq', detail: 'SMM, SEO, reklam və kontent', icon: Megaphone, query: 'Marketinq SMM və SEO mütəxəssisi', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Rəqəmsal marketinq göstəriciləri olan ekran' },
-  { title: 'Biznes dəstəyi', detail: 'Tərcümə, maliyyə, araşdırma və məsləhət', icon: BriefcaseBusiness, query: 'Biznes dəstəyi tərcümə və maliyyə', image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Komanda ortaq layihəni müzakirə edir' },
+  { title: 'Proqramlaşdırma', detail: 'Veb, mobil tətbiq, frontend və backend', icon: Code2, query: 'Proqramlaşdırma və veb developer', tone: 'code', tags: ['React · API', 'Veb · Mobil'] },
+  { title: 'Dizayn və kreativ', detail: 'UI/UX, loqo, brend və illüstrasiya', icon: PenTool, query: 'Dizayn və kreativ mütəxəssis', tone: 'design', tags: ['UI · UX', 'Brend sistemi'] },
+  { title: 'Marketinq', detail: 'SMM, SEO, reklam və kontent', icon: Megaphone, query: 'Marketinq SMM və SEO mütəxəssisi', tone: 'marketing', tags: ['SEO · SMM', 'Kontent'] },
+  { title: 'Biznes dəstəyi', detail: 'Tərcümə, maliyyə, araşdırma və məsləhət', icon: BriefcaseBusiness, query: 'Biznes dəstəyi tərcümə və maliyyə', tone: 'business', tags: ['Araşdırma', 'Məsləhət'] },
 ];
 
 const steps = [
@@ -67,17 +72,20 @@ function ResultCard({ result, onClick }) {
 function CategoryCard({ item, onChoose }) {
   const Icon = item.icon;
   return (
-    <button type="button" onClick={() => onChoose(item.query)} className="ai-depth-card group overflow-hidden border border-slate-200 bg-white text-left shadow-[0_18px_45px_-36px_rgba(15,23,42,.65)] transition duration-500 hover:border-blue-300 hover:shadow-[0_28px_60px_-35px_rgba(37,99,235,.5)]">
-      <span className="ai-category-image relative block aspect-[1.55] overflow-hidden bg-slate-200">
-        <img src={item.image} alt={item.imageAlt} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-110" />
-        <span className="ai-category-image-shade absolute inset-0" />
-        <span className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/50 bg-slate-950/30 px-3 py-1.5 text-xs font-bold text-white backdrop-blur-md"><Icon size={14} /> Ailancer sahəsi</span>
+    <SpotlightCard as="button" type="button" onClick={() => onChoose(item.query)} className="ai-depth-card group overflow-hidden border border-slate-200 bg-white text-left shadow-[0_18px_45px_-36px_rgba(15,23,42,.65)] transition duration-500 hover:border-blue-300 hover:shadow-[0_28px_60px_-35px_rgba(37,99,235,.5)]">
+      <span className={`ai-category-art ai-category-art-${item.tone} relative block aspect-[1.55] overflow-hidden`}>
+        <span className="ai-category-art-grid" />
+        <span className="ai-category-art-orbit ai-category-art-orbit-one" />
+        <span className="ai-category-art-orbit ai-category-art-orbit-two" />
+        <span className="ai-category-art-icon"><Icon size={25} /></span>
+        <span className="ai-category-art-tag ai-category-art-tag-one">{item.tags[0]}</span>
+        <span className="ai-category-art-tag ai-category-art-tag-two">{item.tags[1]}</span>
         <span className="ai-category-arrow absolute bottom-4 right-4 grid h-11 w-11 place-items-center rounded-full bg-white text-blue-700 shadow-lg transition group-hover:rotate-45"><ArrowUpRight size={20} /></span>
       </span>
       <span className="flex min-h-[126px] items-center justify-between gap-4 px-5 py-5 sm:px-6">
         <span><span className="flex items-center gap-2 text-lg font-extrabold text-slate-900 sm:text-xl"><Icon size={20} className="text-blue-700" />{item.title}</span><span className="mt-2 block text-sm leading-6 text-slate-600">{item.detail}</span></span>
       </span>
-    </button>
+    </SpotlightCard>
   );
 }
 
@@ -235,6 +243,7 @@ export default function AnaSayfa() {
   return (
     <main className="ai-home overflow-hidden bg-white text-slate-900">
       <section className="ai-hero relative isolate px-5 pb-10 pt-20 sm:px-8 sm:pb-14 sm:pt-24 lg:pb-20 lg:pt-16">
+        <BackgroundPaths />
         <div className="ai-hero-grid" aria-hidden="true" />
         <div className="ai-hero-glow ai-hero-glow-one" aria-hidden="true" />
         <div className="ai-hero-glow ai-hero-glow-two" aria-hidden="true" />
@@ -245,30 +254,36 @@ export default function AnaSayfa() {
               <h1>İşini izah et.<br /><span>Düzgün addımı tap.</span></h1>
               <p>Freelancer axtar, portfolio mətni hazırla və layihə briefini təkmilləşdir — hamısı bir ağıllı məkanda.</p>
               <div className="ai-hero-actions">
-                <button type="button" className="ai-hero-primary" onClick={() => { document.getElementById('ai-chat')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); composerRef.current?.focus({ preventScroll: true }); }}>
+                <Button type="button" className="ai-hero-primary" onClick={() => { document.getElementById('ai-chat')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); composerRef.current?.focus({ preventScroll: true }); }}>
                   <Sparkles size={17} /> AI ilə başla <ArrowRight size={16} />
-                </button>
-                <button type="button" className="ai-hero-secondary" onClick={() => navigate('/tapsiriqlar')}>
+                </Button>
+                <Button type="button" variant="outline" className="ai-hero-secondary" onClick={() => navigate('/tapsiriqlar')}>
                   Layihələrə bax <ArrowUpRight size={16} />
-                </button>
+                </Button>
               </div>
               <div className="ai-hero-proof"><span className="ai-proof-avatars" aria-hidden="true"><i>F</i><i>UI</i><i>AZ</i></span><span><strong>İnsan + AI</strong><small> qərar yenə də səndədir</small></span><span className="ai-proof-divider" /><span className="ai-proof-secure"><ShieldCheck size={15} /> Yoxlanıla bilən nəticələr</span></div>
             </div>
 
-            <div className="ai-hero-visual" aria-label={`Ailancer ${ASSISTANT_NAME} köməkçisi`}>
-              <div className="ai-visual-orbit ai-visual-orbit-outer" />
-              <div className="ai-visual-orbit ai-visual-orbit-inner" />
-              <div className="ai-visual-core">
-                <span className="ai-core-sheen" />
-                <span className="ai-core-face"><i /><i /><b /></span>
-                <span className="ai-core-spark ai-core-spark-one">✦</span>
-                <span className="ai-core-spark ai-core-spark-two">✧</span>
-              </div>
-              <div className="ai-float-card ai-float-search"><span className="ai-float-icon"><Search size={15} /></span><span><strong>Ağıllı uyğunluq</strong><small>İstedadını kəşf et</small></span><span className="ai-match-score">98%</span></div>
-              <div className="ai-float-card ai-float-brief"><span className="ai-float-icon ai-float-icon-lilac"><WandSparkles size={15} /></span><span><strong>Brief hazırdır</strong><small>3 aydın mərhələ</small></span><BadgeCheck className="ai-float-check" size={17} /></div>
-              <span className="ai-visual-tag ai-visual-tag-one"><Code2 size={13} /> bacarıq</span>
-              <span className="ai-visual-tag ai-visual-tag-two"><Sparkles size={13} /> ideya</span>
-              <span className="ai-visual-label"><span className="ai-live-dot" /> AI ilə işləyir</span>
+            <div className="ai-hero-visual" aria-label={`${ASSISTANT_NAME} köməkçisinin nümunə iş axını`}>
+              <SpotlightCard className="ai-copilot-panel">
+                <div className="ai-copilot-heading">
+                  <span className="ai-copilot-mark"><WandSparkles size={19} /></span>
+                  <span><strong>Lumi ilə iş axını</strong><small>Ailancer AI köməkçisi</small></span>
+                  <span className="ai-copilot-status"><span className="ai-live-dot" /> Hazırdır</span>
+                </div>
+                <div className="ai-copilot-body">
+                  <span className="ai-copilot-overline">NÜMUNƏ SORĞU</span>
+                  <div className="ai-copilot-prompt">“Onlayn mağazam üçün uyğun veb developer tapmağa kömək et.”</div>
+                  <div className="ai-copilot-response">
+                    <span className="ai-copilot-response-mark"><Sparkles size={14} /></span>
+                    <span><strong>Əvvəlcə ehtiyacı aydınlaşdıraq</strong><small>Bacarıqları, büdcəni və layihə müddətini bir sorğuda dəqiqləşdir.</small></span>
+                  </div>
+                  <div className="ai-copilot-chips"><span><Code2 size={13} /> Bacarıq uyğunluğu</span><span><ShieldCheck size={13} /> Nəzarət səndədir</span></div>
+                </div>
+                <div className="ai-copilot-footer"><span><span className="ai-live-dot" /> Nəticələr mövcud profillərdən</span><ArrowUpRight size={16} /></div>
+              </SpotlightCard>
+              <span className="ai-visual-orbit ai-visual-orbit-outer" />
+              <span className="ai-visual-orbit ai-visual-orbit-inner" />
             </div>
           </header>
 
@@ -278,47 +293,104 @@ export default function AnaSayfa() {
             <div><span className="ai-metric-icon"><Target size={16} /></span><span><strong>Dəqiqləşdir</strong><small> brief və növbəti addımlar</small></span></div>
           </div>
 
-          <div id="ai-chat" className="ai-enter ai-delay-1 ai-chat-shell relative z-10 mx-auto mt-6 max-w-4xl overflow-hidden rounded-2xl border border-blue-100 bg-white sm:mt-6">
-            <div className="flex items-center justify-between gap-3 border-b border-slate-200 bg-white px-4 py-3 sm:px-6 sm:py-4">
-              <div className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-700 text-white"><WandSparkles size={20} /></span><span><span className="block text-sm font-extrabold text-slate-900">{ASSISTANT_NAME} · Ailancer</span><span className="block text-xs text-slate-500">Axtar, yarat, təkmilləşdir</span></span></div>
-              <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold ${aiStatus?.assistantReady ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}><Sparkles size={14} />{aiStatus?.assistantReady ? `${ASSISTANT_NAME} hazırdır` : aiStatus?.error || `${ASSISTANT_NAME} bağlantısı yoxlanılır`}</span>
-            </div>
+        </div>
+      </section>
 
-            <div className="max-h-[620px] space-y-5 overflow-y-auto bg-slate-50/70 px-4 py-5 sm:px-6">
-              {!messages.length && <div className="flex items-start gap-3"><span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-700"><Bot size={19} /></span><div><p className="text-sm font-bold text-slate-800">Lumi — sənin iş yoldaşın</p><p className="mt-1 max-w-2xl text-sm leading-6 text-slate-600 sm:text-[15px]">Freelancer və layihələri təbii dildə axtar, portfolio mətnini yarat və ya redaktə et, müraciət hazırla, briefini analiz et.</p></div></div>}
-              {!messages.length && <div className="flex flex-wrap gap-2 pl-12">
-                {starterPrompts.map(({ text, mode: nextMode, icon: Icon }) => <button key={text} type="button" onClick={() => choosePrompt(text, nextMode)} className="group inline-flex min-h-9 items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-left text-xs font-semibold text-slate-600 transition hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-800 sm:text-[13px]"><Icon size={14} className="shrink-0 text-blue-600" />{text}<ArrowUpRight size={13} className="ml-1 text-slate-400" /></button>)}
-              </div>}
+      <div className="ai-capabilities-marquee" aria-label="Ailancer platform capabilities">
+        <div className="ai-capabilities-track" aria-hidden="true">
+          {[0, 1].map((copy) => (
+            <span className="ai-capabilities-set" key={copy}>
+              {['AI ilə freelancer axtar', 'Portfolio yarat', 'Layihəni paylaş', 'Birbaşa əlaqə qur', 'Briefini dəqiqləşdir'].map((label) => (
+                <span className="ai-capability-word" key={`${copy}-${label}`}><Sparkles size={13} />{label}</span>
+              ))}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <section className="ai-chat-section relative isolate overflow-hidden px-5 py-14 sm:px-8 sm:py-20">
+        <div className="ai-chat-section-glow" aria-hidden="true" />
+        <div className="relative z-10 mx-auto max-w-6xl">
+          <div className="ai-chat-intro mx-auto mb-8 max-w-3xl text-center">
+            <span className="ai-category-eyebrow"><Sparkles size={14} /> Lumi AI köməkçisi</span>
+            <h2 className="mt-4 text-3xl font-extrabold leading-tight text-slate-950 sm:text-4xl lg:text-5xl">Fikrinizi yazın. <span className="text-blue-700">Növbəti addımı birlikdə tapaq.</span></h2>
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-600">Freelancer tapmaqdan brief hazırlamağa qədər — Lumi ilə söhbət edərək başlayın.</p>
+          </div>
+
+          <Velaris
+            id="ai-chat"
+            bg="#050806"
+            colors={AI_CHAT_COLORS}
+            speed={0.7}
+            grain={0.12}
+            height="auto"
+            className="ai-enter ai-delay-1 ai-chat-v2 relative z-10 mx-auto max-w-4xl"
+          >
+            <div className="ai-chat-v2-content">
+            <header className="ai-chat-v2-header">
+              <div className="ai-chat-v2-identity">
+                <span className="ai-chat-v2-mark"><WandSparkles size={19} /></span>
+                <span><strong>{ASSISTANT_NAME}<span> / AILANCER</span></strong><small>Ağıllı iş yoldaşın</small></span>
+              </div>
+              <span className={`ai-chat-v2-status ${aiStatus?.assistantReady ? 'is-ready' : 'is-pending'}`}>
+                <i />{aiStatus?.assistantReady ? 'Onlayn' : aiStatus?.error ? 'Yoxlanıla bilmir' : 'Qoşulur'}
+              </span>
+            </header>
+
+            <div className="ai-chat-messages ai-chat-v2-thread">
+              {!messages.length && (
+                <div className="ai-chat-v2-welcome">
+                  <span className="ai-chat-v2-avatar"><Bot size={18} /></span>
+                  <div className="ai-chat-v2-welcome-copy">
+                    <span className="ai-chat-v2-overline">LUMI İLƏ BAŞLA</span>
+                    <p>Salam{profileData?.fullName ? `, ${profileData.fullName.split(' ')[0]}` : ''}. Bu gün nəyi birlikdə həll edək?</p>
+                    <span>Freelancer tap, portfolionu təkmilləşdir və ya yeni layihəni planlaşdır.</span>
+                  </div>
+                </div>
+              )}
+              {!messages.length && (
+                <div className="ai-chat-v2-suggestions" aria-label="Söhbətə başlama təklifləri">
+                  {starterPrompts.map(({ text, mode: nextMode, icon: Icon }) => (
+                    <button key={text} type="button" onClick={() => choosePrompt(text, nextMode)}>
+                      <Icon size={16} /><span>{text}</span><ArrowUpRight size={14} />
+                    </button>
+                  ))}
+                </div>
+              )}
               {messages.map((message, index) => (
-                <article key={`${message.role}-${index}`} className={message.role === 'user' ? 'ml-auto max-w-[88%] rounded-2xl rounded-br-sm bg-blue-700 px-4 py-3 text-sm leading-6 text-white' : 'max-w-full'}>
-                  {message.role === 'user' ? message.content : <>
-                    <div className="flex items-start gap-3"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-700"><Bot size={17} /></span><p className="pt-1 text-sm leading-6 text-slate-700">{message.content}</p></div>
-                    {message.results?.length > 0 && <div className="mt-3 rounded-xl border border-slate-200 bg-white px-4">{message.results.map((result, resultIndex) => <ResultCard key={`${result.type}-${result.data.id}-${resultIndex}`} result={result} onClick={() => openResult(result)} />)}</div>}
-                    {message.portfolio && <div className="ml-11 mt-3 space-y-3 rounded-xl border border-blue-200 bg-white p-4">
-                      <label className="block text-xs font-bold text-slate-600">Portfolio başlığı<input value={message.portfolio.title || ''} onChange={(event) => setMessages((current) => current.map((item, itemIndex) => itemIndex === index ? { ...item, portfolio: { ...item.portfolio, title: event.target.value } } : item))} className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-800" /></label>
-                      <label className="block text-xs font-bold text-slate-600">Kateqoriya<input value={message.portfolio.category || ''} onChange={(event) => setMessages((current) => current.map((item, itemIndex) => itemIndex === index ? { ...item, portfolio: { ...item.portfolio, category: event.target.value } } : item))} className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-800" /></label>
-                      <label className="block text-xs font-bold text-slate-600">Layihənin təsviri<textarea value={message.portfolio.description || ''} onChange={(event) => setMessages((current) => current.map((item, itemIndex) => itemIndex === index ? { ...item, portfolio: { ...item.portfolio, description: event.target.value } } : item))} rows={5} className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium leading-6 text-slate-800" /></label>
-                      <button type="button" onClick={() => openPortfolioDraft(message.portfolio)} className="inline-flex min-h-10 items-center gap-2 rounded-lg bg-blue-700 px-4 text-sm font-bold text-white hover:bg-blue-800">Portfolio formasına köçür <ArrowRight size={15} /></button>
-                      {!user && <p className="text-xs text-slate-500">Dərc etmək üçün hesabınıza daxil olun.</p>}
+                <article key={`${message.role}-${index}`} className={`ai-chat-v2-message ${message.role === 'user' ? 'is-user' : 'is-assistant'}`}>
+                  {message.role === 'assistant' && <span className="ai-chat-v2-avatar"><Bot size={17} /></span>}
+                  <div className="ai-chat-v2-message-body">
+                    <span className="ai-chat-v2-sender">{message.role === 'user' ? 'SƏN' : 'LUMI'}</span>
+                    <div className="ai-chat-v2-bubble">{message.content}</div>
+                    {message.results?.length > 0 && <div className="ai-chat-v2-result-list">{message.results.map((result, resultIndex) => <ResultCard key={`${result.type}-${result.data.id}-${resultIndex}`} result={result} onClick={() => openResult(result)} />)}</div>}
+                    {message.portfolio && <div className="ai-chat-v2-output ai-chat-v2-portfolio">
+                      <label>Portfolio başlığı<input value={message.portfolio.title || ''} onChange={(event) => setMessages((current) => current.map((item, itemIndex) => itemIndex === index ? { ...item, portfolio: { ...item.portfolio, title: event.target.value } } : item))} /></label>
+                      <label>Kateqoriya<input value={message.portfolio.category || ''} onChange={(event) => setMessages((current) => current.map((item, itemIndex) => itemIndex === index ? { ...item, portfolio: { ...item.portfolio, category: event.target.value } } : item))} /></label>
+                      <label>Layihənin təsviri<textarea value={message.portfolio.description || ''} onChange={(event) => setMessages((current) => current.map((item, itemIndex) => itemIndex === index ? { ...item, portfolio: { ...item.portfolio, description: event.target.value } } : item))} rows={5} /></label>
+                      <button type="button" onClick={() => openPortfolioDraft(message.portfolio)}>Portfolio formasına köçür <ArrowRight size={15} /></button>
+                      {!user && <p>Dərc etmək üçün hesabınıza daxil olun.</p>}
                     </div>}
-                    {message.proposal && <div className="ml-11 mt-3 rounded-xl border border-slate-200 bg-white p-4"><p className="whitespace-pre-wrap text-sm leading-6 text-slate-700">{message.proposal}</p><button type="button" onClick={() => copyText(message.proposal)} className="mt-3 rounded-lg border border-slate-200 px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50">Mətni köçür</button></div>}
-                    {message.analysis && <div className="ml-11 mt-3 grid gap-3 sm:grid-cols-2"><div className="rounded-xl border border-slate-200 bg-white p-4"><h3 className="text-sm font-bold">Brief xülasəsi</h3><p className="mt-2 text-sm leading-6 text-slate-600">{message.analysis.summary}</p><p className="mt-2 text-xs text-slate-500">Kateqoriya: {message.analysis.category}</p></div><div className="rounded-xl border border-slate-200 bg-white p-4"><h3 className="text-sm font-bold">Təxmini qiymət</h3><p className="mt-2 text-lg font-extrabold text-blue-800">{message.analysis.price_azn?.min}–{message.analysis.price_azn?.max} AZN</p><p className="text-xs text-slate-500">Qiymət yalnız ilkin təxmindir.</p></div></div>}
-                  </>}
+                    {message.proposal && <div className="ai-chat-v2-output"><p className="whitespace-pre-wrap">{message.proposal}</p><button type="button" onClick={() => copyText(message.proposal)}>Mətni köçür</button></div>}
+                    {message.analysis && <div className="ai-chat-v2-analysis"><div><h3>Brief xülasəsi</h3><p>{message.analysis.summary}</p><small>Kateqoriya: {message.analysis.category}</small></div><div><h3>Təxmini qiymət</h3><strong>{message.analysis.price_azn?.min}–{message.analysis.price_azn?.max} AZN</strong><small>Qiymət yalnız ilkin təxmindir.</small></div></div>}
+                  </div>
                 </article>
               ))}
-              {isLoading && <div className="flex items-center gap-3 text-sm text-slate-500" role="status"><LoaderCircle className="animate-spin text-blue-600" size={20} />Lumi sorğunu işləyir...</div>}
-              {error && <p className="ml-11 rounded-lg bg-amber-50 p-3 text-sm text-amber-800">{error}</p>}
+              {isLoading && <div className="ai-chat-v2-loading" role="status"><span className="ai-chat-v2-avatar"><Bot size={17} /></span><span><i /><i /><i /></span><small>Lumi cavab hazırlayır</small></div>}
+              {error && <p className="ai-chat-v2-error" role="alert">{error}</p>}
             </div>
 
-            <form onSubmit={runSearch} className="border-t border-slate-200 bg-white p-3 sm:p-4">
-              <div className="mb-3 flex flex-wrap gap-2" aria-label="AI aləti">{assistantTools.map(({ id, label, icon: Icon }) => <button key={id} type="button" onClick={() => setMode(id)} aria-pressed={mode === id} className={`inline-flex min-h-9 items-center gap-2 rounded-lg px-3 text-xs font-bold transition ${mode === id ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-600 hover:bg-blue-50 hover:text-blue-800'}`}><Icon size={14} />{label}</button>)}</div>
-              <label htmlFor="ai-search" className="mb-2 block px-1 text-xs font-bold text-slate-700">Lumi-yə yaz</label>
-              <div className="flex items-end gap-2">
-                <textarea ref={composerRef} id="ai-search" rows={2} value={query} onChange={(event) => setQuery(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); runSearch(event); } }} placeholder="Məsələn: büdcəm 500 AZN-dir, mağazam üçün uyğun freelancer tap..." className="min-h-[58px] w-full resize-y rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm leading-6 text-slate-800 outline-none placeholder:text-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 sm:text-[15px]" />
-                <button type="submit" disabled={!query.trim() || isLoading} aria-label="Lumi-yə göndər" className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-blue-700 px-4 text-sm font-extrabold text-white transition hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-45">{isLoading ? <LoaderCircle size={18} className="animate-spin" /> : <Send size={16} />}<span className="hidden sm:inline">Göndər</span></button>
+            <form onSubmit={runSearch} className="ai-chat-v2-composer">
+              <div className="ai-chat-v2-tools" aria-label="AI aləti">
+                {assistantTools.map(({ id, label, icon: Icon }) => <button key={id} type="button" onClick={() => setMode(id)} aria-pressed={mode === id}><Icon size={14} /><span>{label}</span></button>)}
               </div>
+              <label className="ai-chat-v2-input" htmlFor="ai-search">
+                <textarea ref={composerRef} id="ai-search" rows={2} value={query} onChange={(event) => setQuery(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); runSearch(event); } }} placeholder="Lumi-yə yaz... Nə üzərində işləyirsən?" />
+                <span className="ai-chat-v2-input-footer"><span>AI cavabları dəqiqləşdirmək üçün əlavə kontekst yaza bilərsən</span><button type="submit" disabled={!query.trim() || isLoading} aria-label="Lumi-yə göndər">{isLoading ? <LoaderCircle className="animate-spin" size={17} /> : <Send size={16} />}<span>Göndər</span></button></span>
+              </label>
             </form>
-          </div>
+            </div>
+          </Velaris>
         </div>
       </section>
 

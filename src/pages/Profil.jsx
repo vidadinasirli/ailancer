@@ -146,40 +146,14 @@ export default function Profil() {
   const isOwnProfile = Boolean(user && displayProfile?.id === user.id);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] font-sans text-slate-800 selection:bg-blue-200 selection:text-blue-900 flex flex-col relative overflow-hidden pt-24">
+    <div className="ai-profile-page min-h-screen bg-[#F8FAFC] font-sans text-slate-800 selection:bg-blue-200 selection:text-blue-900 flex flex-col relative overflow-hidden pt-24">
       
       {/* Global Ambient Background Effects - Premium Look */}
       <div className="fixed top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-blue-400/10 blur-[150px] pointer-events-none z-0"></div>
       <div className="fixed bottom-[-20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-cyan-400/10 blur-[150px] pointer-events-none z-0"></div>
 
-      {}
-      <style>{`
-        .glass-panel {
-          background: rgba(255, 255, 255, 0.75);
-          backdrop-filter: blur(24px);
-          -webkit-backdrop-filter: blur(24px);
-          border: 1px solid rgba(255, 255, 255, 0.9);
-        }
-        .hero-pattern {
-          background-color: #94a3b8;
-          background-image: radial-gradient(circle at 100% 100%, rgba(255,255,255,0.1) 0, rgba(255,255,255,0.1) 10px, transparent 10px), radial-gradient(circle at 0 0, rgba(255,255,255,0.1) 0, rgba(255,255,255,0.1) 10px, transparent 10px);
-          background-size: 40px 40px;
-        }
-        /* Custom Scrollbar for inner elements if needed */
-        ::-webkit-scrollbar {
-          width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-          background-color: #CBD5E1;
-          border-radius: 20px;
-        }
-      `}</style>
-
       {/* Main Content Container */}
-      <main className="flex-grow max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full relative z-10 flex flex-col">
+      <main className="ai-profile-content flex-grow max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full relative z-10 flex flex-col">
         
         {view === 'profile' ? (
           /* =========================================
@@ -395,7 +369,7 @@ export default function Profil() {
             {/* LEFT COLUMN - FORM */}
             <div className="lg:col-span-8 space-y-8">
               
-              <div className="glass-panel rounded-[2.5rem] p-10 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.1)] border border-slate-200/60 relative overflow-hidden">
+              <div className="glass-panel ai-portfolio-form rounded-[2.5rem] p-10 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.1)] border border-slate-200/60 relative overflow-hidden">
                 
                 {/* Back Button & Title */}
                 <div className="flex items-center gap-6 mb-10 pb-6 border-b border-slate-200/80">

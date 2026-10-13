@@ -175,12 +175,12 @@ export default function Mesajlar() {
   if (!user) return null;
 
   return (
-    <div className="h-svh overflow-hidden bg-[#F8FAFC] pt-24 text-slate-800 selection:bg-blue-200 selection:text-blue-900">
+    <div className="ai-messages-page h-svh overflow-hidden bg-[#F8FAFC] pt-24 text-slate-800 selection:bg-blue-200 selection:text-blue-900">
       <main className="mx-auto flex h-[calc(100svh-7rem)] min-h-[460px] max-w-[1440px] flex-col px-3 pb-4 sm:px-5 lg:px-8">
         {error && <div role="alert" className="mb-3 shrink-0 rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-sm font-medium text-red-700">{error}</div>}
 
         <div className="grid min-h-0 flex-1 grid-cols-1 gap-3 lg:grid-cols-[320px_minmax(0,1fr)]">
-          <aside className={`${activeUserId ? 'hidden lg:flex' : 'flex'} min-h-0 flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm`}>
+          <aside className={`ai-message-sidebar ${activeUserId ? 'hidden lg:flex' : 'flex'} min-h-0 flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm`}>
             <header className="flex items-center justify-between border-b border-slate-200 px-4 py-3.5">
               <div>
                 <h1 className="text-lg font-bold text-slate-900">Mesajlar</h1>
@@ -222,7 +222,7 @@ export default function Mesajlar() {
             </div>
           </aside>
 
-          <section className={`${activeUserId ? 'flex' : 'hidden lg:flex'} min-h-0 flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm`}>
+          <section className={`ai-message-thread ${activeUserId ? 'flex' : 'hidden lg:flex'} min-h-0 flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm`}>
             {threadLoading ? <div className="flex flex-1 items-center justify-center text-sm text-slate-500"><RefreshCw className="mr-2 h-4 w-4 animate-spin text-blue-600" /> Söhbət yüklənir...</div>
               : activeUser ? <>
                 <header className="flex shrink-0 items-center justify-between border-b border-slate-200 px-3 py-3 sm:px-5">

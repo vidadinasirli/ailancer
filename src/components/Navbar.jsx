@@ -118,7 +118,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      className={`ailancer-nav fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled || !isHome
           ? 'bg-white/80 backdrop-blur-xl border-b border-slate-200 shadow-sm py-4'
           : 'bg-transparent py-6'

@@ -45,7 +45,7 @@ export default function Destek() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] font-sans text-slate-800 pt-28 pb-24 px-4 md:px-8 relative overflow-hidden">
+    <div className="ai-info-page ai-support-page min-h-screen bg-[#F8FAFC] font-sans text-slate-800 pt-28 pb-24 px-4 md:px-8 relative overflow-hidden">
       <div className="fixed top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-blue-400/10 blur-[150px] pointer-events-none z-0"></div>
       <div className="fixed bottom-[-20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-cyan-400/10 blur-[150px] pointer-events-none z-0"></div>
 

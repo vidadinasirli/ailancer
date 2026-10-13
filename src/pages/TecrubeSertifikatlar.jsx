@@ -128,7 +128,7 @@ export default function TecrubeSertifikatlar() {
   const items = tab === 'experience' ? experiences : certificates;
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] px-4 pb-16 pt-28">
+    <div className="ai-credentials-page min-h-screen bg-[#F8FAFC] px-4 pb-16 pt-28">
       <main className="mx-auto max-w-4xl">
         <button type="button" onClick={() => navigate('/profil')} className="mb-5 flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-blue-600"><ArrowLeft className="h-4 w-4" /> Profilə qayıt</button>
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">

@@ -14,10 +14,19 @@ const allowedOrigins = (process.env.CORS_ORIGIN || '')
   .map((origin) => origin.trim().replace(/\/+$/, ''))
   .filter(Boolean);
 
+function isAilancerVercelPreview(origin) {
+  try {
+    const url = new URL(origin);
+    return url.protocol === 'https:' && /^ailancer-[a-z0-9-]+-o1freelanceraz-1394\.vercel\.app$/i.test(url.hostname);
+  } catch {
+    return false;
+  }
+}
+
 app.set('trust proxy', 1); // Render arxasında düzgün IP üçün
 app.use(cors({
   origin(origin, callback) {
-    if (!origin || !allowedOrigins.length || origin === primaryFrontendOrigin || allowedOrigins.includes(origin)) return callback(null, true);
+    if (!origin || !allowedOrigins.length || origin === primaryFrontendOrigin || allowedOrigins.includes(origin) || isAilancerVercelPreview(origin)) return callback(null, true);
     return callback(new Error('Bu origin üçün CORS icazəsi yoxdur.'));
   },
 }));

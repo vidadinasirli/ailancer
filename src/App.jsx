@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Link, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout.jsx';
 
 import AnaSayfa from './pages/AnaSayfa.jsx';
@@ -57,12 +57,14 @@ export default function App() {
 
 function NotFound() {
   return (
-    <div className="min-h-screen pt-40 pb-20 px-6 flex flex-col items-center justify-center text-center bg-slate-50">
-      <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">404</h1>
-      <p className="text-slate-600 max-w-lg mb-8 text-lg">Axtardığınız səhifə tapılmadı.</p>
-      <a href="/" className="px-8 py-3 bg-blue-600 text-white rounded-full font-medium hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/30">
-        Ana Səhifəyə Qayıt
-      </a>
+    <div className="ai-not-found min-h-screen pt-32 pb-20 px-6 flex flex-col items-center justify-center text-center">
+      <div className="ai-not-found-code" aria-hidden="true">404</div>
+      <span className="ai-not-found-label"><span /> SƏHİFƏ TAPILMADI</span>
+      <h1 className="mt-5 text-3xl md:text-5xl font-bold mb-4">Bu ünvan mövcud deyil</h1>
+      <p className="max-w-lg mb-8 text-base md:text-lg">Axtardığınız səhifə köçürülmüş və ya silinmiş ola bilər. Ana səhifədən davam edə bilərsiniz.</p>
+      <Link to="/" className="ai-not-found-link">
+        Ana səhifəyə qayıt <span aria-hidden="true">→</span>
+      </Link>
     </div>
   );
 }
