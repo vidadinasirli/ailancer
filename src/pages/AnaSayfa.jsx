@@ -315,7 +315,7 @@ export default function AnaSayfa() {
             <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-600">Freelancer tapmaqdan brief hazırlamağa qədər — Lumi ilə söhbət edərək başlayın.</p>
           </div>
 
-          <div id="ai-chat" className="ai-enter ai-delay-1 ai-chat-shell relative z-10 isolate mx-auto max-w-4xl overflow-hidden rounded-2xl border border-blue-100 bg-white/90">
+          <SpotlightCard as="div" id="ai-chat" className="ai-enter ai-delay-1 ai-chat-shell ai-chat-spotlight relative z-10 mx-auto max-w-4xl rounded-2xl border border-blue-100 bg-white/90">
             <div className="relative z-10 flex items-center justify-between gap-3 border-b border-slate-200 bg-white/90 px-4 py-3 sm:px-6 sm:py-4">
               <div className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-700 text-white"><WandSparkles size={20} /></span><span><span className="block text-sm font-extrabold text-slate-900">{ASSISTANT_NAME} · Ailancer</span><span className="block text-xs text-slate-500">Axtar, yarat, təkmilləşdir</span></span></div>
               <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold ${aiStatus?.assistantReady ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}><Sparkles size={14} />{aiStatus?.assistantReady ? `${ASSISTANT_NAME} hazırdır` : aiStatus?.error || `${ASSISTANT_NAME} bağlantısı yoxlanılır`}</span>
@@ -355,7 +355,7 @@ export default function AnaSayfa() {
                 <button type="submit" disabled={!query.trim() || isLoading} aria-label="Lumi-yə göndər" className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-blue-700 px-4 text-sm font-extrabold text-white transition hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-45">{isLoading ? <LoaderCircle size={18} className="animate-spin" /> : <Send size={16} />}<span className="hidden sm:inline">Göndər</span></button>
               </div>
             </form>
-          </div>
+          </SpotlightCard>
         </div>
       </section>
 
