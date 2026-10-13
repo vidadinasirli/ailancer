@@ -8,9 +8,9 @@ services:
     healthCheckPath: /api/health
     envVars:
       - key: AI_PROVIDER
-        value: gemini
+        value: openai
       - key: AI_MODEL
-        value: gemini-3.7-flash
+        value: openai/gpt-oss-120b
       - key: AI_API_KEY
         sync: false
       - key: DATABASE_URL
