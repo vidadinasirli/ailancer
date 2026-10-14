@@ -5,6 +5,7 @@ import App from './App.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import './index.css';
 import './styles/ailancer-experience.css';
+import './styles/ailancer-rebuilt.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

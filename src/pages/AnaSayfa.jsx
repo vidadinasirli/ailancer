@@ -8,8 +8,8 @@ import {
 } from 'lucide-react';
 import { api, getApiHealth } from '../lib/api.js';
 import { useAuth } from '../context/AuthContext.jsx';
-import { BackgroundPaths } from '../components/ui/background-paths.tsx';
 import { SpotlightCard } from '../components/ui/spotlight-card.jsx';
+import { SonarGrid } from '../components/ui/sonar-grid.tsx';
 import Velaris from '../components/ui/velaris.tsx';
 import { Button } from '../components/ui/button';
 import './AnaSayfa.css';
@@ -241,49 +241,50 @@ export default function AnaSayfa() {
   }
 
   return (
-    <main className="ai-home overflow-hidden bg-white text-slate-900">
-      <section className="ai-hero relative isolate px-5 pb-10 pt-20 sm:px-8 sm:pb-14 sm:pt-24 lg:pb-20 lg:pt-16">
-        <BackgroundPaths />
-        <div className="ai-hero-grid" aria-hidden="true" />
-        <div className="ai-hero-glow ai-hero-glow-one" aria-hidden="true" />
-        <div className="ai-hero-glow ai-hero-glow-two" aria-hidden="true" />
-        <div className="relative mx-auto max-w-7xl">
-          <header className="ai-hero-layout">
-            <div className="ai-hero-copy">
-              <span className="ai-hero-kicker"><span className="ai-live-dot" /> Ailancer · Lumi ilə</span>
-              <h1>İşini izah et.<br /><span>Düzgün addımı tap.</span></h1>
-              <p>Freelancer axtar, portfolio mətni hazırla və layihə briefini təkmilləşdir — hamısı bir ağıllı məkanda.</p>
-              <div className="ai-hero-actions">
+    <main className="ai-home ai-home-v2 overflow-hidden bg-white text-slate-900">
+      <section className="ai-hero ai-hero-v2 relative isolate px-5 pb-10 pt-20 sm:px-8 sm:pb-14 sm:pt-24 lg:pb-20 lg:pt-16">
+        <SonarGrid className="ai-hero-sonar" />
+        <div className="hero-v2-grain" aria-hidden="true" />
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <header className="ai-hero-layout hero-v2-layout">
+            <div className="ai-hero-copy hero-v2-copy">
+              <span className="ai-hero-kicker hero-v2-kicker"><span className="ai-live-dot" /> Azərbaycanın yaradıcı iş şəbəkəsi</span>
+              <h1>İdeyadan<br /><span>işləyən nəticəyə.</span></h1>
+              <p>Layihəni sözlə izah et. AI sənə uyğun insanları, real imkanları və növbəti addımı tapmağa kömək etsin.</p>
+              <div className="ai-hero-actions hero-v2-actions">
                 <Button type="button" className="ai-hero-primary" onClick={() => { document.getElementById('ai-chat')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); composerRef.current?.focus({ preventScroll: true }); }}>
-                  <Sparkles size={17} /> AI ilə başla <ArrowRight size={16} />
+                  <Sparkles size={17} /> İdeyanı başlat <ArrowRight size={16} />
                 </Button>
                 <Button type="button" variant="outline" className="ai-hero-secondary" onClick={() => navigate('/tapsiriqlar')}>
-                  Layihələrə bax <ArrowUpRight size={16} />
+                  Açıq layihələr <ArrowUpRight size={16} />
                 </Button>
               </div>
-              <div className="ai-hero-proof"><span className="ai-proof-avatars" aria-hidden="true"><i>F</i><i>UI</i><i>AZ</i></span><span><strong>İnsan + AI</strong><small> qərar yenə də səndədir</small></span><span className="ai-proof-divider" /><span className="ai-proof-secure"><ShieldCheck size={15} /> Yoxlanıla bilən nəticələr</span></div>
+              <div className="ai-hero-proof hero-v2-proof"><span className="ai-proof-avatars" aria-hidden="true"><i>F</i><i>UI</i><i>AZ</i></span><span><strong>İnsan + AI</strong><small> qərar yenə də səndədir</small></span><span className="ai-proof-divider" /><span className="ai-proof-secure"><ShieldCheck size={15} /> Real profil və elanlar</span></div>
             </div>
 
-            <div className="ai-hero-visual" aria-label={`${ASSISTANT_NAME} köməkçisinin nümunə iş axını`}>
-              <SpotlightCard className="ai-copilot-panel">
+            <div className="ai-hero-visual hero-v2-visual" aria-label={`${ASSISTANT_NAME} köməkçisinin nümunə iş axını`}>
+              <div className="hero-v2-orbit hero-v2-orbit-a" aria-hidden="true" />
+              <div className="hero-v2-orbit hero-v2-orbit-b" aria-hidden="true" />
+              <div className="hero-v2-core" aria-hidden="true"><Sparkles size={28} /><span>AI</span></div>
+              <div className="hero-v2-float hero-v2-float-top"><span><Code2 size={15} /></span><div><strong>Veb layihəsi</strong><small>3 uyğun mütəxəssis</small></div><i>96%</i></div>
+              <div className="hero-v2-float hero-v2-float-bottom"><span><PenTool size={15} /></span><div><strong>Portfolio hazırdır</strong><small>Qaralama · sənin nəzarətində</small></div><BadgeCheck size={17} /></div>
+              <SpotlightCard className="ai-copilot-panel hero-v2-panel">
                 <div className="ai-copilot-heading">
                   <span className="ai-copilot-mark"><WandSparkles size={19} /></span>
-                  <span><strong>Lumi ilə iş axını</strong><small>Ailancer AI köməkçisi</small></span>
+                  <span><strong>Lumi</strong><small>Ailancer AI yoldaşı</small></span>
                   <span className="ai-copilot-status"><span className="ai-live-dot" /> Hazırdır</span>
                 </div>
                 <div className="ai-copilot-body">
-                  <span className="ai-copilot-overline">NÜMUNƏ SORĞU</span>
-                  <div className="ai-copilot-prompt">“Onlayn mağazam üçün uyğun veb developer tapmağa kömək et.”</div>
+                  <span className="ai-copilot-overline">SÖZÜNÜ İŞƏ ÇEVİR</span>
+                  <div className="ai-copilot-prompt">“Mənim üçün doğru insanı tap.”</div>
                   <div className="ai-copilot-response">
                     <span className="ai-copilot-response-mark"><Sparkles size={14} /></span>
-                    <span><strong>Əvvəlcə ehtiyacı aydınlaşdıraq</strong><small>Bacarıqları, büdcəni və layihə müddətini bir sorğuda dəqiqləşdir.</small></span>
+                    <span><strong>Axtarış daha aydın oldu</strong><small>Bacarıq · büdcə · növbəti addım</small></span>
                   </div>
-                  <div className="ai-copilot-chips"><span><Code2 size={13} /> Bacarıq uyğunluğu</span><span><ShieldCheck size={13} /> Nəzarət səndədir</span></div>
+                  <div className="ai-copilot-chips"><span><Code2 size={13} /> Dəqiq uyğunluq</span><span><ShieldCheck size={13} /> İdarə sənə aiddir</span></div>
                 </div>
-                <div className="ai-copilot-footer"><span><span className="ai-live-dot" /> Nəticələr mövcud profillərdən</span><ArrowUpRight size={16} /></div>
+                <div className="ai-copilot-footer"><span><span className="ai-live-dot" /> Canlı platforma məlumatı</span><ArrowUpRight size={16} /></div>
               </SpotlightCard>
-              <span className="ai-visual-orbit ai-visual-orbit-outer" />
-              <span className="ai-visual-orbit ai-visual-orbit-inner" />
             </div>
           </header>
 
